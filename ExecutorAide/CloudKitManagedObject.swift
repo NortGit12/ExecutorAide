@@ -50,7 +50,6 @@ extension CloudKitManagedObject {
         
         guard let recordIDData = recordIDData else { return nil }
         
-//        return NSKeyedUnarchiver.unarchiveObjectWithData(recordIDData) as? CKRecordID     // original statement
         return NSKeyedUnarchiver.unarchiveObject(with: recordIDData as Data) as? CKRecordID
     }
     
@@ -58,7 +57,6 @@ extension CloudKitManagedObject {
         
         guard let cloudKitRecordID = cloudKitRecordID else { return nil }
         
-//        return CKReference(recordID: cloudKitRecordID, action: .DeleteSelf)     // original statement
         return CKReference(recordID: cloudKitRecordID, action: .deleteSelf)
     }
     
@@ -68,12 +66,12 @@ extension CloudKitManagedObject {
     
     func nameForManagedObject() -> String {
         
-        return NSUUID().UUIDString
+        return NSUUID().uuidString
     }
     
     func update(record: CKRecord) {
         
-        self.recordIDData = NSKeyedArchiver.archivedDataWithRootObject(record.recordID)
+        self.recordIDData = NSKeyedArchiver.archivedData(withRootObject: record.recordID) as NSData?
         
         do {
             try Stack.sharedStack.managedObjectContext.save()
