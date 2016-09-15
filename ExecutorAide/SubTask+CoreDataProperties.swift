@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-import 
+
 
 extension SubTask {
 
@@ -24,7 +24,10 @@ extension SubTask {
 
 }
 
-// MARK: Generated accessors for details
+//==================================================
+// MARK: - Generated accessors for details
+//==================================================
+
 extension SubTask {
 
     @objc(insertObject:inDetailsAtIndex:)
