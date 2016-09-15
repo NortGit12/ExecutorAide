@@ -101,7 +101,11 @@ public class Stage: SyncableObject, CloudKitManagedObject {
                 return nil
             }
         
-        let stageEntity = NSEntityDescription.entity(forEntityName: Stage.type, in: context)
+        guard let stageEntity = NSEntityDescription.entity(forEntityName: Stage.type, in: context) else {
+        
+            NSLog("Error: \(Stage.type) entity could not be created when creating an instance from a CloudKit record.")
+            return nil
+        }
         
         self.init(entity: stageEntity, insertInto: context)
         

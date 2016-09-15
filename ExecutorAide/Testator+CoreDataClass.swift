@@ -97,7 +97,11 @@ public class Testator: SyncableObject, CloudKitManagedObject {
                 return nil
         }
         
-        guard let testatorEntity = NSEntityDescription.entity(forEntityName: Testator.type, in: context) else { return nil }
+        guard let testatorEntity = NSEntityDescription.entity(forEntityName: Testator.type, in: context) else {
+            
+            NSLog("Error: \(Testator.type) entity could not be created when creating an instance from a CloudKit record.")
+            return nil
+        }
         
         self.init(entity: testatorEntity, insertInto: context)
         
