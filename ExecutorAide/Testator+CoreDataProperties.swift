@@ -22,10 +22,7 @@ extension Testator {
 
 }
 
-//==================================================
-// MARK: - Generated accessors for stages
-//==================================================
-
+// MARK: Generated accessors for stages
 extension Testator {
 
     @objc(insertObject:inStagesAtIndex:)

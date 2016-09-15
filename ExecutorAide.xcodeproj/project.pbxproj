@@ -7,28 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F84E6B91D8B0D8100311680 /* SyncableObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6B71D8B0D8100311680 /* SyncableObject+CoreDataClass.swift */; };
-		1F84E6BA1D8B0D8100311680 /* SyncableObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6B81D8B0D8100311680 /* SyncableObject+CoreDataProperties.swift */; };
-		1F84E6BD1D8B0E8B00311680 /* Testator+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6BB1D8B0E8B00311680 /* Testator+CoreDataClass.swift */; };
-		1F84E6BE1D8B0E8B00311680 /* Testator+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6BC1D8B0E8B00311680 /* Testator+CoreDataProperties.swift */; };
-		1F84E6C71D8B0EBE00311680 /* Stage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6BF1D8B0EBE00311680 /* Stage+CoreDataClass.swift */; };
-		1F84E6C81D8B0EBE00311680 /* Stage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6C01D8B0EBE00311680 /* Stage+CoreDataProperties.swift */; };
-		1F84E6C91D8B0EBE00311680 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6C11D8B0EBE00311680 /* Task+CoreDataClass.swift */; };
-		1F84E6CA1D8B0EBE00311680 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6C21D8B0EBE00311680 /* Task+CoreDataProperties.swift */; };
-		1F84E6CB1D8B0EBE00311680 /* SubTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6C31D8B0EBE00311680 /* SubTask+CoreDataClass.swift */; };
-		1F84E6CC1D8B0EBE00311680 /* SubTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6C41D8B0EBE00311680 /* SubTask+CoreDataProperties.swift */; };
-		1F84E6CD1D8B0EBE00311680 /* Detail+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6C51D8B0EBE00311680 /* Detail+CoreDataClass.swift */; };
-		1F84E6CE1D8B0EBE00311680 /* Detail+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6C61D8B0EBE00311680 /* Detail+CoreDataProperties.swift */; };
 		1F84E6D01D8B112900311680 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6CF1D8B112900311680 /* Stack.swift */; };
+		1F84E6D51D8B143300311680 /* CloudKitManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6D41D8B143300311680 /* CloudKitManagedObject.swift */; };
 		1F8DE5C31D8AF31C00066819 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5C21D8AF31C00066819 /* AppDelegate.swift */; };
 		1F8DE5C81D8AF31C00066819 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F8DE5C61D8AF31C00066819 /* Main.storyboard */; };
-		1F8DE5CB1D8AF31C00066819 /* ExecutorAide.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5C91D8AF31C00066819 /* ExecutorAide.xcdatamodeld */; };
 		1F8DE5CD1D8AF31C00066819 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F8DE5CC1D8AF31C00066819 /* Assets.xcassets */; };
 		1F8DE5D01D8AF31C00066819 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F8DE5CE1D8AF31C00066819 /* LaunchScreen.storyboard */; };
 		1F8DE5DB1D8AF31C00066819 /* ExecutorAideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5DA1D8AF31C00066819 /* ExecutorAideTests.swift */; };
 		1F8DE5E61D8AF31C00066819 /* ExecutorAideUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5E51D8AF31C00066819 /* ExecutorAideUITests.swift */; };
 		1F8DE5F61D8AF32A00066819 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8DE5F51D8AF32A00066819 /* CloudKit.framework */; };
 		1F8DE5F91D8AF7EE00066819 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5F71D8AF7EE00066819 /* Model.xcdatamodeld */; };
+		1FF6DBA91D8B36C2009CCAC7 /* SubTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6DBA31D8B36C2009CCAC7 /* SubTask+CoreDataProperties.swift */; };
+		1FF6DBAA1D8B36C2009CCAC7 /* Detail+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6DBA41D8B36C2009CCAC7 /* Detail+CoreDataProperties.swift */; };
+		1FF6DBAB1D8B36C2009CCAC7 /* Stage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6DBA51D8B36C2009CCAC7 /* Stage+CoreDataProperties.swift */; };
+		1FF6DBAC1D8B36C2009CCAC7 /* SyncableObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6DBA61D8B36C2009CCAC7 /* SyncableObject+CoreDataProperties.swift */; };
+		1FF6DBAD1D8B36C2009CCAC7 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6DBA71D8B36C2009CCAC7 /* Task+CoreDataProperties.swift */; };
+		1FF6DBAE1D8B36C2009CCAC7 /* Testator+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6DBA81D8B36C2009CCAC7 /* Testator+CoreDataProperties.swift */; };
+		1FF6DBB01D8B39AC009CCAC7 /* SyncableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6DBAF1D8B39AC009CCAC7 /* SyncableObject.swift */; };
+		1FF6DBB21D8B39D8009CCAC7 /* Testator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6DBB11D8B39D8009CCAC7 /* Testator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,23 +45,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1F84E6B71D8B0D8100311680 /* SyncableObject+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SyncableObject+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1F84E6B81D8B0D8100311680 /* SyncableObject+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SyncableObject+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		1F84E6BB1D8B0E8B00311680 /* Testator+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Testator+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1F84E6BC1D8B0E8B00311680 /* Testator+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Testator+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		1F84E6BF1D8B0EBE00311680 /* Stage+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Stage+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1F84E6C01D8B0EBE00311680 /* Stage+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Stage+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		1F84E6C11D8B0EBE00311680 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1F84E6C21D8B0EBE00311680 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		1F84E6C31D8B0EBE00311680 /* SubTask+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SubTask+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1F84E6C41D8B0EBE00311680 /* SubTask+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SubTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		1F84E6C51D8B0EBE00311680 /* Detail+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Detail+CoreDataClass.swift"; sourceTree = "<group>"; };
-		1F84E6C61D8B0EBE00311680 /* Detail+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Detail+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1F84E6CF1D8B112900311680 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		1F84E6D41D8B143300311680 /* CloudKitManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManagedObject.swift; sourceTree = "<group>"; };
 		1F8DE5BF1D8AF31C00066819 /* ExecutorAide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExecutorAide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F8DE5C21D8AF31C00066819 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F8DE5C71D8AF31C00066819 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		1F8DE5CA1D8AF31C00066819 /* ExecutorAide.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ExecutorAide.xcdatamodel; sourceTree = "<group>"; };
 		1F8DE5CC1D8AF31C00066819 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F8DE5CF1D8AF31C00066819 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1F8DE5D11D8AF31C00066819 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -78,6 +62,14 @@
 		1F8DE5F31D8AF32800066819 /* ExecutorAide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ExecutorAide.entitlements; sourceTree = "<group>"; };
 		1F8DE5F51D8AF32A00066819 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		1F8DE5F81D8AF7EE00066819 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		1FF6DBA31D8B36C2009CCAC7 /* SubTask+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SubTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1FF6DBA41D8B36C2009CCAC7 /* Detail+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Detail+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1FF6DBA51D8B36C2009CCAC7 /* Stage+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Stage+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1FF6DBA61D8B36C2009CCAC7 /* SyncableObject+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SyncableObject+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1FF6DBA71D8B36C2009CCAC7 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1FF6DBA81D8B36C2009CCAC7 /* Testator+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Testator+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1FF6DBAF1D8B39AC009CCAC7 /* SyncableObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncableObject.swift; sourceTree = "<group>"; };
+		1FF6DBB11D8B39D8009CCAC7 /* Testator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Testator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,19 +171,15 @@
 		1F8DE5FA1D8AF85700066819 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1F84E6C51D8B0EBE00311680 /* Detail+CoreDataClass.swift */,
-				1F84E6C61D8B0EBE00311680 /* Detail+CoreDataProperties.swift */,
-				1F84E6BF1D8B0EBE00311680 /* Stage+CoreDataClass.swift */,
-				1F84E6C01D8B0EBE00311680 /* Stage+CoreDataProperties.swift */,
-				1F84E6C31D8B0EBE00311680 /* SubTask+CoreDataClass.swift */,
-				1F84E6C41D8B0EBE00311680 /* SubTask+CoreDataProperties.swift */,
-				1F84E6B71D8B0D8100311680 /* SyncableObject+CoreDataClass.swift */,
-				1F84E6B81D8B0D8100311680 /* SyncableObject+CoreDataProperties.swift */,
-				1F84E6C11D8B0EBE00311680 /* Task+CoreDataClass.swift */,
-				1F84E6C21D8B0EBE00311680 /* Task+CoreDataProperties.swift */,
-				1F84E6BB1D8B0E8B00311680 /* Testator+CoreDataClass.swift */,
-				1F84E6BC1D8B0E8B00311680 /* Testator+CoreDataProperties.swift */,
-				1F8DE5C91D8AF31C00066819 /* ExecutorAide.xcdatamodeld */,
+				1FF6DBA31D8B36C2009CCAC7 /* SubTask+CoreDataProperties.swift */,
+				1FF6DBA41D8B36C2009CCAC7 /* Detail+CoreDataProperties.swift */,
+				1FF6DBA51D8B36C2009CCAC7 /* Stage+CoreDataProperties.swift */,
+				1FF6DBA61D8B36C2009CCAC7 /* SyncableObject+CoreDataProperties.swift */,
+				1FF6DBAF1D8B39AC009CCAC7 /* SyncableObject.swift */,
+				1FF6DBA71D8B36C2009CCAC7 /* Task+CoreDataProperties.swift */,
+				1FF6DBA81D8B36C2009CCAC7 /* Testator+CoreDataProperties.swift */,
+				1FF6DBB11D8B39D8009CCAC7 /* Testator.swift */,
+				1F84E6D41D8B143300311680 /* CloudKitManagedObject.swift */,
 				1F8DE5F71D8AF7EE00066819 /* Model.xcdatamodeld */,
 			);
 			name = Model;
@@ -342,21 +330,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FF6DBAA1D8B36C2009CCAC7 /* Detail+CoreDataProperties.swift in Sources */,
 				1F8DE5C31D8AF31C00066819 /* AppDelegate.swift in Sources */,
-				1F84E6CC1D8B0EBE00311680 /* SubTask+CoreDataProperties.swift in Sources */,
-				1F84E6B91D8B0D8100311680 /* SyncableObject+CoreDataClass.swift in Sources */,
-				1F8DE5CB1D8AF31C00066819 /* ExecutorAide.xcdatamodeld in Sources */,
-				1F84E6BD1D8B0E8B00311680 /* Testator+CoreDataClass.swift in Sources */,
-				1F84E6CA1D8B0EBE00311680 /* Task+CoreDataProperties.swift in Sources */,
-				1F84E6CD1D8B0EBE00311680 /* Detail+CoreDataClass.swift in Sources */,
-				1F84E6C71D8B0EBE00311680 /* Stage+CoreDataClass.swift in Sources */,
-				1F84E6BA1D8B0D8100311680 /* SyncableObject+CoreDataProperties.swift in Sources */,
-				1F84E6CB1D8B0EBE00311680 /* SubTask+CoreDataClass.swift in Sources */,
-				1F84E6C91D8B0EBE00311680 /* Task+CoreDataClass.swift in Sources */,
-				1F84E6C81D8B0EBE00311680 /* Stage+CoreDataProperties.swift in Sources */,
+				1F84E6D51D8B143300311680 /* CloudKitManagedObject.swift in Sources */,
+				1FF6DBAB1D8B36C2009CCAC7 /* Stage+CoreDataProperties.swift in Sources */,
+				1FF6DBAD1D8B36C2009CCAC7 /* Task+CoreDataProperties.swift in Sources */,
+				1FF6DBAE1D8B36C2009CCAC7 /* Testator+CoreDataProperties.swift in Sources */,
 				1F84E6D01D8B112900311680 /* Stack.swift in Sources */,
-				1F84E6CE1D8B0EBE00311680 /* Detail+CoreDataProperties.swift in Sources */,
-				1F84E6BE1D8B0E8B00311680 /* Testator+CoreDataProperties.swift in Sources */,
+				1FF6DBB21D8B39D8009CCAC7 /* Testator.swift in Sources */,
+				1FF6DBB01D8B39AC009CCAC7 /* SyncableObject.swift in Sources */,
+				1FF6DBAC1D8B36C2009CCAC7 /* SyncableObject+CoreDataProperties.swift in Sources */,
+				1FF6DBA91D8B36C2009CCAC7 /* SubTask+CoreDataProperties.swift in Sources */,
 				1F8DE5F91D8AF7EE00066819 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -515,7 +499,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nortcham.ExecutorAide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -529,7 +513,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nortcham.ExecutorAide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -633,16 +617,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		1F8DE5C91D8AF31C00066819 /* ExecutorAide.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				1F8DE5CA1D8AF31C00066819 /* ExecutorAide.xcdatamodel */,
-			);
-			currentVersion = 1F8DE5CA1D8AF31C00066819 /* ExecutorAide.xcdatamodel */;
-			path = ExecutorAide.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		1F8DE5F71D8AF7EE00066819 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

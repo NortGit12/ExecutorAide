@@ -24,10 +24,7 @@ extension SubTask {
 
 }
 
-//==================================================
-// MARK: - Generated accessors for details
-//==================================================
-
+// MARK: Generated accessors for details
 extension SubTask {
 
     @objc(insertObject:inDetailsAtIndex:)

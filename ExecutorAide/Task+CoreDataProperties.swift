@@ -22,10 +22,7 @@ extension Task {
 
 }
 
-//==================================================
-// MARK: - Generated accessors for subTasks
-//==================================================
-
+// MARK: Generated accessors for subTasks
 extension Task {
 
     @objc(insertObject:inSubTasksAtIndex:)

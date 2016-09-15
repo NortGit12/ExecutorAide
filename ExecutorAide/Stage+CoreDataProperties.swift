@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-
+import 
 
 extension Stage {
 
@@ -16,11 +16,11 @@ extension Stage {
         return NSFetchRequest<Stage>(entityName: "Stage");
     }
 
-    @NSManaged public var descriptor: String
-    @NSManaged public var name: String
+    @NSManaged public var descriptor: String?
+    @NSManaged public var name: String?
     @NSManaged public var percentComplete: Float
     @NSManaged public var tasks: NSOrderedSet?
-    @NSManaged public var testators: NSOrderedSet
+    @NSManaged public var testators: NSOrderedSet?
 
 }
 
