@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F84E6B91D8B0D8100311680 /* SyncableObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6B71D8B0D8100311680 /* SyncableObject+CoreDataClass.swift */; };
+		1F84E6BA1D8B0D8100311680 /* SyncableObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6B81D8B0D8100311680 /* SyncableObject+CoreDataProperties.swift */; };
+		1F84E6BD1D8B0E8B00311680 /* Testator+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6BB1D8B0E8B00311680 /* Testator+CoreDataClass.swift */; };
+		1F84E6BE1D8B0E8B00311680 /* Testator+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6BC1D8B0E8B00311680 /* Testator+CoreDataProperties.swift */; };
+		1F84E6C71D8B0EBE00311680 /* Stage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6BF1D8B0EBE00311680 /* Stage+CoreDataClass.swift */; };
+		1F84E6C81D8B0EBE00311680 /* Stage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6C01D8B0EBE00311680 /* Stage+CoreDataProperties.swift */; };
+		1F84E6C91D8B0EBE00311680 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6C11D8B0EBE00311680 /* Task+CoreDataClass.swift */; };
+		1F84E6CA1D8B0EBE00311680 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6C21D8B0EBE00311680 /* Task+CoreDataProperties.swift */; };
+		1F84E6CB1D8B0EBE00311680 /* SubTask+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6C31D8B0EBE00311680 /* SubTask+CoreDataClass.swift */; };
+		1F84E6CC1D8B0EBE00311680 /* SubTask+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6C41D8B0EBE00311680 /* SubTask+CoreDataProperties.swift */; };
+		1F84E6CD1D8B0EBE00311680 /* Detail+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6C51D8B0EBE00311680 /* Detail+CoreDataClass.swift */; };
+		1F84E6CE1D8B0EBE00311680 /* Detail+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6C61D8B0EBE00311680 /* Detail+CoreDataProperties.swift */; };
 		1F8DE5C31D8AF31C00066819 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5C21D8AF31C00066819 /* AppDelegate.swift */; };
 		1F8DE5C81D8AF31C00066819 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F8DE5C61D8AF31C00066819 /* Main.storyboard */; };
 		1F8DE5CB1D8AF31C00066819 /* ExecutorAide.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5C91D8AF31C00066819 /* ExecutorAide.xcdatamodeld */; };
@@ -36,6 +48,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F84E6B71D8B0D8100311680 /* SyncableObject+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SyncableObject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1F84E6B81D8B0D8100311680 /* SyncableObject+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SyncableObject+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1F84E6BB1D8B0E8B00311680 /* Testator+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Testator+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1F84E6BC1D8B0E8B00311680 /* Testator+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Testator+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1F84E6BF1D8B0EBE00311680 /* Stage+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Stage+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1F84E6C01D8B0EBE00311680 /* Stage+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Stage+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1F84E6C11D8B0EBE00311680 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1F84E6C21D8B0EBE00311680 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1F84E6C31D8B0EBE00311680 /* SubTask+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SubTask+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1F84E6C41D8B0EBE00311680 /* SubTask+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SubTask+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1F84E6C51D8B0EBE00311680 /* Detail+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Detail+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1F84E6C61D8B0EBE00311680 /* Detail+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Detail+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1F8DE5BF1D8AF31C00066819 /* ExecutorAide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExecutorAide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F8DE5C21D8AF31C00066819 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F8DE5C71D8AF31C00066819 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -145,6 +169,18 @@
 		1F8DE5FA1D8AF85700066819 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1F84E6BF1D8B0EBE00311680 /* Stage+CoreDataClass.swift */,
+				1F84E6C01D8B0EBE00311680 /* Stage+CoreDataProperties.swift */,
+				1F84E6C11D8B0EBE00311680 /* Task+CoreDataClass.swift */,
+				1F84E6C21D8B0EBE00311680 /* Task+CoreDataProperties.swift */,
+				1F84E6C31D8B0EBE00311680 /* SubTask+CoreDataClass.swift */,
+				1F84E6C41D8B0EBE00311680 /* SubTask+CoreDataProperties.swift */,
+				1F84E6C51D8B0EBE00311680 /* Detail+CoreDataClass.swift */,
+				1F84E6C61D8B0EBE00311680 /* Detail+CoreDataProperties.swift */,
+				1F84E6BB1D8B0E8B00311680 /* Testator+CoreDataClass.swift */,
+				1F84E6BC1D8B0E8B00311680 /* Testator+CoreDataProperties.swift */,
+				1F84E6B71D8B0D8100311680 /* SyncableObject+CoreDataClass.swift */,
+				1F84E6B81D8B0D8100311680 /* SyncableObject+CoreDataProperties.swift */,
 				1F8DE5F71D8AF7EE00066819 /* Model.xcdatamodeld */,
 			);
 			name = Model;
@@ -296,7 +332,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F8DE5C31D8AF31C00066819 /* AppDelegate.swift in Sources */,
+				1F84E6CC1D8B0EBE00311680 /* SubTask+CoreDataProperties.swift in Sources */,
+				1F84E6B91D8B0D8100311680 /* SyncableObject+CoreDataClass.swift in Sources */,
 				1F8DE5CB1D8AF31C00066819 /* ExecutorAide.xcdatamodeld in Sources */,
+				1F84E6BD1D8B0E8B00311680 /* Testator+CoreDataClass.swift in Sources */,
+				1F84E6CA1D8B0EBE00311680 /* Task+CoreDataProperties.swift in Sources */,
+				1F84E6CD1D8B0EBE00311680 /* Detail+CoreDataClass.swift in Sources */,
+				1F84E6C71D8B0EBE00311680 /* Stage+CoreDataClass.swift in Sources */,
+				1F84E6BA1D8B0D8100311680 /* SyncableObject+CoreDataProperties.swift in Sources */,
+				1F84E6CB1D8B0EBE00311680 /* SubTask+CoreDataClass.swift in Sources */,
+				1F84E6C91D8B0EBE00311680 /* Task+CoreDataClass.swift in Sources */,
+				1F84E6C81D8B0EBE00311680 /* Stage+CoreDataProperties.swift in Sources */,
+				1F84E6CE1D8B0EBE00311680 /* Detail+CoreDataProperties.swift in Sources */,
+				1F84E6BE1D8B0E8B00311680 /* Testator+CoreDataProperties.swift in Sources */,
 				1F8DE5F91D8AF7EE00066819 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -550,6 +598,7 @@
 				1F8DE5EC1D8AF31C00066819 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1F8DE5ED1D8AF31C00066819 /* Build configuration list for PBXNativeTarget "ExecutorAideTests" */ = {
 			isa = XCConfigurationList;
@@ -558,6 +607,7 @@
 				1F8DE5EF1D8AF31C00066819 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1F8DE5F01D8AF31C00066819 /* Build configuration list for PBXNativeTarget "ExecutorAideUITests" */ = {
 			isa = XCConfigurationList;
@@ -566,6 +616,7 @@
 				1F8DE5F21D8AF31C00066819 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

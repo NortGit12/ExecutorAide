@@ -1,0 +1,23 @@
+//
+//  Detail+CoreDataProperties.swift
+//  ExecutorAide
+//
+//  Created by Jeff Norton on 9/15/16.
+//  Copyright © 2016 NortCham. All rights reserved.
+//
+
+import Foundation
+import CoreData
+import 
+
+extension Detail {
+
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Detail> {
+        return NSFetchRequest<Detail>(entityName: "Detail");
+    }
+
+    @NSManaged public var content: String
+    @NSManaged public var type: String
+    @NSManaged public var subTask: SubTask
+
+}
