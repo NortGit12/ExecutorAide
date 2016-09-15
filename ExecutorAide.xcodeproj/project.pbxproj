@@ -15,6 +15,7 @@
 		1F8DE5DB1D8AF31C00066819 /* ExecutorAideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5DA1D8AF31C00066819 /* ExecutorAideTests.swift */; };
 		1F8DE5E61D8AF31C00066819 /* ExecutorAideUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5E51D8AF31C00066819 /* ExecutorAideUITests.swift */; };
 		1F8DE5F61D8AF32A00066819 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8DE5F51D8AF32A00066819 /* CloudKit.framework */; };
+		1F8DE5F91D8AF7EE00066819 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5F71D8AF7EE00066819 /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		1F8DE5E71D8AF31C00066819 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1F8DE5F31D8AF32800066819 /* ExecutorAide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ExecutorAide.entitlements; sourceTree = "<group>"; };
 		1F8DE5F51D8AF32A00066819 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		1F8DE5F81D8AF7EE00066819 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 			children = (
 				1F8DE5F31D8AF32800066819 /* ExecutorAide.entitlements */,
 				1F8DE5C21D8AF31C00066819 /* AppDelegate.swift */,
+				1F8DE5FA1D8AF85700066819 /* Model */,
 				1F8DE5CC1D8AF31C00066819 /* Assets.xcassets */,
 				1F8DE5D11D8AF31C00066819 /* Info.plist */,
 				1F8DE5CE1D8AF31C00066819 /* LaunchScreen.storyboard */,
@@ -137,6 +140,14 @@
 				1F8DE5F51D8AF32A00066819 /* CloudKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1F8DE5FA1D8AF85700066819 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1F8DE5F71D8AF7EE00066819 /* Model.xcdatamodeld */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,6 +297,7 @@
 			files = (
 				1F8DE5C31D8AF31C00066819 /* AppDelegate.swift in Sources */,
 				1F8DE5CB1D8AF31C00066819 /* ExecutorAide.xcdatamodeld in Sources */,
+				1F8DE5F91D8AF7EE00066819 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,6 +577,16 @@
 			);
 			currentVersion = 1F8DE5CA1D8AF31C00066819 /* ExecutorAide.xcdatamodel */;
 			path = ExecutorAide.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		1F8DE5F71D8AF7EE00066819 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1F8DE5F81D8AF7EE00066819 /* Model.xcdatamodel */,
+			);
+			currentVersion = 1F8DE5F81D8AF7EE00066819 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
