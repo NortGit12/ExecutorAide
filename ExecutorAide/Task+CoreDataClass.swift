@@ -10,6 +10,19 @@ import Foundation
 import CoreData
 
 
-public class Task: SyncableObject {
+public class Task: SyncableObject, CloudKitManagedObject {
+    
+    //==================================================
+    // MARK: - Stored Properties
+    //==================================================
+    
+    static let type = "Task"
+    static let nameKey = "name"
+    static let descriptorKey = "descriptor"
+    
+    
+    //==================================================
+    // MARK: - Initializers
+    //==================================================
 
 }
