@@ -74,7 +74,7 @@ extension CloudKitManagedObject {
         self.recordIDData = NSKeyedArchiver.archivedData(withRootObject: record.recordID) as NSData?
         
         do {
-            try Stack.sharedStack.managedObjectContext.save()
+            try Stack.shared.managedObjectContext.save()
             
         } catch {
             
