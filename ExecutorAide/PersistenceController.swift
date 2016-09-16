@@ -117,7 +117,7 @@ class PersistenceController {
         case Stage.type:
             
             // Existing CoreData Stage
-            guard let _ = StageModelController.shared.fetchStageByIdName(idName: record.recordID.recordName) else {
+            guard let _ = StageModelController.shared.fetchStageByIDName(idName: record.recordID.recordName) else {
                 
                 // New CoreData Stage
                 guard let _ = Stage(record: record) else {
@@ -132,7 +132,7 @@ class PersistenceController {
         case Task.type:
             
             // Existing CoreData Task
-            guard let _ = TaskModelController.shared.fetchTaskByIdName(idName: record.recordID.recordName) else {
+            guard let _ = TaskModelController.shared.fetchTaskByIDName(idName: record.recordID.recordName) else {
                 
                 // New CoreData Task
                 guard let _ = Task(record: record) else {
@@ -147,7 +147,7 @@ class PersistenceController {
         case SubTask.type:
             
             // Existing CoreData SubTask
-            guard let _ = SubTaskModelController.shared.fetchSubTaskByIdName(idName: record.recordID.recordName) else {
+            guard let _ = SubTaskModelController.shared.fetchSubTaskByIDName(idName: record.recordID.recordName) else {
                 
                 // New CoreData SubTask
                 guard let _ = SubTask(record: record) else {
@@ -162,7 +162,7 @@ class PersistenceController {
         case Detail.type:
             
             // Existing CoreData Detail
-            guard let _ = DetailModelController.shared.fetchDetailByIdName(idName: record.recordID.recordName) else {
+            guard let _ = DetailModelController.shared.fetchDetailByIDName(idName: record.recordID.recordName) else {
                 
                 // New CoreData Detail
                 guard let _ = Detail(record: record) else {
