@@ -1,8 +1,90 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7Lx-aQ-Sdq">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <scenes/>
+    <scenes>
+        <!--Testator View Controller-->
+        <scene sceneID="v0S-Ec-fkd">
+            <objects>
+                <viewController id="irv-0f-U3U" customClass="TestatorViewController" customModule="ExecutorAide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="I9G-1p-Mc1"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vf2-38-5U4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BZX-5o-iy9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hSy-xU-GBH">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="irv-0f-U3U" id="Hzf-ds-Jo3"/>
+                                    <outlet property="delegate" destination="irv-0f-U3U" id="Thc-QX-MBj"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NRh-nk-9fe">
+                                <state key="normal" title="New Testator"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Vf2-38-5U4" firstAttribute="top" secondItem="NRh-nk-9fe" secondAttribute="bottom" constant="8" id="9Zn-gU-Wdm"/>
+                            <constraint firstItem="NRh-nk-9fe" firstAttribute="centerX" secondItem="BZX-5o-iy9" secondAttribute="centerX" id="QB6-dz-8WV"/>
+                            <constraint firstItem="Vf2-38-5U4" firstAttribute="top" secondItem="hSy-xU-GBH" secondAttribute="bottom" constant="52" id="fP1-Mv-00h"/>
+                            <constraint firstItem="hSy-xU-GBH" firstAttribute="leading" secondItem="BZX-5o-iy9" secondAttribute="leading" id="i71-Q1-9zj"/>
+                            <constraint firstAttribute="trailing" secondItem="hSy-xU-GBH" secondAttribute="trailing" id="jFP-CH-wC0"/>
+                            <constraint firstItem="hSy-xU-GBH" firstAttribute="top" secondItem="I9G-1p-Mc1" secondAttribute="bottom" constant="-64" id="vqA-Rt-rX4"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="d1D-PM-f8C"/>
+                    <connections>
+                        <outlet property="tableView" destination="hSy-xU-GBH" id="kfl-br-Ua9"/>
+                        <segue destination="DM7-Ng-PCo" kind="show" identifier="toStagesSegue" id="lkh-ed-rbq"/>
+                        <segue destination="g3T-W3-btJ" kind="popoverPresentation" identifier="showNewTestatorPopover" popoverAnchorView="NRh-nk-9fe" id="l4G-iY-e6f">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kcV-Du-ZFN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="952.79999999999995" y="185.75712143928038"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="6Ig-bE-kqq">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7Lx-aQ-Sdq" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FQg-JR-INl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="irv-0f-U3U" kind="relationship" relationship="rootViewController" id="QPC-si-zfa"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YIe-gI-XRZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="213" y="186"/>
+        </scene>
+        <!--StageView-->
+        <scene sceneID="5rK-vb-02k">
+            <objects>
+                <viewControllerPlaceholder storyboardName="StageView" id="DM7-Ng-PCo" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tkm-MJ-xHg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1635" y="185"/>
+        </scene>
+        <!--NewTestatorPopover-->
+        <scene sceneID="fjP-7y-c73">
+            <objects>
+                <viewControllerPlaceholder storyboardName="NewTestatorPopover" id="g3T-W3-btJ" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sB6-oJ-KyN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1684" y="88"/>
+        </scene>
+    </scenes>
 </document>
