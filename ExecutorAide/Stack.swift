@@ -15,7 +15,7 @@ class Stack {
     // MARK: - Properties
     //==================================================
     
-    static let sharedStack = Stack()
+    static let shared = Stack()
     lazy var managedObjectContext: NSManagedObjectContext = Stack.setUpMainContext()
     
     //==================================================

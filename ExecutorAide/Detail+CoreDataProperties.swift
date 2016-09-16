@@ -11,9 +11,9 @@ import CoreData
 
 extension Detail {
 
-//    @nonobjc public class func fetchRequest() -> NSFetchRequest<Detail> {
-//        return NSFetchRequest<Detail>(entityName: "Detail");
-//    }
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Detail> {
+        return NSFetchRequest<Detail>(entityName: "Detail");
+    }
 
     @NSManaged public var content: String?
     @NSManaged public var type: String?

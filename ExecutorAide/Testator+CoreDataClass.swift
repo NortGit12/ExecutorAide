@@ -71,7 +71,7 @@ public class Testator: SyncableObject, CloudKitManagedObject {
     // MARK: - Initializers
     //==================================================
     
-    convenience init?(name: String, image: NSData, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+    convenience init?(name: String, image: NSData, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
         guard let testatorEntity = NSEntityDescription.entity(forEntityName: Testator.type, in: context) else {
             
@@ -86,7 +86,7 @@ public class Testator: SyncableObject, CloudKitManagedObject {
         self.recordName = nameForManagedObject()
     }
     
-    convenience required public init?(record: CKRecord, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+    convenience required public init?(record: CKRecord, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
         guard let name = record[Testator.nameKey] as? String
             , let imageAssetData = record[Testator.imageKey] as? CKAsset

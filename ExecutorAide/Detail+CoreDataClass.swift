@@ -11,5 +11,9 @@ import CoreData
 
 
 public class Detail: SyncableObject {
+    
+    //==================================================
+    // MARK: - Stored Properties
+    //==================================================
 
 }

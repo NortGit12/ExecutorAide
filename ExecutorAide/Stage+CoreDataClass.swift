@@ -61,7 +61,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
     // MARK: - Initializers
     //==================================================
     
-    convenience init?(name: String, descriptor: String, percentComplete: Float = 0.0, tasks: [Task]?, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+    convenience init?(name: String, descriptor: String, percentComplete: Float = 0.0, tasks: [Task]?, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
         guard let stageEntity = NSEntityDescription.entity(forEntityName: Stage.type, in: context) else {
             
@@ -90,7 +90,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
         // The maintenance of self.testators will be managed by Core Data as it manages the "stages" relationship in the Testators entity.
     }
     
-    convenience required public init?(record: CKRecord, context: NSManagedObjectContext = Stack.sharedStack.managedObjectContext) {
+    convenience required public init?(record: CKRecord, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
         guard let descriptor = record[Stage.descriptorKey] as? String
             , let name = record[Stage.nameKey] as? String

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F0DE53D1D8C4497008EE273 /* TestatorModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE53C1D8C4497008EE273 /* TestatorModelController.swift */; };
+		1F0DE5401D8C4543008EE273 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE53F1D8C4543008EE273 /* CloudKitManager.swift */; };
 		1F84E6D01D8B112900311680 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6CF1D8B112900311680 /* Stack.swift */; };
 		1F84E6D51D8B143300311680 /* CloudKitManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6D41D8B143300311680 /* CloudKitManagedObject.swift */; };
 		1F8DE5C31D8AF31C00066819 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5C21D8AF31C00066819 /* AppDelegate.swift */; };
@@ -49,6 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1F0DE53C1D8C4497008EE273 /* TestatorModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestatorModelController.swift; sourceTree = "<group>"; };
+		1F0DE53F1D8C4543008EE273 /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		1F84E6CF1D8B112900311680 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		1F84E6D41D8B143300311680 /* CloudKitManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManagedObject.swift; sourceTree = "<group>"; };
 		1F8DE5BF1D8AF31C00066819 /* ExecutorAide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExecutorAide.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,10 +110,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F0DE53E1D8C449D008EE273 /* ModelController */ = {
+			isa = PBXGroup;
+			children = (
+				1F0DE53C1D8C4497008EE273 /* TestatorModelController.swift */,
+			);
+			name = ModelController;
+			sourceTree = "<group>";
+		};
 		1F84E6D11D8B137900311680 /* OtherController */ = {
 			isa = PBXGroup;
 			children = (
 				1F84E6CF1D8B112900311680 /* Stack.swift */,
+				1F0DE53F1D8C4543008EE273 /* CloudKitManager.swift */,
 			);
 			name = OtherController;
 			sourceTree = "<group>";
@@ -141,6 +154,7 @@
 				1F8DE5F31D8AF32800066819 /* ExecutorAide.entitlements */,
 				1F8DE5C21D8AF31C00066819 /* AppDelegate.swift */,
 				1F8DE5FA1D8AF85700066819 /* Model */,
+				1F0DE53E1D8C449D008EE273 /* ModelController */,
 				1F84E6D11D8B137900311680 /* OtherController */,
 				1F8DE5CC1D8AF31C00066819 /* Assets.xcassets */,
 				1F8DE5D11D8AF31C00066819 /* Info.plist */,
@@ -349,6 +363,8 @@
 				1FF6DBC41D8B442A009CCAC7 /* SyncableObject+CoreDataClass.swift in Sources */,
 				1FF6DBBC1D8B4408009CCAC7 /* Detail+CoreDataClass.swift in Sources */,
 				1FF6DBAD1D8B36C2009CCAC7 /* Task+CoreDataProperties.swift in Sources */,
+				1F0DE53D1D8C4497008EE273 /* TestatorModelController.swift in Sources */,
+				1F0DE5401D8C4543008EE273 /* CloudKitManager.swift in Sources */,
 				1FF6DBAE1D8B36C2009CCAC7 /* Testator+CoreDataProperties.swift in Sources */,
 				1F84E6D01D8B112900311680 /* Stack.swift in Sources */,
 				1FF6DBC51D8B442A009CCAC7 /* Task+CoreDataClass.swift in Sources */,
