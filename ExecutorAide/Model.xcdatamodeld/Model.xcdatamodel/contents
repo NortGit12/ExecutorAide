@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="15G1004" minimumToolsVersion="Xcode 8.0" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Detail" representedClassName=".Detail" parentEntity="SyncableObject" syncable="YES">
-        <attribute name="content" attributeType="String" syncable="YES"/>
-        <attribute name="type" attributeType="String" syncable="YES"/>
+        <attribute name="contentType" attributeType="String" syncable="YES"/>
+        <attribute name="contentValue" attributeType="String" syncable="YES"/>
         <relationship name="subTask" maxCount="1" deletionRule="Nullify" destinationEntity="SubTask" inverseName="details" inverseEntity="SubTask" syncable="YES"/>
     </entity>
     <entity name="Stage" representedClassName=".Stage" parentEntity="SyncableObject" syncable="YES">

@@ -135,7 +135,7 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
         let taskIDName = taskReference.recordID.recordName
         guard let task = TaskModelController.shared.fetchTaskByIDName(taskIDName) else {
             
-            NSLog("Error: Could not identify the stage by its ID name \"\(taskIDName)\".")
+            NSLog("Error: Could not identify the Task by its ID name \"\(taskIDName)\".")
             return nil
         }
 

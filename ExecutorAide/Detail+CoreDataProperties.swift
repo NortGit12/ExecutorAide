@@ -15,8 +15,8 @@ extension Detail {
         return NSFetchRequest<Detail>(entityName: "Detail");
     }
 
-    @NSManaged public var content: String?
-    @NSManaged public var type: String?
-    @NSManaged public var subTask: SubTask?
+    @NSManaged public var contentValue: String
+    @NSManaged public var contentType: String
+    @NSManaged public var subTask: SubTask
 
 }
