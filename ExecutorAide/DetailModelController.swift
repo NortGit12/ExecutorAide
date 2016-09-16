@@ -1,14 +1,14 @@
 //
-//  TestatorModelController.swift
+//  DetailModelController.swift
 //  ExecutorAide
 //
 //  Created by Jeff Norton on 9/16/16.
 //  Copyright © 2016 NortCham. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class TestatorModelController {
+class DetailModelController {
     
     //==================================================
     // MARK: - Stored Properties
@@ -23,55 +23,37 @@ class TestatorModelController {
     
     init() {
         
-        // Call createInitialDataSet() to populate an initial set of data for a new Testator
-//        createInitialDataSet()
     }
     
     //==================================================
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createTestator(name: String, image: UIImage?, completion: (() -> Void)? = nil) {
-        
-        guard let image = image
-            , let imageData = UIImagePNGRepresentation(image)
-            else {
-                
-                NSLog("Error: Could not access the Testator's image data.")
-                return
-            }
-        
-        let testator = Testator(name: name, image: imageData as NSData)
-        PersistenceController.shared.saveContext()
-        
-//        if let testatorCloudKitRecord = testator?.cloudKitRecord {
-//            
-//            cloudKitManager.save
-//        }
+    func createDetail(contentType: String, contentValue: String, completion: (() -> Void)? = nil) {
         
         // TODO: Finish implementation
     }
     
-    func fetchTestators() -> [Testator] {
+    func fetchDetails() -> [Detail] {
         
         // TODO: Finish implementation
         
-        return [Testator]()
+        return [Detail]()
     }
     
-    func fetchTestatorByIDName(idName: String) -> Testator? {
+    func fetchDetailByIDName(idName: String) -> Detail? {
         
         // TODO: Finish implementation
         
         return nil
     }
     
-    func updateTestator(testator: Testator, completion: (() -> Void)? = nil) {
+    func updateDetail(detail: Detail, completion: (() -> Void)? = nil) {
         
         // TODO: Finish implementation
     }
     
-    func archiveTestator(testator: Testator, completion: (() -> Void)? = nil) {
+    func archiveDetail(detail: Detail, completion: (() -> Void)? = nil) {
         
         // TODO: Finish implementation
     }
@@ -81,7 +63,7 @@ class TestatorModelController {
     //==================================================
     
     func createInitialDataSet() {
-    
+        
         // TODO: Finish implementation
     }
 }

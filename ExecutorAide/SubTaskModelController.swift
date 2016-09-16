@@ -1,14 +1,14 @@
 //
-//  TestatorModelController.swift
+//  SubTaskModelController.swift
 //  ExecutorAide
 //
 //  Created by Jeff Norton on 9/16/16.
 //  Copyright © 2016 NortCham. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class TestatorModelController {
+class SubTaskModelController {
     
     //==================================================
     // MARK: - Stored Properties
@@ -24,54 +24,38 @@ class TestatorModelController {
     init() {
         
         // Call createInitialDataSet() to populate an initial set of data for a new Testator
-//        createInitialDataSet()
+        //        createInitialDataSet()
     }
     
     //==================================================
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createTestator(name: String, image: UIImage?, completion: (() -> Void)? = nil) {
-        
-        guard let image = image
-            , let imageData = UIImagePNGRepresentation(image)
-            else {
-                
-                NSLog("Error: Could not access the Testator's image data.")
-                return
-            }
-        
-        let testator = Testator(name: name, image: imageData as NSData)
-        PersistenceController.shared.saveContext()
-        
-//        if let testatorCloudKitRecord = testator?.cloudKitRecord {
-//            
-//            cloudKitManager.save
-//        }
+    func createSubTask(name: String, descriptor: String?, isCompleted: Bool = false, details: [Detail]?, completion: (() -> Void)? = nil) {
         
         // TODO: Finish implementation
     }
     
-    func fetchTestators() -> [Testator] {
+    func fetchSubTasks() -> [SubTask] {
         
         // TODO: Finish implementation
         
-        return [Testator]()
+        return [SubTask]()
     }
     
-    func fetchTestatorByIDName(idName: String) -> Testator? {
+    func fetchSubTaskByIDName(idName: String) -> SubTask? {
         
         // TODO: Finish implementation
         
         return nil
     }
     
-    func updateTestator(testator: Testator, completion: (() -> Void)? = nil) {
+    func updateSubTask(subTask: SubTask, completion: (() -> Void)? = nil) {
         
         // TODO: Finish implementation
     }
     
-    func archiveTestator(testator: Testator, completion: (() -> Void)? = nil) {
+    func archiveSubTask(subTask: SubTask, completion: (() -> Void)? = nil) {
         
         // TODO: Finish implementation
     }
@@ -81,7 +65,7 @@ class TestatorModelController {
     //==================================================
     
     func createInitialDataSet() {
-    
+        
         // TODO: Finish implementation
     }
 }

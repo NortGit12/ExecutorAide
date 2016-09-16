@@ -19,7 +19,7 @@ class PersistenceController {
     static let shared = PersistenceController()
     let moc = Stack.shared.managedObjectContext
     var cloudKitManager = CloudKitManager()
-    let database = cloudKitManager.
+    let database = cloudKitManager.privateDatabase
     var isSyncing: Bool = false
     
     //==================================================
@@ -70,13 +70,7 @@ class PersistenceController {
         
         predicate = NSPredicate(value: true)
         
-        let database: CKDatabase
-        switch type {
-        case StoreCategory.type: database = cloudKitManager.publicDatabase
-        default: database = cloudKitManager.privateDatabase
-        }
-        
-        cloudKitManager.fetchRecordsWithType(database, type: type, predicate: predicate, recordFetchedBlock: { (record) in
+        cloudKitManager.fetchRecordsWithType(database: database, type: type, predicate: predicate, recordFetchedBlock: { (record) in
             
             /*
              Again, doing this CoreData work on the same thread as the moc
@@ -105,45 +99,75 @@ class PersistenceController {
         
         switch type {
             
-        case StoreCategory.type:
+        case Testator.type:
             
-            // Existing CoreData StoreCategory
-            guard let _ = StoreCategoryModelController.sharedController.fetchStoreCategoryByIdName(record.recordID.recordName) else {
+            // Existing CoreData Testator
+            guard let _ = TestatorModelController.shared.fetchTestatorByIDName(idName: record.recordID.recordName) else {
                 
-                // New CoreData StoreCategory
-                guard let _ = StoreCategory(record: record) else {
+                // New CoreData Testator
+                guard let _ = Testator(record: record) else {
                     
-                    NSLog("Error: Could not create a new Store Category from the CloudKit record.")
+                    NSLog("Error: Could not create a new Testator from the CloudKit record.")
                     return
                 }
                 
                 return
             }
             
-        case Store.type:
+        case Stage.type:
             
-            // Existing CoreData Store
-            guard let _ = StoreModelController.sharedController.fetchStoreByIdName(record.recordID.recordName) else {
+            // Existing CoreData Stage
+            guard let _ = StageModelController.shared.fetchStageByIdName(idName: record.recordID.recordName) else {
                 
-                // New CoreData Store
-                guard let _ = Store(record: record) else {
+                // New CoreData Stage
+                guard let _ = Stage(record: record) else {
                     
-                    NSLog("Error: Could not create a new Store from the CloudKit record.")
+                    NSLog("Error: Could not create a new Stage from the CloudKit record.")
                     return
                 }
                 
                 return
             }
             
-        case Item.type:
+        case Task.type:
             
-            // Existing CoreData Item
-            guard let _ = ItemModelController.sharedController.fetchItemByIdName(record.recordID.recordName) else {
+            // Existing CoreData Task
+            guard let _ = TaskModelController.shared.fetchTaskByIdName(idName: record.recordID.recordName) else {
                 
-                // New CoreData Item
-                guard let _ = Item(record: record) else {
+                // New CoreData Task
+                guard let _ = Task(record: record) else {
                     
-                    NSLog("Error: Could not create a new Item from the CloudKit record.")
+                    NSLog("Error: Could not create a new Task from the CloudKit record.")
+                    return
+                }
+                
+                return
+            }
+            
+        case SubTask.type:
+            
+            // Existing CoreData SubTask
+            guard let _ = SubTaskModelController.shared.fetchSubTaskByIdName(idName: record.recordID.recordName) else {
+                
+                // New CoreData SubTask
+                guard let _ = SubTask(record: record) else {
+                    
+                    NSLog("Error: Could not create a new SubTask from the CloudKit record.")
+                    return
+                }
+                
+                return
+            }
+            
+        case Detail.type:
+            
+            // Existing CoreData Detail
+            guard let _ = DetailModelController.shared.fetchDetailByIdName(idName: record.recordID.recordName) else {
+                
+                // New CoreData Detail
+                guard let _ = Detail(record: record) else {
+                    
+                    NSLog("Error: Could not create a new Detail from the CloudKit record.")
                     return
                 }
                 

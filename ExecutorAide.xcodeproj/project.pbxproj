@@ -10,6 +10,10 @@
 		1F0DE53D1D8C4497008EE273 /* TestatorModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE53C1D8C4497008EE273 /* TestatorModelController.swift */; };
 		1F0DE5401D8C4543008EE273 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE53F1D8C4543008EE273 /* CloudKitManager.swift */; };
 		1F0DE5421D8C6E41008EE273 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE5411D8C6E41008EE273 /* PersistenceController.swift */; };
+		1F0DE5441D8CAE07008EE273 /* StageModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE5431D8CAE07008EE273 /* StageModelController.swift */; };
+		1F0DE5461D8CAE1E008EE273 /* TaskModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE5451D8CAE1E008EE273 /* TaskModelController.swift */; };
+		1F0DE5481D8CAE32008EE273 /* SubTaskModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE5471D8CAE32008EE273 /* SubTaskModelController.swift */; };
+		1F0DE54A1D8CAE43008EE273 /* DetailModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE5491D8CAE43008EE273 /* DetailModelController.swift */; };
 		1F84E6D01D8B112900311680 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6CF1D8B112900311680 /* Stack.swift */; };
 		1F84E6D51D8B143300311680 /* CloudKitManagedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6D41D8B143300311680 /* CloudKitManagedObject.swift */; };
 		1F8DE5C31D8AF31C00066819 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8DE5C21D8AF31C00066819 /* AppDelegate.swift */; };
@@ -55,6 +59,10 @@
 		1F0DE53C1D8C4497008EE273 /* TestatorModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestatorModelController.swift; sourceTree = "<group>"; };
 		1F0DE53F1D8C4543008EE273 /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		1F0DE5411D8C6E41008EE273 /* PersistenceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		1F0DE5431D8CAE07008EE273 /* StageModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageModelController.swift; sourceTree = "<group>"; };
+		1F0DE5451D8CAE1E008EE273 /* TaskModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskModelController.swift; sourceTree = "<group>"; };
+		1F0DE5471D8CAE32008EE273 /* SubTaskModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTaskModelController.swift; sourceTree = "<group>"; };
+		1F0DE5491D8CAE43008EE273 /* DetailModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailModelController.swift; sourceTree = "<group>"; };
 		1F84E6CF1D8B112900311680 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		1F84E6D41D8B143300311680 /* CloudKitManagedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitManagedObject.swift; sourceTree = "<group>"; };
 		1F8DE5BF1D8AF31C00066819 /* ExecutorAide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExecutorAide.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +123,10 @@
 		1F0DE53E1D8C449D008EE273 /* ModelController */ = {
 			isa = PBXGroup;
 			children = (
+				1F0DE5491D8CAE43008EE273 /* DetailModelController.swift */,
+				1F0DE5431D8CAE07008EE273 /* StageModelController.swift */,
+				1F0DE5471D8CAE32008EE273 /* SubTaskModelController.swift */,
+				1F0DE5451D8CAE1E008EE273 /* TaskModelController.swift */,
 				1F0DE53C1D8C4497008EE273 /* TestatorModelController.swift */,
 			);
 			name = ModelController;
@@ -360,17 +372,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F8DE5C31D8AF31C00066819 /* AppDelegate.swift in Sources */,
+				1F0DE54A1D8CAE43008EE273 /* DetailModelController.swift in Sources */,
 				1FF6DBC61D8B442A009CCAC7 /* Testator+CoreDataClass.swift in Sources */,
 				1F84E6D51D8B143300311680 /* CloudKitManagedObject.swift in Sources */,
+				1F0DE5481D8CAE32008EE273 /* SubTaskModelController.swift in Sources */,
 				1FF6DBAB1D8B36C2009CCAC7 /* Stage+CoreDataProperties.swift in Sources */,
 				1FF6DBC41D8B442A009CCAC7 /* SyncableObject+CoreDataClass.swift in Sources */,
 				1FF6DBBC1D8B4408009CCAC7 /* Detail+CoreDataClass.swift in Sources */,
+				1F0DE5441D8CAE07008EE273 /* StageModelController.swift in Sources */,
 				1FF6DBAD1D8B36C2009CCAC7 /* Task+CoreDataProperties.swift in Sources */,
 				1F0DE53D1D8C4497008EE273 /* TestatorModelController.swift in Sources */,
 				1F0DE5401D8C4543008EE273 /* CloudKitManager.swift in Sources */,
 				1FF6DBAE1D8B36C2009CCAC7 /* Testator+CoreDataProperties.swift in Sources */,
 				1F84E6D01D8B112900311680 /* Stack.swift in Sources */,
 				1FF6DBC51D8B442A009CCAC7 /* Task+CoreDataClass.swift in Sources */,
+				1F0DE5461D8CAE1E008EE273 /* TaskModelController.swift in Sources */,
 				1FF6DBBA1D8B43DD009CCAC7 /* Detail+CoreDataProperties.swift in Sources */,
 				1F0DE5421D8C6E41008EE273 /* PersistenceController.swift in Sources */,
 				1FF6DBC21D8B442A009CCAC7 /* Stage+CoreDataClass.swift in Sources */,
