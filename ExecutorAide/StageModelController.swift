@@ -14,7 +14,7 @@ class StageModelController {
     // MARK: - Stored Properties
     //==================================================
     
-    static let shared = TestatorModelController()
+    static let shared = StageModelController()
     let cloudKitManager = CloudKitManager()
     
     //==================================================

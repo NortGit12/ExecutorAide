@@ -14,7 +14,7 @@ class TaskModelController {
     // MARK: - Stored Properties
     //==================================================
     
-    static let shared = TestatorModelController()
+    static let shared = TaskModelController()
     let cloudKitManager = CloudKitManager()
     
     //==================================================

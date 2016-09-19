@@ -14,7 +14,7 @@ class SubTaskModelController {
     // MARK: - Stored Properties
     //==================================================
     
-    static let shared = TestatorModelController()
+    static let shared = SubTaskModelController()
     let cloudKitManager = CloudKitManager()
     
     //==================================================

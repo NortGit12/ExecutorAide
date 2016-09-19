@@ -14,7 +14,7 @@ class DetailModelController {
     // MARK: - Stored Properties
     //==================================================
     
-    static let shared = TestatorModelController()
+    static let shared = DetailModelController()
     let cloudKitManager = CloudKitManager()
     
     //==================================================

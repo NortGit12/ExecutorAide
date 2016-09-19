@@ -19,8 +19,17 @@ class PersistenceController {
     static let shared = PersistenceController()
     let moc = Stack.shared.managedObjectContext
     var cloudKitManager = CloudKitManager()
-    let database = cloudKitManager.privateDatabase
+    let database: CKDatabase
     var isSyncing: Bool = false
+    
+    //==================================================
+    // MARK: - Initializer
+    //==================================================
+    
+    init() {
+        
+        database = cloudKitManager.privateDatabase
+    }
     
     //==================================================
     // MARK: - Methods
@@ -41,29 +50,27 @@ class PersistenceController {
     
     func syncedManagedObjects(type: String) -> [CloudKitManagedObject] {
         
-        let request = NSFetchRequest(entityName: type)
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: type)
         let predicate = NSPredicate(format: " recordIDData != nil")
         request.predicate = predicate
         
-        let syncedRecords = (try? PersistenceController.sharedController.moc.executeFetchRequest(request)) as? [CloudKitManagedObject] ?? []
+        let syncedRecords = (try? PersistenceController.shared.moc.fetch(request)) as? [CloudKitManagedObject] ?? []
         
         return syncedRecords
     }
     
     func unsyncedManagedObjects(type: String) -> [CloudKitManagedObject] {
         
-        let request = NSFetchRequest(entityName: type)
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: type)
         let predicate = NSPredicate(format: " recordIDData == nil")
         request.predicate = predicate
         
-        let unsyncedRecords = (try? PersistenceController.sharedController.moc.executeFetchRequest(request)) as? [CloudKitManagedObject] ?? []
+        let unsyncedRecords = (try? PersistenceController.shared.moc.fetch(request)) as? [CloudKitManagedObject] ?? []
         
         return unsyncedRecords
     }
     
     func fetchNewRecords(type: String, completion: (() -> Void)? = nil) {
-        
-        //        var referencesToExclude = [CKReference]()
         
         var predicate: NSPredicate!
         let moc = PersistenceController.shared.moc
@@ -76,11 +83,11 @@ class PersistenceController {
              Again, doing this CoreData work on the same thread as the moc
              */
             
-            moc.performBlock({
+            moc.perform({
                 
-                self.evaluateToCreateNewCoreDataObjectsForCloudKitRecordsByType(type, record: record)
+                self.evaluateToCreateNewCoreDataObjectsForCloudKitRecordsByType(type: type, record: record)
                 
-                PersistenceController.sharedController.saveContext()
+                PersistenceController.shared.saveContext()
             })
             
         }) { (records, error) in        // completion block
