@@ -40,9 +40,9 @@ class TestatorViewController: UIViewController, UITableViewDelegate, UITableView
             guard let destinationVC = segue.destination as? StageViewController else { return }
             // TODO: Set first stage as default tab
         } else if segue.identifier == "showNewTestatorPopover" {
-            let popoverVC = segue.destination as? NewTestatorPopoverViewController
-            popoverVC?.setupPopoverDisplay(containerWidth: view.frame.width, containerHeight: view.frame.height)
-            let controller = popoverVC?.popoverPresentationController
+            guard let popoverNavController = segue.destination as? UINavigationController, let popoverVC = popoverNavController.viewControllers.first as? NewTestatorPopoverViewController else { return }
+            popoverVC.setupPopoverDisplay(containerWidth: self.view.frame.width, containerHeight: self.view.frame.height)
+            let controller = popoverNavController.popoverPresentationController
             
             if let controller = controller, let sourceView = controller.sourceView {
                 controller.delegate = self

@@ -41,5 +41,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>This app uses the camera if the user prefers to take a picture of the testator.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app accesses the photo library if the user wants to choose an existing photo of the testator</string>
 </dict>
 </plist>

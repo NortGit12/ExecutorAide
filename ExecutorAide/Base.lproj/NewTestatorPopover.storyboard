@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="GV0-Ar-52Z">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mvD-Sl-dMH">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -21,29 +21,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Testator Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1hN-tz-njR">
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Testator Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1hN-tz-njR">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="MyM-8d-GLS"/>
+                                </constraints>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ukE-KK-f2h">
-                                <state key="normal" title="Cancel"/>
-                                <connections>
-                                    <action selector="cancelButtonTapped:" destination="GV0-Ar-52Z" eventType="touchUpInside" id="z0Y-Dg-jTt"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5CM-0h-ZCj">
-                                <state key="normal" title="Done"/>
-                                <connections>
-                                    <action selector="doneButtonTapped:" destination="GV0-Ar-52Z" eventType="touchUpInside" id="rSj-nH-h0H"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Testator" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q87-pV-vrd">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2qI-cy-Dv1">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="2qI-cy-Dv1" secondAttribute="height" multiplier="1:1" id="i30-19-W1q"/>
                                 </constraints>
@@ -54,34 +41,35 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Q87-pV-vrd" firstAttribute="centerX" secondItem="cKP-Vh-hbz" secondAttribute="centerX" id="15G-zf-ey9"/>
                             <constraint firstItem="2qI-cy-Dv1" firstAttribute="centerX" secondItem="cKP-Vh-hbz" secondAttribute="centerX" id="1cY-Rr-erz"/>
-                            <constraint firstItem="ukE-KK-f2h" firstAttribute="leading" secondItem="cKP-Vh-hbz" secondAttribute="leadingMargin" id="CWR-jx-3dR"/>
                             <constraint firstItem="2qI-cy-Dv1" firstAttribute="width" secondItem="1hN-tz-njR" secondAttribute="width" multiplier="0.5" id="H1N-NR-6mv"/>
                             <constraint firstItem="1hN-tz-njR" firstAttribute="trailing" secondItem="cKP-Vh-hbz" secondAttribute="trailingMargin" id="HUX-GL-AaE"/>
-                            <constraint firstItem="5CM-0h-ZCj" firstAttribute="trailing" secondItem="cKP-Vh-hbz" secondAttribute="trailingMargin" id="Qli-dD-bli"/>
                             <constraint firstItem="2qI-cy-Dv1" firstAttribute="top" secondItem="1hN-tz-njR" secondAttribute="bottom" constant="20" id="Z7E-UA-hEo"/>
-                            <constraint firstItem="ukE-KK-f2h" firstAttribute="top" secondItem="5zi-rK-Ihf" secondAttribute="bottom" id="bcL-Sb-MdJ"/>
                             <constraint firstItem="1hN-tz-njR" firstAttribute="leading" secondItem="cKP-Vh-hbz" secondAttribute="leadingMargin" id="fxi-AS-64R"/>
                             <constraint firstItem="2qI-cy-Dv1" firstAttribute="centerY" secondItem="cKP-Vh-hbz" secondAttribute="centerY" id="jCb-kJ-Qol"/>
-                            <constraint firstItem="5CM-0h-ZCj" firstAttribute="top" secondItem="5zi-rK-Ihf" secondAttribute="bottom" id="v50-Vn-Ifc"/>
-                            <constraint firstItem="Q87-pV-vrd" firstAttribute="top" secondItem="5zi-rK-Ihf" secondAttribute="bottom" constant="5" id="yHw-KZ-cuO"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New Testator" id="2an-OH-dCE">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="6Ji-0U-h1H"/>
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="nvE-nx-oO7"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="6Ji-0U-h1H">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="GV0-Ar-52Z" id="Odt-8W-lNm"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="nvE-nx-oO7">
+                            <connections>
+                                <action selector="doneButtonTapped:" destination="GV0-Ar-52Z" id="s6g-Xk-zkg"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="600"/>
                     <connections>
-                        <outlet property="selectImageButton" destination="JRE-C0-EE4" id="JzV-01-C9R"/>
                         <outlet property="testatorNameTextField" destination="1hN-tz-njR" id="JD7-5U-TNM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mtu-nk-NEo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2688" y="-58.47076461769116"/>
+            <point key="canvasLocation" x="3627.1999999999998" y="-58.47076461769116"/>
         </scene>
         <!--Image Selection View Controller-->
         <scene sceneID="moF-JQ-rWd">
@@ -98,19 +86,23 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JRE-C0-EE4">
                                 <state key="normal" title="Select an Image"/>
                                 <connections>
-                                    <action selector="selectImageButtonTapped:" destination="GV0-Ar-52Z" eventType="touchUpInside" id="5gr-Ry-9eF"/>
+                                    <action selector="addImageButtonTappedWithSender:" destination="PGc-YV-M1e" eventType="touchUpInside" id="goE-7y-mX9"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OqK-f7-uUk"/>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="KSn-yk-1e2" firstAttribute="top" secondItem="OqK-f7-uUk" secondAttribute="bottom" id="FNi-V7-Ccb"/>
                             <constraint firstItem="JRE-C0-EE4" firstAttribute="centerX" secondItem="ALS-9g-7hA" secondAttribute="centerX" id="Kqr-RE-8QH"/>
                             <constraint firstAttribute="trailing" secondItem="OqK-f7-uUk" secondAttribute="trailing" id="ehw-lK-gvt"/>
+                            <constraint firstItem="JRE-C0-EE4" firstAttribute="top" secondItem="Qgk-qh-9MA" secondAttribute="bottom" id="eyQ-gb-UwU"/>
                             <constraint firstItem="OqK-f7-uUk" firstAttribute="top" secondItem="Qgk-qh-9MA" secondAttribute="bottom" id="gWC-r3-RNg"/>
+                            <constraint firstAttribute="trailing" secondItem="JRE-C0-EE4" secondAttribute="trailing" id="i8k-GV-cB1"/>
                             <constraint firstItem="OqK-f7-uUk" firstAttribute="leading" secondItem="ALS-9g-7hA" secondAttribute="leading" id="pJg-08-ni1"/>
                             <constraint firstItem="JRE-C0-EE4" firstAttribute="centerY" secondItem="ALS-9g-7hA" secondAttribute="centerY" id="vJE-po-pe5"/>
+                            <constraint firstItem="JRE-C0-EE4" firstAttribute="leading" secondItem="ALS-9g-7hA" secondAttribute="leading" id="xsc-lc-MH4"/>
+                            <constraint firstItem="KSn-yk-1e2" firstAttribute="top" secondItem="JRE-C0-EE4" secondAttribute="bottom" id="yCO-7v-NN8"/>
                         </constraints>
                     </view>
                     <connections>
@@ -120,7 +112,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EJC-em-scA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3691" y="-58"/>
+            <point key="canvasLocation" x="4628.8000000000002" y="-58.47076461769116"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Tby-uW-1KJ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mvD-Sl-dMH" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="twj-nL-Rc1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="GV0-Ar-52Z" kind="relationship" relationship="rootViewController" id="iMP-O7-ZUE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pl8-Rd-T8U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2687.1999999999998" y="-58.920539730134934"/>
         </scene>
     </scenes>
 </document>

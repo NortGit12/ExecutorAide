@@ -17,17 +17,28 @@ class ImageSelectionViewController: UIViewController, UIImagePickerControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        addImageView.backgroundColor = .clear
+        addImageButton.backgroundColor = .clear
     }
     
     // MARK: - ImagePickerController Delegate Method
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
-        addImageView.image = image
-        delegate?.photoSelectViewControllerSelectedImage(image: image)
         
-        self.addImageButton.setTitle("", for: .normal)
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            addImageView.image = image
+            addImageView.layer.masksToBounds = true
+            addImageView.contentMode = .scaleAspectFill
+            addImageView.layer.cornerRadius = addImageView.frame.width/2
+            
+            delegate?.photoSelectViewControllerSelectedImage(image: image)
+            self.addImageButton.setTitle("", for: .normal)
+        } else {
+            print("Error adding image")
+        }
+    
+        
+        
         dismiss(animated: true, completion: nil)
     }
     
@@ -38,6 +49,7 @@ class ImageSelectionViewController: UIViewController, UIImagePickerControllerDel
         imagePicker.delegate = self
         let actionSheet = UIAlertController(title: "Choose an image source", message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
         let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default) { (_) in
             imagePicker.sourceType = .photoLibrary
             self.present(imagePicker, animated: true, completion: nil)
