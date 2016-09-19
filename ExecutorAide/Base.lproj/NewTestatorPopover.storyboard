@@ -35,7 +35,7 @@
                                     <constraint firstAttribute="width" secondItem="2qI-cy-Dv1" secondAttribute="height" multiplier="1:1" id="i30-19-W1q"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="PGc-YV-M1e" kind="embed" id="FiU-1A-Li1"/>
+                                    <segue destination="PGc-YV-M1e" kind="embed" identifier="imagePickerEmbed" id="FiU-1A-Li1"/>
                                 </connections>
                             </containerView>
                         </subviews>

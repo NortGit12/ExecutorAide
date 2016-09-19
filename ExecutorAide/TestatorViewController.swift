@@ -10,7 +10,13 @@ import UIKit
 
 class TestatorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate {
     
-    var testators = [Testator]()
+    @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
+    
+    var testators = [Testator]() {
+        didSet {
+            tableViewHeight.constant = CGFloat(testators.count * 44)
+        }
+    }
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -47,8 +53,12 @@ class TestatorViewController: UIViewController, UITableViewDelegate, UITableView
             if let controller = controller, let sourceView = controller.sourceView {
                 controller.delegate = self
                 controller.backgroundColor = UIColor.lightGray
-                controller.sourceRect = CGRect(x: sourceView.frame.width * 0.5, y: 0, width: 0, height: 0)
-                controller.permittedArrowDirections = .down
+                controller.permittedArrowDirections = [.down, .up]
+                if controller.arrowDirection == .down {
+                    controller.sourceRect = CGRect(x: sourceView.frame.width * 0.5, y: 0, width: 0, height: 0)
+                } else if controller.arrowDirection == .up {
+                    controller.sourceRect = CGRect(x: sourceView.frame.width * 0.5, y: 1000, width: 0, height: 0)
+                }
             }
         }
     }

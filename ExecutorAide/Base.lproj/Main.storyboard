@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Testator View Controller-->
+        <!--Home-->
         <scene sceneID="v0S-Ec-fkd">
             <objects>
                 <viewController id="irv-0f-U3U" customClass="TestatorViewController" customModule="ExecutorAide" customModuleProvider="target" sceneMemberID="viewController">
@@ -20,6 +20,9 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hSy-xU-GBH">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="IgX-8m-OUN"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="dataSource" destination="irv-0f-U3U" id="Hzf-ds-Jo3"/>
                                     <outlet property="delegate" destination="irv-0f-U3U" id="Thc-QX-MBj"/>
@@ -36,17 +39,18 @@
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Vf2-38-5U4" firstAttribute="top" secondItem="NRh-nk-9fe" secondAttribute="bottom" constant="8" id="9Zn-gU-Wdm"/>
                             <constraint firstItem="NRh-nk-9fe" firstAttribute="centerX" secondItem="BZX-5o-iy9" secondAttribute="centerX" id="QB6-dz-8WV"/>
-                            <constraint firstItem="Vf2-38-5U4" firstAttribute="top" secondItem="hSy-xU-GBH" secondAttribute="bottom" constant="52" id="fP1-Mv-00h"/>
+                            <constraint firstItem="Vf2-38-5U4" firstAttribute="top" relation="greaterThanOrEqual" secondItem="NRh-nk-9fe" secondAttribute="bottom" constant="8" id="Vb9-hA-N7u"/>
                             <constraint firstItem="hSy-xU-GBH" firstAttribute="leading" secondItem="BZX-5o-iy9" secondAttribute="leading" id="i71-Q1-9zj"/>
                             <constraint firstAttribute="trailing" secondItem="hSy-xU-GBH" secondAttribute="trailing" id="jFP-CH-wC0"/>
-                            <constraint firstItem="hSy-xU-GBH" firstAttribute="top" secondItem="I9G-1p-Mc1" secondAttribute="bottom" constant="-64" id="vqA-Rt-rX4"/>
+                            <constraint firstItem="hSy-xU-GBH" firstAttribute="top" secondItem="I9G-1p-Mc1" secondAttribute="bottom" id="vqA-Rt-rX4"/>
+                            <constraint firstItem="NRh-nk-9fe" firstAttribute="top" secondItem="hSy-xU-GBH" secondAttribute="bottom" constant="14" id="xRG-1I-XIk"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="d1D-PM-f8C"/>
+                    <navigationItem key="navigationItem" title="Home" id="d1D-PM-f8C"/>
                     <connections>
                         <outlet property="tableView" destination="hSy-xU-GBH" id="kfl-br-Ua9"/>
+                        <outlet property="tableViewHeight" destination="IgX-8m-OUN" id="t5a-IT-gAz"/>
                         <segue destination="DM7-Ng-PCo" kind="show" identifier="toStagesSegue" id="lkh-ed-rbq"/>
                         <segue destination="g3T-W3-btJ" kind="popoverPresentation" identifier="showNewTestatorPopover" popoverAnchorView="NRh-nk-9fe" id="l4G-iY-e6f">
                             <popoverArrowDirection key="popoverArrowDirection"/>

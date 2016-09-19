@@ -18,7 +18,6 @@ class NewTestatorPopoverViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    
     override func viewDidLayoutSubviews() {
         setupTextField()
     }
@@ -30,8 +29,6 @@ class NewTestatorPopoverViewController: UIViewController {
     
     func setupTextField() {
         testatorNameTextField.borderStyle = .none
-        
-        
         let border = CALayer()
         let width = CGFloat(2.0)
         border.borderColor = UIColor.darkGray.cgColor
@@ -42,15 +39,28 @@ class NewTestatorPopoverViewController: UIViewController {
         testatorNameTextField.layer.masksToBounds = true
     }
     
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destinationVC = segue.destination as? ImageSelectionViewController else { return }
+        if segue.identifier == "imagePickerEmbed" {
+            destinationVC.delegate = self
+        }
+    }
     
     // MARK: - IBActions
     
     @IBAction func doneButtonTapped(_ sender: AnyObject) {
-        guard let testatorImage = testatorImage, let nameText = testatorNameTextField.text, nameText.characters.count > 0 else {
-            return
-        }
         
-        TestatorModelController.shared.createTestator(name: nameText, image: testatorImage) { 
+        if let nameText = testatorNameTextField.text {
+            guard let testatorImage = testatorImage else {
+                TestatorModelController.shared.createTestator(name: nameText, image: UIImage(named: "user"))
+                self.dismiss(animated: true, completion: nil)
+                return
+            }
+            
+            // Image was picked
+            TestatorModelController.shared.createTestator(name: nameText, image: testatorImage)
             self.dismiss(animated: true, completion: nil)
         }
     }
