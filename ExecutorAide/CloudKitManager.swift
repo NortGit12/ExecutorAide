@@ -71,14 +71,47 @@ class CloudKitManager {
         CKContainer.default().add(operation)
     }
     
-    func fetchAllDiscoverableUsers(completion: ((_ userInfoRecords: [CKDiscoveredUserInfo]?) -> Void)?) {
+    /*
+     For help check documentation for "CKDiscoverAllUserIdentitiesOperation"
+     */
+//    func fetchAllDiscoverableUsers(completion: ((_ userInfoRecords: [CKDiscoveredUserInfo]?) -> Void)?) {
+    func fetchAllDiscoverableUsers(completion: ((_ userIdentities: [CKUserIdentity]?) -> Void)?) {
         
-        let operation = CKDiscoverAllContactsOperation()
+        // Old way
+//
+//        let operation = CKDiscoverAllContactsOperation()
+//        
+//        operation.discoverAllContactsCompletionBlock = { (discoveredUserInfos, error) -> Void in
+//            
+//            if let completion = completion {
+//                completion(discoveredUserInfos)
+//            }
+//        }
         
-        operation.discoverAllContactsCompletionBlock = { (discoveredUserInfos, error) -> Void in
+        // New way?
+        
+        var userIdentities = [CKUserIdentity]()
+        let operation = CKDiscoverAllUserIdentitiesOperation()
+        
+        operation.userIdentityDiscoveredBlock = { (userIdentity) in
+            
+            userIdentities.append(userIdentity)
+        }
+        
+        operation.discoverAllUserIdentitiesCompletionBlock = {(error) in
+            
+            if error != nil {
+                
+                NSLog("Error: There was a problem discovering all user identities.  \(error?.localizedDescription)")
+                
+                if let completion = completion {
+                    completion(nil)
+                }
+                
+            }
             
             if let completion = completion {
-                completion(discoveredUserInfos)
+                completion(userIdentities)
             }
         }
         
@@ -251,9 +284,29 @@ class CloudKitManager {
     // MARK: - Subscriptions
     //==================================================
     
-    func subscribe(database: CKDatabase = CKContainer.default().publicCloudDatabase, type: String, predicate: NSPredicate, subscriptionID: String, contentAvailable: Bool, alertBody: String? = nil, desiredKeys: [String]? = nil, options: CKSubscriptionOptions, completion: ((_ subscription: CKSubscription?, _ error: NSError?) -> Void)?) {
+    func subscribe(database: CKDatabase = CKContainer.default().publicCloudDatabase, type: String, predicate: NSPredicate, subscriptionID: String, contentAvailable: Bool, alertBody: String? = nil, desiredKeys: [String]? = nil, options: CKQuerySubscriptionOptions, completion: ((_ subscription: CKSubscription?, _ error: NSError?) -> Void)?) {
         
-        let subscription = CKSubscription(recordType: type, predicate: predicate, subscriptionID: subscriptionID, options: options)
+        // Old way
+        
+//        let subscription = CKSubscription(recordType: type, predicate: predicate, subscriptionID: subscriptionID, options: options)
+//        
+//        let notificationInfo = CKNotificationInfo()
+//        notificationInfo.alertBody = alertBody
+//        notificationInfo.shouldSendContentAvailable = contentAvailable
+//        notificationInfo.desiredKeys = desiredKeys
+//        
+//        subscription.notificationInfo = notificationInfo
+//        
+//        database.save(subscription) { (subscription, error) in
+//            
+//            if let completion = completion {
+//                completion(subscription, error as NSError?)
+//            }
+//        }
+        
+        // New way
+        
+        let subscription = CKQuerySubscription(recordType: type, predicate: predicate, subscriptionID: subscriptionID, options: options)
         
         let notificationInfo = CKNotificationInfo()
         notificationInfo.alertBody = alertBody
