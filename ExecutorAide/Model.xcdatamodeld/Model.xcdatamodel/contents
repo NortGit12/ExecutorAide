@@ -3,12 +3,14 @@
     <entity name="Detail" representedClassName=".Detail" parentEntity="SyncableObject" syncable="YES">
         <attribute name="contentType" attributeType="String" syncable="YES"/>
         <attribute name="contentValue" attributeType="String" syncable="YES"/>
+        <attribute name="sortValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="subTask" maxCount="1" deletionRule="Nullify" destinationEntity="SubTask" inverseName="details" inverseEntity="SubTask" syncable="YES"/>
     </entity>
     <entity name="Stage" representedClassName=".Stage" parentEntity="SyncableObject" syncable="YES">
         <attribute name="descriptor" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="percentComplete" attributeType="Float" minValueString="0" maxValueString="1" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sortValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Task" inverseName="stage" inverseEntity="Task" syncable="YES"/>
         <relationship name="testators" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Testator" inverseName="stages" inverseEntity="Testator" syncable="YES"/>
     </entity>
@@ -16,6 +18,7 @@
         <attribute name="descriptor" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isCompleted" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="sortValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="details" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Detail" inverseName="subTask" inverseEntity="Detail" syncable="YES"/>
         <relationship name="task" maxCount="1" deletionRule="Nullify" destinationEntity="Task" inverseName="subTasks" inverseEntity="Task" syncable="YES"/>
     </entity>
@@ -25,6 +28,7 @@
     </entity>
     <entity name="Task" representedClassName=".Task" parentEntity="SyncableObject" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="sortValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="stage" maxCount="1" deletionRule="Nullify" destinationEntity="Stage" inverseName="tasks" inverseEntity="Stage" syncable="YES"/>
         <relationship name="subTasks" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="SubTask" inverseName="task" inverseEntity="SubTask" syncable="YES"/>
     </entity>
@@ -34,11 +38,11 @@
         <relationship name="stages" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Stage" inverseName="testators" inverseEntity="Stage" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Detail" positionX="567" positionY="-216" width="128" height="88"/>
-        <element name="Stage" positionX="36" positionY="-216" width="128" height="118"/>
-        <element name="SubTask" positionX="394" positionY="-216" width="128" height="118"/>
+        <element name="Detail" positionX="567" positionY="-216" width="128" height="103"/>
+        <element name="Stage" positionX="36" positionY="-216" width="128" height="133"/>
+        <element name="SubTask" positionX="394" positionY="-216" width="128" height="133"/>
         <element name="SyncableObject" positionX="214" positionY="-378" width="128" height="73"/>
-        <element name="Task" positionX="214" positionY="-216" width="128" height="88"/>
+        <element name="Task" positionX="214" positionY="-216" width="128" height="103"/>
         <element name="Testator" positionX="-173" positionY="-216" width="128" height="88"/>
     </elements>
 </model>

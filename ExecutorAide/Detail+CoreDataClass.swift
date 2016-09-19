@@ -20,6 +20,7 @@ public class Detail: SyncableObject, CloudKitManagedObject {
     static let type = "Detail"
     static let contentTypeKey = "contentType"
     static let contentValueKey = "contentValue"
+    static let sortValueKey = "sortValue"
     static let subTaskKey = "subTask"
     
     var recordType: String { return Detail.type }
@@ -31,6 +32,7 @@ public class Detail: SyncableObject, CloudKitManagedObject {
         
         record[Detail.contentTypeKey] = self.contentType as CKRecordValue?
         record[Detail.contentValueKey] = self.contentValue as CKRecordValue?
+        record[Detail.sortValueKey] = self.sortValue as CKRecordValue?
         
         guard let recordIDData = self.subTask.recordIDData as? Data
             , let subTaskRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID

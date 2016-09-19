@@ -17,6 +17,7 @@ extension Detail {
 
     @NSManaged public var contentValue: String
     @NSManaged public var contentType: String
+    @NSManaged public var sortValue: Int
     @NSManaged public var subTask: SubTask
 
 }

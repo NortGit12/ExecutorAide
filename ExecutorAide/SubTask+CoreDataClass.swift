@@ -22,6 +22,7 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
     static let detailsKey = "details"
     static let isCompletedKey = "isCompleted"
     static let nameKey = "name"
+    static let sortValueKey = "sortValue"
     static let taskKey = "task"
     
     var recordType: String { return SubTask.type }
@@ -49,9 +50,9 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
         }
         
         record[SubTask.detailsKey] = detailsReferences as CKRecordValue?
-        
         record[SubTask.isCompletedKey] = self.isCompleted as CKRecordValue?
         record[SubTask.nameKey] = self.name as CKRecordValue?
+        record[SubTask.sortValueKey] = self.sortValue as CKRecordValue?
         
         guard let recordIDData = self.task.recordIDData as? Data
             , let taskRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID

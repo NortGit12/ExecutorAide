@@ -19,6 +19,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
     
     static let type = "Task"
     static let nameKey = "name"
+    static let sortValueKey = "sortValue"
     static let stageKey = "stage"
     static let subTasksKey = "subTasks"
     
@@ -30,6 +31,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
         let record = CKRecord(recordType: recordType, recordID: recordID)
         
         record[Task.nameKey] = self.name as CKRecordValue
+        record[Task.sortValueKey] = self.sortValue as CKRecordValue?
         
         guard let recordIDData = self.stage.recordIDData as? Data
             , let stageRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
@@ -38,7 +40,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
             NSLog("Error: Could not unarchive the recordIDData when attempting to compute the cloudKitRecord for a Task.")
             return nil
         }
-            
+        
         let stageReference = CKReference(recordID: stageRecordID, action: .deleteSelf)
         record[Task.stageKey] = stageReference
         

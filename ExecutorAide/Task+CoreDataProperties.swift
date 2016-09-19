@@ -17,6 +17,7 @@ extension Task {
     }
 
     @NSManaged public var name: String
+    @NSManaged public var sortValue: Int
     @NSManaged public var stage: Stage
     @NSManaged public var subTasks: NSOrderedSet?
 

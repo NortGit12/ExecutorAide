@@ -177,9 +177,11 @@ class TestatorModelController {
     // MARK: - Methods (other)
     //==================================================
     
-    func createInitialDataSet() {
+    func createInitialDataSet(name: String, image: UIImage) {
     
-        // TODO: Finish implementation
+        createTestator(name: name, image: image)
+        
+        // TODO: Add the rest of the create* ModelController calls to provide a default subset of data.
     }
 }
 

@@ -209,8 +209,8 @@
 			isa = PBXGroup;
 			children = (
 				1F84E6D41D8B143300311680 /* CloudKitManagedObject.swift */,
-				1FF6DBB91D8B43DD009CCAC7 /* Detail+CoreDataProperties.swift */,
 				1FF6DBBB1D8B4408009CCAC7 /* Detail+CoreDataClass.swift */,
+				1FF6DBB91D8B43DD009CCAC7 /* Detail+CoreDataProperties.swift */,
 				1F8DE5F71D8AF7EE00066819 /* Model.xcdatamodeld */,
 				1FF6DBBD1D8B442A009CCAC7 /* Stage+CoreDataClass.swift */,
 				1FF6DBA51D8B36C2009CCAC7 /* Stage+CoreDataProperties.swift */,

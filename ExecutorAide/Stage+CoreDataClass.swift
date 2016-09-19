@@ -20,6 +20,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
     static let descriptorKey = "descriptor"
     static let nameKey = "name"
     static let percentCompleteKey = "percentComplete"
+    static let sortValueKey = "sortValue"
     static let tasksKey = "tasks"
     static let testatorsKey = "testators"
     
@@ -33,6 +34,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
         record[Stage.descriptorKey] = self.descriptor as? CKRecordValue
         record[Stage.nameKey] = self.name as? CKRecordValue
         record[Stage.percentCompleteKey] = self.percentComplete as CKRecordValue?
+        record[Stage.sortValueKey] = self.sortValue as CKRecordValue?
         
         var tasksReferencesArray = [CKReference]()
         if let tasks = self.tasks {

@@ -17,9 +17,10 @@ extension SubTask {
     }
 
     @NSManaged public var descriptor: String?
+    @NSManaged public var details: NSOrderedSet?
     @NSManaged public var isCompleted: Bool
     @NSManaged public var name: String
-    @NSManaged public var details: NSOrderedSet?
+    @NSManaged public var sortValue: Int
     @NSManaged public var task: Task
 
 }
