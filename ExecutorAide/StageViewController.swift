@@ -9,10 +9,10 @@
 import UIKit
 import CoreData
 
-class StageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SubTaskTableViewCellDelegate {
+class StageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate/*, SubTaskTableViewCellDelegate*/ {
 
     var stage: Stage?
-    var fetchedResultsController: NSFetchedResultsController?
+    var fetchedResultsController: NSFetchedResultsController<Stage>?
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -23,87 +23,95 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func setupNavbar() {
-        title = stage.name
+        title = stage?.name
         let titleView = navigationController?.navigationItem.titleView
         let progressView = UIProgressView()
         titleView?.addSubview(progressView)
-        progressView.progress = stage.percentCompleted
+        if let percentComplete = stage?.percentComplete {
+            progressView.progress = percentComplete
+        }
     }
     
     func setupCustomCells() {
         // Dynamic cell height
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.registerNib(UINib(nibName: "SubTaskTableViewCell", bundle: nil), forCellReuseIdentifier: subTaskCellReuseIdentifier)
+        tableView.register(UINib(nibName: "SubTaskTableViewCell", bundle: nil), forCellReuseIdentifier: subTaskCellReuseIdentifier)
     }
     
     // MARK: - TableViewDataSource Methods
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return stage.tasks.count
+    func numberOfSections(in tableView: UITableView) -> Int {
+        guard let stage = stage, let tasks = stage.tasks else { return 0 }
+        return tasks.count
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stage.tasks[section].subTasks.count
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let stage = stage, let tasks = stage.tasks, let task = tasks[section] as? Task, let subtasks = task.subTasks else { return 0 }
+        return subtasks.count
     }
+
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCellWithIdentifier(subTaskCellReuseIdentifier, forIndexPath: indexPath) as? SubTaskTableViewCell else { return UITableViewCell() }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: subTaskCellReuseIdentifier, for: indexPath) as? SubTaskTableViewCell else { return UITableViewCell() }
         
-        let subTask = stage.tasks.subTasks[indexPath.row]
-        cell.updateCellWithSubTask(subTask)
+        guard let subTask = stage?.tasks?[indexPath.row] as? SubTask else { return UITableViewCell() }
+        cell.updateCellWithSubTask(subTask: subTask)
         
         return cell
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return stage.tasks[section].name
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let tasks = stage?.tasks, let task = tasks[section] as? Task else { return "" }
+        return task.name
     }
     
     // MARK: - NSFetchedResultsController Delegate Methods
     
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    func controllerWillChangeContent(controller: NSFetchedResultsController<Stage>) {
         tableView.beginUpdates()
     }
     
-    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+    func controller(controller: NSFetchedResultsController<Stage>, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
         switch type {
-        case .Delete:
-            tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Automatic)
-        case .Insert:
-            tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Automatic)
+        case .delete:
+            tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .automatic)
+        case .insert:
+            tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .automatic)
         default:
             break
         }
     }
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(controller: NSFetchedResultsController<Stage>, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
         switch type {
-        case .Delete:
+        case .delete:
             guard let indexPath = indexPath else {return}
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        case .Insert:
+     
+            tableView.deleteRows(at: [indexPath as IndexPath], with: .automatic)
+        case .insert:
             guard let newIndexPath = newIndexPath else {return}
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
-        case.Update:
+            tableView.insertRows(at: [newIndexPath as IndexPath], with: .automatic)
+        case.update:
             guard let indexPath = indexPath else {return}
-            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        case .Move:
-            guard let indexPath = indexPath, newIndexPath = newIndexPath else {return}
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Automatic)
+            tableView.reloadRows(at: [indexPath as IndexPath], with: .automatic)
+        case .move:
+            guard let indexPath = indexPath, let newIndexPath = newIndexPath else {return}
+            tableView.deleteRows(at: [indexPath as IndexPath], with: .automatic)
+            tableView.insertRows(at: [newIndexPath as IndexPath], with: .automatic)
         }
     }
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    func controllerDidChangeContent(controller: NSFetchedResultsController<Stage>) {
         tableView.endUpdates()
     }
     
     // MARK: - SubTaskTableViewCellDelegate Method
     
-    func subTaskTableViewCellDidReceiveTap() -> SubTask {
-        
-    }
+//    func subTaskTableViewCellDidReceiveTap() -> SubTask {
+//        
+//    }
     
     
     

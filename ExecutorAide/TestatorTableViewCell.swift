@@ -19,25 +19,26 @@ class TestatorTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.accessoryType = .DisclosureIndicator
+        self.accessoryType = .disclosureIndicator
         
         testatorImageView.layer.masksToBounds = true
         testatorImageView.layer.cornerRadius = testatorImageView.frame.width/2
         //testatorImageView.image =
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
         if selected {
-            self.selectionStyle = .None
+            self.selectionStyle = .none
         }
     }
     
     func updateCellWithTestator(testator: Testator) {
         nameLabel.text = testator.name
-        testatorImageView.image = testator.image
+        guard let imageData = testator.image, let testatorImage = UIImage(data: imageData as Data) else { return }
+        testatorImageView.image = testatorImage
     }
     
 }

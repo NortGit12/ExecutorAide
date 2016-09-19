@@ -36,6 +36,17 @@
 		1FF6DBC41D8B442A009CCAC7 /* SyncableObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6DBBF1D8B442A009CCAC7 /* SyncableObject+CoreDataClass.swift */; };
 		1FF6DBC51D8B442A009CCAC7 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6DBC01D8B442A009CCAC7 /* Task+CoreDataClass.swift */; };
 		1FF6DBC61D8B442A009CCAC7 /* Testator+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6DBC11D8B442A009CCAC7 /* Testator+CoreDataClass.swift */; };
+		22319A761D90456700472494 /* StageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22319A751D90456700472494 /* StageViewController.swift */; };
+		22319A7E1D9045B500472494 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22319A771D9045B500472494 /* MainTabBarController.swift */; };
+		22319A7F1D9045B500472494 /* NewTestatorPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22319A781D9045B500472494 /* NewTestatorPopoverViewController.swift */; };
+		22319A801D9045B500472494 /* SubTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22319A791D9045B500472494 /* SubTaskTableViewCell.swift */; };
+		22319A811D9045B500472494 /* SubTaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22319A7A1D9045B500472494 /* SubTaskTableViewCell.xib */; };
+		22319A821D9045B500472494 /* TestatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22319A7B1D9045B500472494 /* TestatorTableViewCell.swift */; };
+		22319A831D9045B500472494 /* TestatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22319A7C1D9045B500472494 /* TestatorTableViewCell.xib */; };
+		22319A841D9045B500472494 /* TestatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22319A7D1D9045B500472494 /* TestatorViewController.swift */; };
+		22319A8B1D904D9600472494 /* NewTestatorPopover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22319A871D904D9600472494 /* NewTestatorPopover.storyboard */; };
+		22319A8C1D904D9600472494 /* StageView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22319A891D904D9600472494 /* StageView.storyboard */; };
+		22319A8F1D90835F00472494 /* ImageSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22319A8E1D90835F00472494 /* ImageSelectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +103,17 @@
 		1FF6DBBF1D8B442A009CCAC7 /* SyncableObject+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SyncableObject+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1FF6DBC01D8B442A009CCAC7 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1FF6DBC11D8B442A009CCAC7 /* Testator+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Testator+CoreDataClass.swift"; sourceTree = "<group>"; };
+		22319A751D90456700472494 /* StageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageViewController.swift; sourceTree = "<group>"; };
+		22319A771D9045B500472494 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		22319A781D9045B500472494 /* NewTestatorPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTestatorPopoverViewController.swift; sourceTree = "<group>"; };
+		22319A791D9045B500472494 /* SubTaskTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTaskTableViewCell.swift; sourceTree = "<group>"; };
+		22319A7A1D9045B500472494 /* SubTaskTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubTaskTableViewCell.xib; sourceTree = "<group>"; };
+		22319A7B1D9045B500472494 /* TestatorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestatorTableViewCell.swift; sourceTree = "<group>"; };
+		22319A7C1D9045B500472494 /* TestatorTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestatorTableViewCell.xib; sourceTree = "<group>"; };
+		22319A7D1D9045B500472494 /* TestatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestatorViewController.swift; sourceTree = "<group>"; };
+		22319A881D904D9600472494 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/NewTestatorPopover.storyboard; sourceTree = "<group>"; };
+		22319A8A1D904D9600472494 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/StageView.storyboard; sourceTree = "<group>"; };
+		22319A8E1D90835F00472494 /* ImageSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSelectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,10 +193,12 @@
 				1F8DE5FA1D8AF85700066819 /* Model */,
 				1F0DE53E1D8C449D008EE273 /* ModelController */,
 				1F84E6D11D8B137900311680 /* OtherController */,
+				22319A861D9045CB00472494 /* View Controllers */,
+				22319A851D9045C000472494 /* Views */,
+				22319A8D1D904D9E00472494 /* StoryBoards */,
 				1F8DE5CC1D8AF31C00066819 /* Assets.xcassets */,
 				1F8DE5D11D8AF31C00066819 /* Info.plist */,
 				1F8DE5CE1D8AF31C00066819 /* LaunchScreen.storyboard */,
-				1F8DE5C61D8AF31C00066819 /* Main.storyboard */,
 			);
 			path = ExecutorAide;
 			sourceTree = "<group>";
@@ -224,6 +248,39 @@
 				1FF6DBA81D8B36C2009CCAC7 /* Testator+CoreDataProperties.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		22319A851D9045C000472494 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				22319A791D9045B500472494 /* SubTaskTableViewCell.swift */,
+				22319A7A1D9045B500472494 /* SubTaskTableViewCell.xib */,
+				22319A7B1D9045B500472494 /* TestatorTableViewCell.swift */,
+				22319A7C1D9045B500472494 /* TestatorTableViewCell.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		22319A861D9045CB00472494 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				22319A751D90456700472494 /* StageViewController.swift */,
+				22319A771D9045B500472494 /* MainTabBarController.swift */,
+				22319A781D9045B500472494 /* NewTestatorPopoverViewController.swift */,
+				22319A7D1D9045B500472494 /* TestatorViewController.swift */,
+				22319A8E1D90835F00472494 /* ImageSelectionViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		22319A8D1D904D9E00472494 /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				22319A871D904D9600472494 /* NewTestatorPopover.storyboard */,
+				22319A891D904D9600472494 /* StageView.storyboard */,
+				1F8DE5C61D8AF31C00066819 /* Main.storyboard */,
+			);
+			name = StoryBoards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -344,9 +401,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22319A8C1D904D9600472494 /* StageView.storyboard in Resources */,
+				22319A831D9045B500472494 /* TestatorTableViewCell.xib in Resources */,
 				1F8DE5D01D8AF31C00066819 /* LaunchScreen.storyboard in Resources */,
+				22319A811D9045B500472494 /* SubTaskTableViewCell.xib in Resources */,
 				1F8DE5CD1D8AF31C00066819 /* Assets.xcassets in Resources */,
 				1F8DE5C81D8AF31C00066819 /* Main.storyboard in Resources */,
+				22319A8B1D904D9600472494 /* NewTestatorPopover.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,10 +433,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F8DE5C31D8AF31C00066819 /* AppDelegate.swift in Sources */,
+				22319A8F1D90835F00472494 /* ImageSelectionViewController.swift in Sources */,
 				1F0DE54A1D8CAE43008EE273 /* DetailModelController.swift in Sources */,
+				22319A7E1D9045B500472494 /* MainTabBarController.swift in Sources */,
 				1FF6DBC61D8B442A009CCAC7 /* Testator+CoreDataClass.swift in Sources */,
 				1F84E6D51D8B143300311680 /* CloudKitManagedObject.swift in Sources */,
 				1F0DE5481D8CAE32008EE273 /* SubTaskModelController.swift in Sources */,
+				22319A801D9045B500472494 /* SubTaskTableViewCell.swift in Sources */,
+				22319A821D9045B500472494 /* TestatorTableViewCell.swift in Sources */,
 				1FF6DBAB1D8B36C2009CCAC7 /* Stage+CoreDataProperties.swift in Sources */,
 				1FF6DBC41D8B442A009CCAC7 /* SyncableObject+CoreDataClass.swift in Sources */,
 				1FF6DBBC1D8B4408009CCAC7 /* Detail+CoreDataClass.swift in Sources */,
@@ -386,14 +451,17 @@
 				1FF6DBAE1D8B36C2009CCAC7 /* Testator+CoreDataProperties.swift in Sources */,
 				1F84E6D01D8B112900311680 /* Stack.swift in Sources */,
 				1FF6DBC51D8B442A009CCAC7 /* Task+CoreDataClass.swift in Sources */,
+				22319A761D90456700472494 /* StageViewController.swift in Sources */,
 				1F0DE5461D8CAE1E008EE273 /* TaskModelController.swift in Sources */,
 				1FF6DBBA1D8B43DD009CCAC7 /* Detail+CoreDataProperties.swift in Sources */,
 				1F0DE5421D8C6E41008EE273 /* PersistenceController.swift in Sources */,
 				1FF6DBC21D8B442A009CCAC7 /* Stage+CoreDataClass.swift in Sources */,
+				22319A7F1D9045B500472494 /* NewTestatorPopoverViewController.swift in Sources */,
 				1FF6DBAC1D8B36C2009CCAC7 /* SyncableObject+CoreDataProperties.swift in Sources */,
 				1FF6DBC31D8B442A009CCAC7 /* SubTask+CoreDataClass.swift in Sources */,
 				1FF6DBA91D8B36C2009CCAC7 /* SubTask+CoreDataProperties.swift in Sources */,
 				1F8DE5F91D8AF7EE00066819 /* Model.xcdatamodeld in Sources */,
+				22319A841D9045B500472494 /* TestatorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +511,22 @@
 				1F8DE5CF1D8AF31C00066819 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		22319A871D904D9600472494 /* NewTestatorPopover.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				22319A881D904D9600472494 /* Base */,
+			);
+			name = NewTestatorPopover.storyboard;
+			sourceTree = "<group>";
+		};
+		22319A891D904D9600472494 /* StageView.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				22319A8A1D904D9600472494 /* Base */,
+			);
+			name = StageView.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

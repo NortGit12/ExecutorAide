@@ -15,14 +15,14 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         delegate = self
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        let stage1 = StageViewController()
-        let stage1Item = UITabBarItem(title: "Preparation", image: UIImage(named: ""), selectedImage: UIImage(named: ""))
-        stage1.tabBarItem = stage1Item
-        
-        let controllers = [stage1]
-        self.viewControllers = controllers
-    }
+//    override func viewWillAppear(animated: Bool) {
+//        super.viewWillAppear(animated)
+//        let stage1 = StageViewController()
+//        let stage1Item = UITabBarItem(title: "Preparation", image: UIImage(named: ""), selectedImage: UIImage(named: ""))
+//        stage1.tabBarItem = stage1Item
+//        
+//        let controllers = [stage1]
+//        self.viewControllers = controllers
+//    }
 
 }

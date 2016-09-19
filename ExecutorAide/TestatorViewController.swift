@@ -16,39 +16,39 @@ class TestatorViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.registerNib(UINib(nibName: "TestatorTableViewCell", bundle: nil), forCellReuseIdentifier: testatorCellReuseIdentifier)
+        tableView.register(UINib(nibName: "TestatorTableViewCell", bundle: nil), forCellReuseIdentifier: testatorCellReuseIdentifier)
     }
     
     // MARK: - UITableViewDataSource Methods
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return testators.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCellWithIdentifier(testatorCellReuseIdentifier, forIndexPath: indexPath) as? TestatorTableViewCell else { return UITableViewCell() }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: testatorCellReuseIdentifier, for: indexPath) as? TestatorTableViewCell else { return UITableViewCell() }
         let testator = testators[indexPath.row]
-        cell.updateCellWithTestator(testator)
+        cell.updateCellWithTestator(testator: testator)
         
         return cell
     }
     
     // MARK: - Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toStagesSegue" {
-            guard let destinationVC = segue.destinationViewController as? StageViewController else { return }
-            
+            guard let destinationVC = segue.destination as? StageViewController else { return }
             // TODO: Set first stage as default tab
-            
         } else if segue.identifier == "showNewTestatorPopover" {
-            let vc = segue.destinationViewController as? NewTestatorPopoverViewController
-            let controller = vc?.popoverPresentationController
+            let popoverVC = segue.destination as? NewTestatorPopoverViewController
+            popoverVC?.setupPopoverDisplay(containerWidth: view.frame.width, containerHeight: view.frame.height)
+            let controller = popoverVC?.popoverPresentationController
             
             if let controller = controller, let sourceView = controller.sourceView {
                 controller.delegate = self
-                //controller.backgroundColor = UIColor.lightCharcoalColor()
+                controller.backgroundColor = UIColor.lightGray
                 controller.sourceRect = CGRect(x: sourceView.frame.width * 0.5, y: 0, width: 0, height: 0)
+                controller.permittedArrowDirections = .down
             }
         }
     }
@@ -56,8 +56,13 @@ class TestatorViewController: UIViewController, UITableViewDelegate, UITableView
     // MARK: - Popover VC Delegate Methods
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
+        return .none
     }
     
     
+    // MARK: - IBActions
+    
+    @IBAction func newTestatorButtonTapped(_ sender: AnyObject) {
+        performSegue(withIdentifier: "showNewTestatorPopover", sender: self)
+    }
 }
