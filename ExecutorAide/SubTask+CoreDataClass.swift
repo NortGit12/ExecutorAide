@@ -63,6 +63,8 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
         
         let taskReference = CKReference(recordID: taskRecordID, action: .deleteSelf)
         record[SubTask.taskKey] = taskReference
+        
+        return record
     }
     
     //==================================================
@@ -133,7 +135,7 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
         self.recordName = record.recordID.recordName
         
         let taskIDName = taskReference.recordID.recordName
-        guard let task = TaskModelController.shared.fetchTaskByIDName(taskIDName) else {
+        guard let task = TaskModelController.shared.fetchTaskByIDName(idName: taskIDName) else {
             
             NSLog("Error: Could not identify the Task by its ID name \"\(taskIDName)\".")
             return nil
@@ -152,7 +154,7 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
         for detailReferences in detailsReferences {
             
             let detailIDName = detailReferences.recordID.recordName
-            if let detail = DetailModelController.shared.fetchDetailByIDName(detailIDName) {
+            if let detail = DetailModelController.shared.fetchDetailByIDName(idName: detailIDName) {
                 
                 details.append(detail)
             }

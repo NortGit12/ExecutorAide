@@ -60,6 +60,8 @@ public class Task: SyncableObject, CloudKitManagedObject {
         }
         
         record[Task.subTasksKey] = subTasksReferences as CKRecordValue?
+        
+        return record
     }
     
     //==================================================
@@ -122,7 +124,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
         self.recordIDData = NSKeyedArchiver.archivedData(withRootObject: record.recordID) as NSData?
         
         let stageIDName = stageReference.recordID.recordName
-        guard let stage = StageModelController.shared.fetchStageByIDName(stageIDName) else {
+        guard let stage = StageModelController.shared.fetchStageByIDName(idName: stageIDName) else {
             
             NSLog("Error: Could not identify the stage by its ID name \"\(stageIDName)\".")
             return nil
@@ -141,7 +143,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
         for subTaskReference in subTasksReferences {
             
             let subTaskIDName = subTaskReference.recordID.recordName
-            if let subTask = SubTaskModelController.shared.fetchSubTaskByIDName(subTaskIDName) {
+            if let subTask = SubTaskModelController.shared.fetchSubTaskByIDName(idName: subTaskIDName) {
                 
                 subTasks.append(subTask)
             }

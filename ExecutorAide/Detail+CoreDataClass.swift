@@ -92,7 +92,7 @@ public class Detail: SyncableObject, CloudKitManagedObject {
         self.contentValue = contentValue
         
         let subTaskIDName = subTaskReference.recordID.recordName
-        guard let subTask = SubTaskModelController.shared.fetchSubTaskByIDName(subTaskIDName) else {
+        guard let subTask = SubTaskModelController.shared.fetchSubTaskByIDName(idName: subTaskIDName) else {
             
             NSLog("Error: Could not identify the SubTask by its ID name \"\(subTaskIDName)\".")
             return nil
