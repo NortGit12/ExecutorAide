@@ -82,7 +82,7 @@ class StageModelController {
         let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [Stage]
         guard let sortedResultsArray = resultsArray?.sorted(by: { $0.sortValue < $1.sortValue }) else {
             
-            NSLog("Error: The Stages array could not be sorted.")
+            NSLog("Error: The stages array could not be sorted.")
             return nil
         }
         
@@ -160,7 +160,7 @@ class StageModelController {
                 
                 if error != nil {
                     
-                    NSLog("Error: Stage could not be deleted in CloudKit.")
+                    NSLog("Error: Stage \"\(stage.name)\" could not be deleted in CloudKit.")
                     return
                 }
                 
