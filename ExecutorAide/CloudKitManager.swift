@@ -74,21 +74,7 @@ class CloudKitManager {
     /*
      For help check documentation for "CKDiscoverAllUserIdentitiesOperation"
      */
-//    func fetchAllDiscoverableUsers(completion: ((_ userInfoRecords: [CKDiscoveredUserInfo]?) -> Void)?) {
     func fetchAllDiscoverableUsers(completion: ((_ userIdentities: [CKUserIdentity]?) -> Void)?) {
-        
-        // Old way
-//
-//        let operation = CKDiscoverAllContactsOperation()
-//        
-//        operation.discoverAllContactsCompletionBlock = { (discoveredUserInfos, error) -> Void in
-//            
-//            if let completion = completion {
-//                completion(discoveredUserInfos)
-//            }
-//        }
-        
-        // New way?
         
         var userIdentities = [CKUserIdentity]()
         let operation = CKDiscoverAllUserIdentitiesOperation()
@@ -285,26 +271,6 @@ class CloudKitManager {
     //==================================================
     
     func subscribe(database: CKDatabase = CKContainer.default().publicCloudDatabase, type: String, predicate: NSPredicate, subscriptionID: String, contentAvailable: Bool, alertBody: String? = nil, desiredKeys: [String]? = nil, options: CKQuerySubscriptionOptions, completion: ((_ subscription: CKSubscription?, _ error: NSError?) -> Void)?) {
-        
-        // Old way
-        
-//        let subscription = CKSubscription(recordType: type, predicate: predicate, subscriptionID: subscriptionID, options: options)
-//        
-//        let notificationInfo = CKNotificationInfo()
-//        notificationInfo.alertBody = alertBody
-//        notificationInfo.shouldSendContentAvailable = contentAvailable
-//        notificationInfo.desiredKeys = desiredKeys
-//        
-//        subscription.notificationInfo = notificationInfo
-//        
-//        database.save(subscription) { (subscription, error) in
-//            
-//            if let completion = completion {
-//                completion(subscription, error as NSError?)
-//            }
-//        }
-        
-        // New way
         
         let subscription = CKQuerySubscription(recordType: type, predicate: predicate, subscriptionID: subscriptionID, options: options)
         

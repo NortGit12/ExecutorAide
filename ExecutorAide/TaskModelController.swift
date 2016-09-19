@@ -55,7 +55,7 @@ class TaskModelController {
         // TODO: Finish implementation
     }
     
-    func archiveTask(task: Task, completion: (() -> Void)? = nil) {
+    func deleteTask(task: Task, completion: (() -> Void)? = nil) {
         
         // TODO: Finish implementation
     }

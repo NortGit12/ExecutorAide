@@ -55,7 +55,7 @@ class StageModelController {
         // TODO: Finish implementation
     }
     
-    func archiveStage(stage: Stage, completion: (() -> Void)? = nil) {
+    func deleteStage(stage: Stage, completion: (() -> Void)? = nil) {
         
         // TODO: Finish implementation
     }

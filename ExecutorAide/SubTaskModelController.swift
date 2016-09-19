@@ -55,7 +55,7 @@ class SubTaskModelController {
         // TODO: Finish implementation
     }
     
-    func archiveSubTask(subTask: SubTask, completion: (() -> Void)? = nil) {
+    func deleteSubTask(subTask: SubTask, completion: (() -> Void)? = nil) {
         
         // TODO: Finish implementation
     }

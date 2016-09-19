@@ -53,7 +53,7 @@ class DetailModelController {
         // TODO: Finish implementation
     }
     
-    func archiveDetail(detail: Detail, completion: (() -> Void)? = nil) {
+    func deleteDetail(detail: Detail, completion: (() -> Void)? = nil) {
         
         // TODO: Finish implementation
     }
