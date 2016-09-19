@@ -52,7 +52,7 @@ public class Detail: SyncableObject, CloudKitManagedObject {
     // MARK: - Initializers
     //==================================================
     
-    convenience init?(contentType: String, contentValue: String, subTask: SubTask, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
+    convenience init?(contentType: String, contentValue: String, sortValue: Int, subTask: SubTask, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
         guard let detailEntity = NSEntityDescription.entity(forEntityName: Detail.type, in: context) else {
             
@@ -64,6 +64,7 @@ public class Detail: SyncableObject, CloudKitManagedObject {
         
         self.contentType = contentType
         self.contentValue = contentValue
+        self.sortValue = sortValue
         self.subTask = subTask
     }
     
@@ -75,6 +76,7 @@ public class Detail: SyncableObject, CloudKitManagedObject {
         
         guard let contentType = record[Detail.contentTypeKey] as? String
             , let contentValue = record[Detail.contentValueKey] as? String
+            , let sortValue = record[Detail.sortValueKey] as? Int
             , let subTaskReference = record[Detail.subTaskKey] as? CKReference
             else {
                 
@@ -92,6 +94,7 @@ public class Detail: SyncableObject, CloudKitManagedObject {
         
         self.contentType = contentType
         self.contentValue = contentValue
+        self.sortValue = sortValue
         
         let subTaskIDName = subTaskReference.recordID.recordName
         guard let subTask = SubTaskModelController.shared.fetchSubTaskByIDName(idName: subTaskIDName) else {

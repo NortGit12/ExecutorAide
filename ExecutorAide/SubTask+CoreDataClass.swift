@@ -72,7 +72,7 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
     // MARK: - Initializers
     //==================================================
 
-    convenience init?(name: String, descriptor: String, isCompleted: Bool = false, task: Task, details: [Detail]?, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
+    convenience init?(descriptor: String, isCompleted: Bool = false, name: String, sortValue: Int, task: Task, details: [Detail]?, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
         guard let subTaskEntity = NSEntityDescription.entity(forEntityName: SubTask.type, in: context) else {
             
@@ -98,6 +98,7 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
         self.isCompleted = isCompleted
         self.name = name
         self.recordName = nameForManagedObject()
+        self.sortValue = sortValue
         self.task = task
     }
     
@@ -106,6 +107,7 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
         guard let descriptor = record[SubTask.descriptorKey] as? String
             , let isCompleted = record[SubTask.isCompletedKey] as? Bool
             , let name = record[SubTask.nameKey] as? String
+            , let sortValue = record[SubTask.sortValueKey] as? Int
             , let taskReference = record[SubTask.taskKey] as? CKReference
             else {
                 
@@ -134,6 +136,7 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
         self.name = name
         self.recordIDData = NSKeyedArchiver.archivedData(withRootObject: record.recordID) as NSData?
         self.recordName = record.recordID.recordName
+        self.sortValue = sortValue
         
         let taskIDName = taskReference.recordID.recordName
         guard let task = TaskModelController.shared.fetchTaskByIDName(idName: taskIDName) else {

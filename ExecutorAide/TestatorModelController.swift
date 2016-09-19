@@ -32,7 +32,7 @@ class TestatorModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createTestator(name: String, image: UIImage?, completion: (() -> Void)? = nil) {
+    func createTestator(image: UIImage?, name: String, stages: [Stage], completion: (() -> Void)? = nil) {
         
         guard let image = image
             , let imageData = UIImagePNGRepresentation(image)
@@ -42,7 +42,7 @@ class TestatorModelController {
                 return
             }
         
-        let testator = Testator(name: name, image: imageData as NSData)
+        let testator = Testator(image: imageData as NSData, name: name, stages: stages)
         PersistenceController.shared.saveContext()
         
         if let testatorCloudKitRecord = testator?.cloudKitRecord {
@@ -179,8 +179,6 @@ class TestatorModelController {
     
     func createInitialDataSet(name: String, image: UIImage) {
     
-        createTestator(name: name, image: image)
-        
         // TODO: Add the rest of the create* ModelController calls to provide a default subset of data.
     }
 }

@@ -31,7 +31,7 @@ class SubTaskModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createSubTask(name: String, descriptor: String?, isCompleted: Bool = false, details: [Detail]?, completion: (() -> Void)? = nil) {
+    func createSubTask(descriptor: String?, details: [Detail]?, isCompleted: Bool = false, name: String, sortValue: Int, completion: (() -> Void)? = nil) {
         
         // TODO: Finish implementation
     }

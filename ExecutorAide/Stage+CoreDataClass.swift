@@ -63,7 +63,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
     // MARK: - Initializers
     //==================================================
     
-    convenience init?(name: String, descriptor: String, percentComplete: Float = 0.0, tasks: [Task]?, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
+    convenience init?(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, tasks: [Task]?, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
         guard let stageEntity = NSEntityDescription.entity(forEntityName: Stage.type, in: context) else {
             
@@ -77,6 +77,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
         self.name = name
         self.percentComplete = percentComplete
         self.recordName = nameForManagedObject()
+        self.sortValue = sortValue
         
         let tasksMutableOrderedSet = NSMutableOrderedSet()
         if let tasks = tasks {
@@ -97,6 +98,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
         guard let descriptor = record[Stage.descriptorKey] as? String
             , let name = record[Stage.nameKey] as? String
             , let percentComplete = record[Stage.percentCompleteKey] as? Float
+            , let sortValue = record[Stage.sortValueKey] as? Int
             else {
                 
                 NSLog("Error: Could not create the \(Stage.type) from the CloudKit record.")
@@ -116,6 +118,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
         self.recordIDData = NSKeyedArchiver.archivedData(withRootObject: record.recordID) as NSData?
         self.recordName = record.recordID.recordName
         self.percentComplete = percentComplete
+        self.sortValue = sortValue
     }
 }
 

@@ -70,7 +70,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
     // MARK: - Initializers
     //==================================================
 
-    convenience init?(name: String, stage: Stage, subTasks: [SubTask]?, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
+    convenience init?(name: String, sortValue: Int, stage: Stage, subTasks: [SubTask]?, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
         guard let taskEntity = NSEntityDescription.entity(forEntityName: Task.type, in: context) else {
             
@@ -82,6 +82,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
         
         self.name = name
         self.recordName = nameForManagedObject()
+        self.sortValue = sortValue
         self.stage = stage
         
         let subTasksMutableOrderedSet = NSMutableOrderedSet()
@@ -99,6 +100,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
     convenience required public init?(record: CKRecord, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
         guard let name = record[Task.nameKey] as? String
+            , let sortValue = record[Task.sortValueKey] as? Int
             , let stageReference = record[Task.stageKey] as? CKReference
             else {
             
@@ -124,6 +126,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
         self.name = name
         self.recordName = record.recordID.recordName
         self.recordIDData = NSKeyedArchiver.archivedData(withRootObject: record.recordID) as NSData?
+        self.sortValue = sortValue
         
         let stageIDName = stageReference.recordID.recordName
         guard let stage = StageModelController.shared.fetchStageByIDName(idName: stageIDName) else {
