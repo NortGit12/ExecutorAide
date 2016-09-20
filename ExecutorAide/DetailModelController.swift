@@ -105,7 +105,7 @@ class DetailModelController {
         
         existingDetail?.contentType = detail.contentType
         existingDetail?.contentValue = detail.contentValue
-        existingDetail.recordIDData = nil
+        existingDetail?.recordIDData = nil
         existingDetail?.sortValue = detail.sortValue
         existingDetail?.subTask = detail.subTask
         

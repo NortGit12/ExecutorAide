@@ -112,7 +112,7 @@ class SubTaskModelController {
         existingSubTask?.details = subTask.details
         existingSubTask?.isCompleted = subTask.isCompleted
         existingSubTask?.name = subTask.name
-        existingSubTask.recordIDData = nil
+        existingSubTask?.recordIDData = nil
         existingSubTask?.sortValue = subTask.sortValue
         existingSubTask?.task = subTask.task
         

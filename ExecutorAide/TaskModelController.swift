@@ -110,7 +110,7 @@ class TaskModelController {
         let existingTask = resultsArray?.first
         
         existingTask?.name = task.name
-        existingTask.recordIDData = nil
+        existingTask?.recordIDData = nil
         existingTask?.sortValue = task.sortValue
         existingTask?.stage = task.stage
         existingTask?.subTasks = task.subTasks

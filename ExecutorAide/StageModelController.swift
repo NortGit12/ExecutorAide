@@ -111,7 +111,7 @@ class StageModelController {
         
         existingStage?.descriptor = stage.descriptor
         existingStage?.name = stage.name
-        existingStage.recordIDData = nil
+        existingStage?.recordIDData = nil
         existingStage?.percentComplete = stage.percentComplete
         existingStage?.sortValue = stage.sortValue
         existingStage?.tasks = stage.tasks
