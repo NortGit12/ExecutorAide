@@ -30,9 +30,9 @@ public class Detail: SyncableObject, CloudKitManagedObject {
         let recordID = CKRecordID(recordName: self.recordName)
         let record = CKRecord(recordType: Detail.type, recordID: recordID)
         
-        record[Detail.contentTypeKey] = self.contentType as CKRecordValue?
-        record[Detail.contentValueKey] = self.contentValue as CKRecordValue?
-        record[Detail.sortValueKey] = self.sortValue as CKRecordValue?
+        record[Detail.contentTypeKey] = self.contentType as NSString
+        record[Detail.contentValueKey] = self.contentValue as NSString
+        record[Detail.sortValueKey] = self.sortValue as NSNumber
         
         guard let recordIDData = self.subTask.recordIDData as? Data
             , let subTaskRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
@@ -43,7 +43,7 @@ public class Detail: SyncableObject, CloudKitManagedObject {
             }
         
         let subTaskReference = CKReference(recordID: subTaskRecordID, action: .deleteSelf)
-        record[Detail.subTaskKey] = subTaskReference
+        record[Detail.subTaskKey] = subTaskReference as CKReference
         
         return record
     }
@@ -67,10 +67,6 @@ public class Detail: SyncableObject, CloudKitManagedObject {
         self.sortValue = sortValue
         self.subTask = subTask
     }
-    
-    //==================================================
-    // MARK: - Methods
-    //==================================================
     
     convenience required public init?(record: CKRecord, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         

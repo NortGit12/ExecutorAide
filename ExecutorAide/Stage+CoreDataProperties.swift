@@ -16,8 +16,8 @@ extension Stage {
         return NSFetchRequest<Stage>(entityName: "Stage");
     }
 
-    @NSManaged public var descriptor: String?
-    @NSManaged public var name: String?
+    @NSManaged public var descriptor: String
+    @NSManaged public var name: String
     @NSManaged public var percentComplete: Float
     @NSManaged public var sortValue: Int
     @NSManaged public var tasks: NSOrderedSet?

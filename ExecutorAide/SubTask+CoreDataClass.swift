@@ -49,10 +49,10 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
             }
         }
         
-        record[SubTask.detailsKey] = detailsReferences as CKRecordValue?
-        record[SubTask.isCompletedKey] = self.isCompleted as CKRecordValue?
-        record[SubTask.nameKey] = self.name as CKRecordValue?
-        record[SubTask.sortValueKey] = self.sortValue as CKRecordValue?
+        record[SubTask.detailsKey] = detailsReferences as NSArray
+        record[SubTask.isCompletedKey] = self.isCompleted as NSNumber
+        record[SubTask.nameKey] = self.name as NSString
+        record[SubTask.sortValueKey] = self.sortValue as NSNumber
         
         guard let recordIDData = self.task.recordIDData as? Data
             , let taskRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
@@ -63,7 +63,7 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
         }
         
         let taskReference = CKReference(recordID: taskRecordID, action: .deleteSelf)
-        record[SubTask.taskKey] = taskReference
+        record[SubTask.taskKey] = taskReference as CKReference
         
         return record
     }

@@ -31,10 +31,10 @@ public class Stage: SyncableObject, CloudKitManagedObject {
         let recordID = CKRecordID(recordName: self.recordName)
         let record = CKRecord(recordType: recordType, recordID: recordID)
         
-        record[Stage.descriptorKey] = self.descriptor as? CKRecordValue
-        record[Stage.nameKey] = self.name as? CKRecordValue
-        record[Stage.percentCompleteKey] = self.percentComplete as CKRecordValue?
-        record[Stage.sortValueKey] = self.sortValue as CKRecordValue?
+        record[Stage.descriptorKey] = self.descriptor as NSString
+        record[Stage.nameKey] = self.name as NSString
+        record[Stage.percentCompleteKey] = self.percentComplete as NSNumber
+        record[Stage.sortValueKey] = self.sortValue as NSNumber
         
         var tasksReferencesArray = [CKReference]()
         if let tasks = self.tasks {
@@ -52,7 +52,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
                     tasksReferencesArray.append(taskReference)
                 }
                 
-                record[Stage.tasksKey] = tasksReferencesArray as CKRecordValue?
+                record[Stage.tasksKey] = tasksReferencesArray as NSArray
             }
         }
         

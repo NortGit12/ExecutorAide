@@ -30,8 +30,8 @@ public class Task: SyncableObject, CloudKitManagedObject {
         let recordID = CKRecordID(recordName: self.recordName)
         let record = CKRecord(recordType: recordType, recordID: recordID)
         
-        record[Task.nameKey] = self.name as CKRecordValue
-        record[Task.sortValueKey] = self.sortValue as CKRecordValue?
+        record[Task.nameKey] = self.name as NSString
+        record[Task.sortValueKey] = self.sortValue as NSNumber
         
         guard let recordIDData = self.stage.recordIDData as? Data
             , let stageRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
@@ -42,7 +42,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
         }
         
         let stageReference = CKReference(recordID: stageRecordID, action: .deleteSelf)
-        record[Task.stageKey] = stageReference
+        record[Task.stageKey] = stageReference as CKReference
         
         var subTasksReferences = [CKReference]()
         if let subTasks = self.subTasks {
@@ -61,7 +61,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
             }
         }
         
-        record[Task.subTasksKey] = subTasksReferences as CKRecordValue?
+        record[Task.subTasksKey] = subTasksReferences as NSArray
         
         return record
     }

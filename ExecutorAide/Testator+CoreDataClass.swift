@@ -46,8 +46,8 @@ public class Testator: SyncableObject, CloudKitManagedObject {
         let record = CKRecord(recordType: recordType, recordID: recordID)
         
         record[Testator.imageKey] = CKAsset(fileURL: self.temporaryImageURL as URL)
-        record[Testator.nameKey] = self.name as CKRecordValue?
-        record[Testator.sortValueKey] = self.sortValue as CKRecordValue?
+        record[Testator.nameKey] = self.name as NSString
+        record[Testator.sortValueKey] = self.sortValue as NSNumber
         
         var stagesReferencesArray = [CKReference]()
         if self.stages.count > 0 {
@@ -63,7 +63,7 @@ public class Testator: SyncableObject, CloudKitManagedObject {
                 stagesReferencesArray.append(stageReference)
             }
             
-            record[Testator.stagesKey] = stagesReferencesArray as CKRecordValue?
+            record[Testator.stagesKey] = stagesReferencesArray as NSArray
         }
         
         return record
