@@ -84,7 +84,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
             for task in tasks {
                 tasksMutableOrderedSet.add(task)
             }
-            self.tasks = NSOrderedSet(set: tasksMutableOrderedSet.copy() as! Set<AnyHashable>)
+            self.tasks = NSOrderedSet(orderedSet: tasksMutableOrderedSet)
         }
         
         // The maintenance of self.testators will be managed by Core Data as it manages the "stages" relationship in the Testators entity.

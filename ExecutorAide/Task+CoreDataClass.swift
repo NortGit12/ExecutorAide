@@ -93,7 +93,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
                 subTasksMutableOrderedSet.add(subTask)
             }
             
-            self.subTasks = NSOrderedSet(set: subTasksMutableOrderedSet.copy() as! Set<AnyHashable>)
+            self.subTasks = NSOrderedSet(orderedSet: subTasksMutableOrderedSet)
         }
     }
     

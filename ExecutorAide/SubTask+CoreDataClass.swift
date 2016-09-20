@@ -92,7 +92,7 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
                 detailssMutableOrderedSet.add(detail)
             }
             
-            self.details = NSOrderedSet(set: detailssMutableOrderedSet.copy() as! Set<AnyHashable>)
+            self.details = NSOrderedSet(orderedSet: detailssMutableOrderedSet)
         }
         
         self.isCompleted = isCompleted

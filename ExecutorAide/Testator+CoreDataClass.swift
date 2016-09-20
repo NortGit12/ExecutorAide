@@ -95,7 +95,7 @@ public class Testator: SyncableObject, CloudKitManagedObject {
                 stagesMutableOrderedSet.add(stage)
             }
             
-            self.stages = NSOrderedSet(set: stagesMutableOrderedSet.copy() as! Set<AnyHashable>)
+            self.stages = NSOrderedSet(orderedSet: stagesMutableOrderedSet)
         }
 
     }
