@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 class SubTaskModelController {
     
@@ -31,33 +32,147 @@ class SubTaskModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createSubTask(descriptor: String?, details: [Detail]?, isCompleted: Bool = false, name: String, sortValue: Int, completion: (() -> Void)? = nil) {
+    func createSubTask(descriptor: String?, details: [Detail]?, isCompleted: Bool = false, name: String, sortValue: Int, task: Task, completion: (() -> Void)? = nil) {
         
-        // TODO: Finish implementation
+        let subTask = SubTask(descriptor: descriptor, details: details, isCompleted: isCompleted, name: name, sortValue: sortValue, task: task)
+        
+        PersistenceController.shared.saveContext()
+        
+        if let subTaskCloudKitRecord = subTask?.cloudKitRecord {
+            
+            cloudKitManager.saveRecord(database: cloudKitManager.privateDatabase, record: subTaskCloudKitRecord, completion: { (record, error) in
+                
+                defer {
+                    
+                    if let completion = completion {
+                        completion()
+                    }
+                }
+                
+                if error != nil {
+                    
+                    print("Error: New sub-task \"\(subTask?.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
+                }
+                
+                if let record = record {
+                    
+                    let moc = PersistenceController.shared.moc
+                    
+                    /*
+                     The "...AndWait" makes the subsequent work wiat for the performBlock to finish.  By default, the moc.performBlock(...) is asynchronous, so the work in there would be done asynchronously on another thread and the subsequent lines would run immediately.
+                     */
+                    
+                    moc.performAndWait({ 
+                        
+                        subTask?.updateRecordIDData(record: record)
+                        print("New sub-task \"\(subTask?.name)\" successfully saved to CloudKit.")
+                    })
+                }
+            })
+        }
     }
     
-    func fetchSubTasks() -> [SubTask] {
+    func fetchSubTasks() -> [SubTask]? {
         
-        // TODO: Finish implementation
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: SubTask.type)
+        let predicate = NSPredicate(value: true)
+        request.predicate = predicate
         
-        return [SubTask]()
+        let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [SubTask]
+        guard let sortedResultsArray = resultsArray?.sorted(by: { $0.sortValue < $1.sortValue }) else {
+            
+            print("Error: The sub-tasks array could not be sorted.")
+            return nil
+        }
+        
+        return sortedResultsArray
     }
     
     func fetchSubTaskByIDName(idName: String) -> SubTask? {
         
-        // TODO: Finish implementation
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: SubTask.type)
+        let predicate = NSPredicate(format: "recordName == %@", argumentArray: [idName])
+        request.predicate = predicate
         
-        return nil
+        let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [SubTask]
+        
+        return resultsArray?.first ?? nil
     }
     
     func updateSubTask(subTask: SubTask, completion: (() -> Void)? = nil) {
         
-        // TODO: Finish implementation
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: SubTask.type)
+        let predicate = NSPredicate(format: "recordName == %@", argumentArray: [subTask.recordName])
+        request.predicate = predicate
+        
+        let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [SubTask]
+        let existingSubTask = resultsArray?.first
+        
+        existingSubTask?.descriptor = subTask.descriptor
+        existingSubTask?.details = subTask.details
+        existingSubTask?.isCompleted = subTask.isCompleted
+        existingSubTask?.name = subTask.name
+        existingSubTask?.sortValue = subTask.sortValue
+        existingSubTask?.task = subTask.task
+        
+        PersistenceController.shared.saveContext()
+        
+        if let subTaskCloudKitRecord = subTask.cloudKitRecord {
+            
+            cloudKitManager.modifyRecords(database: cloudKitManager.privateDatabase, records: [subTaskCloudKitRecord], perRecordCompletion: nil, completion: { (records, error) in
+                
+                defer {
+                    
+                    if let completion = completion {
+                        completion()
+                    }
+                }
+                
+                if error != nil {
+                    
+                    print("Error: Could not modify the existing \"\(subTask.name)\" sub-task in CloudKit.  \(error?.localizedDescription)")
+                    return
+                }
+                
+                if let _ = records {
+                    
+                    print("Updated \"\(subTask.name)\" sub-task saved successfully to CloudKit.")
+                }
+            })
+        }
     }
     
     func deleteSubTask(subTask: SubTask, completion: (() -> Void)? = nil) {
         
-        // TODO: Finish implementation
+        if let subTaskCloudKitRecord = subTask.cloudKitRecord {
+            
+            PersistenceController.shared.moc.delete(subTask)
+            PersistenceController.shared.saveContext()
+            
+            cloudKitManager.deleteRecordWithID(database: cloudKitManager.privateDatabase, recordID: subTaskCloudKitRecord.recordID, completion: { (recordID, error) in
+                
+                if let subTaskName = subTaskCloudKitRecord[SubTask.nameKey] {
+                    
+                    defer {
+                        
+                        if let completion = completion {
+                            completion()
+                        }
+                    }
+                    
+                    if error != nil {
+                        
+                        print("Error: Sub-task \"\(subTaskName)\" could not be deleted in CloudKit.  \(error?.localizedDescription)")
+                        return
+                    }
+                    
+                    if let _ = recordID {
+                        
+                        print("Sub-task \"\(subTaskName)\" successfully deleted from CloudKit.")
+                    }
+                }
+            })
+        }
     }
     
     //==================================================
@@ -69,3 +184,27 @@ class SubTaskModelController {
         // TODO: Finish implementation
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
