@@ -67,7 +67,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
         
         guard let stageEntity = NSEntityDescription.entity(forEntityName: Stage.type, in: context) else {
             
-            NSLog("Error: Could not create the entity description for a \(Stage.type).")
+            print("Error: Could not create the entity description for a \(Stage.type).")
             return nil
         }
         
@@ -98,13 +98,13 @@ public class Stage: SyncableObject, CloudKitManagedObject {
             , let sortValue = record[Stage.sortValueKey] as? Int
             else {
                 
-                NSLog("Error: Could not create the \(Stage.type) from the CloudKit record.")
+                print("Error: Could not create the \(Stage.type) from the CloudKit record.")
                 return nil
             }
         
         guard let stageEntity = NSEntityDescription.entity(forEntityName: Stage.type, in: context) else {
         
-            NSLog("Error: \(Stage.type) entity could not be created when creating an instance from a CloudKit record.")
+            print("Error: \(Stage.type) entity could not be created when creating an instance from a CloudKit record.")
             return nil
         }
         

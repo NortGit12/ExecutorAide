@@ -51,7 +51,7 @@ class TaskModelController {
                 
                 if error != nil {
                     
-                    NSLog("Error: New task \"\(task?.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
+                    print("Error: New task \"\(task?.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
                     return
                 }
                 
@@ -66,7 +66,7 @@ class TaskModelController {
                     moc.performAndWait {
                         
                         task?.updateRecordIDData(record: record)
-                        NSLog("New task \"\(task?.name)\" successfully saved to CloudKit.")
+                        print("New task \"\(task?.name)\" successfully saved to CloudKit.")
                     }
                 }
             })
@@ -82,7 +82,7 @@ class TaskModelController {
         let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [Task]
         guard let sortedResultsArray = resultsArray?.sorted(by: { $0.sortValue < $1.sortValue }) else {
             
-            NSLog("Error: The tasks array could not be sorted.")
+            print("Error: The tasks array could not be sorted.")
             return nil
         }
         
@@ -129,13 +129,13 @@ class TaskModelController {
                 
                 if error != nil {
                     
-                    NSLog("Error: Could not modify the existing \"\(task.name)\" task in CloudKit.  \(error?.localizedDescription)")
+                    print("Error: Could not modify the existing \"\(task.name)\" task in CloudKit.  \(error?.localizedDescription)")
                     return
                 }
                 
                 if let _ = records {
                     
-                    NSLog("Updated \"\(task.name)\" task saved successfully to CloudKit.")
+                    print("Updated \"\(task.name)\" task saved successfully to CloudKit.")
                 }
             })
         }
@@ -150,22 +150,25 @@ class TaskModelController {
             
             cloudKitManager.deleteRecordWithID(database: cloudKitManager.privateDatabase, recordID: taskCloudKitRecord.recordID, completion: { (recordID, error) in
                 
-                defer {
+                if let taskName = taskCloudKitRecord[Task.nameKey] {
                     
-                    if let completion = completion {
-                        completion()
+                    defer {
+                        
+                        if let completion = completion {
+                            completion()
+                        }
                     }
-                }
-                
-                if error != nil {
                     
-                    NSLog("Error: Task \"\(task.name)\" could not be deleted in CloudKit.  \(error?.localizedDescription)")
-                    return
-                }
-                
-                if let _ = recordID {
+                    if error != nil {
+                        
+                        print("Error: Task \"\(taskName)\" could not be deleted in CloudKit.  \(error?.localizedDescription)")
+                        return
+                    }
                     
-                    NSLog("Task \"\(task.name)\" successfully deleted from CloudKit.")
+                    if let _ = recordID {
+                        
+                        print("Task \"\(taskName)\" successfully deleted from CloudKit.")
+                    }
                 }
             })
         }

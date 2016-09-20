@@ -38,7 +38,7 @@ public class Detail: SyncableObject, CloudKitManagedObject {
             , let subTaskRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
             else {
             
-                NSLog("Error: Could not unarchive the recordIDData when attempting to compute the cloudKitRecord")
+                print("Error: Could not unarchive the recordIDData when attempting to compute the cloudKitRecord")
                 return nil
             }
         
@@ -56,7 +56,7 @@ public class Detail: SyncableObject, CloudKitManagedObject {
         
         guard let detailEntity = NSEntityDescription.entity(forEntityName: Detail.type, in: context) else {
             
-            NSLog("Error: Could not create teh entity description for a \(Detail.type).")
+            print("Error: Could not create teh entity description for a \(Detail.type).")
             return nil
         }
         
@@ -80,13 +80,13 @@ public class Detail: SyncableObject, CloudKitManagedObject {
             , let subTaskReference = record[Detail.subTaskKey] as? CKReference
             else {
                 
-                NSLog("Error: Could not create the Detail from the CloudKit record.")
+                print("Error: Could not create the Detail from the CloudKit record.")
                 return nil
             }
         
         guard let detailEntity = NSEntityDescription.entity(forEntityName: Detail.type, in: context) else {
             
-            NSLog("Error: Could not create the entity description for a \(Detail.type).")
+            print("Error: Could not create the entity description for a \(Detail.type).")
             return nil
         }
         
@@ -99,7 +99,7 @@ public class Detail: SyncableObject, CloudKitManagedObject {
         let subTaskIDName = subTaskReference.recordID.recordName
         guard let subTask = SubTaskModelController.shared.fetchSubTaskByIDName(idName: subTaskIDName) else {
             
-            NSLog("Error: Could not identify the SubTask by its ID name \"\(subTaskIDName)\".")
+            print("Error: Could not identify the SubTask by its ID name \"\(subTaskIDName)\".")
             return nil
         }
         

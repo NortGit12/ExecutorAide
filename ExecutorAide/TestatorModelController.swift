@@ -38,7 +38,7 @@ class TestatorModelController {
             , let imageData = UIImagePNGRepresentation(image)
             else {
                 
-                NSLog("Error: Could not access the Testator's image data.")
+                print("Error: Could not access the Testator's image data.")
                 return
             }
         
@@ -58,7 +58,7 @@ class TestatorModelController {
                 
                 if error != nil {
                     
-                    NSLog("Error: New Testator could not be saved to CloudKit.  \(error?.localizedDescription)")
+                    print("Error: New Testator could not be saved to CloudKit.  \(error?.localizedDescription)")
                     return
                 }
                 
@@ -73,7 +73,7 @@ class TestatorModelController {
                     moc.perform({ 
                         
                         testator?.updateRecordIDData(record: record)
-                        NSLog("New Testator \"\(testator?.name)\" successfully saved to CloudKit.")
+                        print("New Testator \"\(testator?.name)\" successfully saved to CloudKit.")
                     })
                 }
             })
@@ -131,13 +131,13 @@ class TestatorModelController {
                     
                 if error != nil {
                     
-                    NSLog("Error: Could not modify the existing \"\(testator.name)\" testator in CloudKit.  \(error?.localizedDescription)")
+                    print("Error: Could not modify the existing \"\(testator.name)\" testator in CloudKit.  \(error?.localizedDescription)")
                     return
                 }
                 
                 if let _ = records {
                     
-                    NSLog("Updated \"\(testator.name)\" testator saved successfully to CloudKit.")
+                    print("Updated \"\(testator.name)\" testator saved successfully to CloudKit.")
                 }
             })
         }
@@ -152,22 +152,25 @@ class TestatorModelController {
             
             cloudKitManager.deleteRecordWithID(database: cloudKitManager.privateDatabase, recordID: testatorCloudKitRecord.recordID, completion: { (recordID, error) in
                 
-                defer {
+                if let testatorName = testatorCloudKitRecord[Testator.nameKey] {
                     
-                    if let completion = completion {
-                        completion()
+                    defer {
+                        
+                        if let completion = completion {
+                            completion()
+                        }
                     }
-                }
-                
-                if error != nil {
                     
-                    NSLog("Error: Testator \"\(testator.name)\" could not be deleted in CloudKit.  \(error?.localizedDescription)")
-                    return
-                }
-                
-                if let _ = recordID {
+                    if error != nil {
+                        
+                        print("Error: Testator \"\(testatorName)\" could not be deleted in CloudKit.  \(error?.localizedDescription)")
+                        return
+                    }
                     
-                    NSLog("Testator \"\(testator.name)\" successfully deleted from CloudKit.")
+                    if let _ = recordID {
+                        
+                        print("Testator \"\(testatorName)\" successfully deleted from CloudKit.")
+                    }
                 }
             })
         }

@@ -58,7 +58,7 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
             , let taskRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
             else {
                 
-                NSLog("Error: Could not unarchive the recordIDData when attempting to compute the cloudKitRecord for a SubTask.")
+                print("Error: Could not unarchive the recordIDData when attempting to compute the cloudKitRecord for a SubTask.")
                 return nil
         }
         
@@ -76,7 +76,7 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
         
         guard let subTaskEntity = NSEntityDescription.entity(forEntityName: SubTask.type, in: context) else {
             
-            NSLog("Error: Could not create teh entity description for a \(SubTask.type).")
+            print("Error: Could not create teh entity description for a \(SubTask.type).")
             return nil
         }
         
@@ -111,13 +111,13 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
             , let taskReference = record[SubTask.taskKey] as? CKReference
             else {
                 
-                NSLog("Error: Could not create the Task from the CloudKit record.")
+                print("Error: Could not create the Task from the CloudKit record.")
                 return nil
             }
         
         guard let subTaskEntity = NSEntityDescription.entity(forEntityName: SubTask.type, in: context) else {
             
-            NSLog("Error: Could not create the entity description for a \(SubTask.type).")
+            print("Error: Could not create the entity description for a \(SubTask.type).")
             return nil
         }
         
@@ -141,7 +141,7 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
         let taskIDName = taskReference.recordID.recordName
         guard let task = TaskModelController.shared.fetchTaskByIDName(idName: taskIDName) else {
             
-            NSLog("Error: Could not identify the Task by its ID name \"\(taskIDName)\".")
+            print("Error: Could not identify the Task by its ID name \"\(taskIDName)\".")
             return nil
         }
 

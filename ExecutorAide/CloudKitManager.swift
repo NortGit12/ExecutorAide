@@ -88,7 +88,7 @@ class CloudKitManager {
             
             if error != nil {
                 
-                NSLog("Error: There was a problem discovering all user identities.  \(error?.localizedDescription)")
+                print("Error: There was a problem discovering all user identities.  \(error?.localizedDescription)")
                 
                 if let completion = completion {
                     completion(nil)

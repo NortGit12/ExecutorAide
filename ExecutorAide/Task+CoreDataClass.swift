@@ -37,7 +37,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
             , let stageRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
             else {
         
-            NSLog("Error: Could not unarchive the recordIDData when attempting to compute the cloudKitRecord for a Task.")
+            print("Error: Could not unarchive the recordIDData when attempting to compute the cloudKitRecord for a Task.")
             return nil
         }
         
@@ -74,7 +74,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
         
         guard let taskEntity = NSEntityDescription.entity(forEntityName: Task.type, in: context) else {
             
-            NSLog("Error: Could not create the entity description for a \(Task.type).")
+            print("Error: Could not create the entity description for a \(Task.type).")
             return nil
         }
         
@@ -104,13 +104,13 @@ public class Task: SyncableObject, CloudKitManagedObject {
             , let stageReference = record[Task.stageKey] as? CKReference
             else {
             
-                NSLog("Error: Could not create the Task from the CloudKit record.")
+                print("Error: Could not create the Task from the CloudKit record.")
                 return nil
             }
         
         guard let taskEntity = NSEntityDescription.entity(forEntityName: Task.type, in: context) else {
             
-            NSLog("Error: Could not create the entity description for a \(Task.type).")
+            print("Error: Could not create the entity description for a \(Task.type).")
             return nil
         }
         
@@ -131,7 +131,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
         let stageIDName = stageReference.recordID.recordName
         guard let stage = StageModelController.shared.fetchStageByIDName(idName: stageIDName) else {
             
-            NSLog("Error: Could not identify the stage by its ID name \"\(stageIDName)\".")
+            print("Error: Could not identify the stage by its ID name \"\(stageIDName)\".")
             return nil
         }
         

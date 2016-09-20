@@ -104,7 +104,7 @@ class PersistenceController {
                 // New CoreData Testator
                 guard let _ = Testator(record: record) else {
                     
-                    NSLog("Error: Could not create a new Testator from the CloudKit record.")
+                    print("Error: Could not create a new Testator from the CloudKit record.")
                     return
                 }
                 
@@ -119,7 +119,7 @@ class PersistenceController {
                 // New CoreData Stage
                 guard let _ = Stage(record: record) else {
                     
-                    NSLog("Error: Could not create a new Stage from the CloudKit record.")
+                    print("Error: Could not create a new Stage from the CloudKit record.")
                     return
                 }
                 
@@ -134,7 +134,7 @@ class PersistenceController {
                 // New CoreData Task
                 guard let _ = Task(record: record) else {
                     
-                    NSLog("Error: Could not create a new Task from the CloudKit record.")
+                    print("Error: Could not create a new Task from the CloudKit record.")
                     return
                 }
                 
@@ -149,7 +149,7 @@ class PersistenceController {
                 // New CoreData SubTask
                 guard let _ = SubTask(record: record) else {
                     
-                    NSLog("Error: Could not create a new SubTask from the CloudKit record.")
+                    print("Error: Could not create a new SubTask from the CloudKit record.")
                     return
                 }
                 
@@ -164,7 +164,7 @@ class PersistenceController {
                 // New CoreData Detail
                 guard let _ = Detail(record: record) else {
                     
-                    NSLog("Error: Could not create a new Detail from the CloudKit record.")
+                    print("Error: Could not create a new Detail from the CloudKit record.")
                     return
                 }
                 
@@ -189,7 +189,7 @@ class PersistenceController {
             
             guard let record = record else {
                 
-                NSLog("Error: Could not unwrap the saved record.")
+                print("Error: Could not unwrap the saved record.")
                 return
             }
             

@@ -77,7 +77,7 @@ public class Testator: SyncableObject, CloudKitManagedObject {
         
         guard let testatorEntity = NSEntityDescription.entity(forEntityName: Testator.type, in: context) else {
             
-            NSLog("Error: Could not create the entity description for a \(Testator.type).")
+            print("Error: Could not create the entity description for a \(Testator.type).")
             return nil
         }
         
@@ -107,13 +107,13 @@ public class Testator: SyncableObject, CloudKitManagedObject {
             , let imageData = NSData(contentsOf: imageAssetData.fileURL)
             else {
                 
-                NSLog("Error: Could not create the \(Testator.type) from the CloudKit record.")
+                print("Error: Could not create the \(Testator.type) from the CloudKit record.")
                 return nil
         }
         
         guard let testatorEntity = NSEntityDescription.entity(forEntityName: Testator.type, in: context) else {
             
-            NSLog("Error: \(Testator.type) entity could not be created when creating an instance from a CloudKit record.")
+            print("Error: \(Testator.type) entity could not be created when creating an instance from a CloudKit record.")
             return nil
         }
         

@@ -51,7 +51,7 @@ class StageModelController {
                 
                 if error != nil {
                     
-                    NSLog("Error: New Stage \"\(stage?.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
+                    print("Error: New Stage \"\(stage?.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
                     return
                 }
                 
@@ -66,7 +66,7 @@ class StageModelController {
                     moc.performAndWait {
                         
                         stage?.updateRecordIDData(record: record)
-                        NSLog("New Stage \"\(stage?.name)\" successfully saved to CloudKit.")
+                        print("New Stage \"\(stage?.name)\" successfully saved to CloudKit.")
                     }
                 }
             })
@@ -82,7 +82,7 @@ class StageModelController {
         let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [Stage]
         guard let sortedResultsArray = resultsArray?.sorted(by: { $0.sortValue < $1.sortValue }) else {
             
-            NSLog("Error: The stages array could not be sorted.")
+            print("Error: The stages array could not be sorted.")
             return nil
         }
         
@@ -130,13 +130,13 @@ class StageModelController {
                 
                 if error != nil {
                     
-                    NSLog("Error: Could not modify the existing \"\(stage.name)\" stage in CloudKit.  \(error?.localizedDescription)")
+                    print("Error: Could not modify the existing \"\(stage.name)\" stage in CloudKit.  \(error?.localizedDescription)")
                     return
                 }
                 
                 if let _ = records {
                     
-                    NSLog("Updated \"\(stage.name)\" stage saved successfully to CloudKit.")
+                    print("Updated \"\(stage.name)\" stage saved successfully to CloudKit.")
                 }
             })
         }
@@ -151,22 +151,25 @@ class StageModelController {
             
             cloudKitManager.deleteRecordWithID(database: cloudKitManager.privateDatabase, recordID: stageCloudKitRecord.recordID, completion: { (recordID, error) in
                 
-                defer {
+                if let stageName = stageCloudKitRecord[Stage.nameKey] {
                     
-                    if let completion = completion {
-                        completion()
+                    defer {
+                        
+                        if let completion = completion {
+                            completion()
+                        }
                     }
-                }
-                
-                if error != nil {
                     
-                    NSLog("Error: Stage \"\(stage.name)\" could not be deleted in CloudKit.")
-                    return
-                }
-                
-                if let _ = recordID {
+                    if error != nil {
+                        
+                        print("Error: Stage \"\(stageName)\" could not be deleted in CloudKit.")
+                        return
+                    }
                     
-                    NSLog("Stage \"\(stage.name)\" successfully deleted from CloudKit.")
+                    if let _ = recordID {
+                        
+                        print("Stage \"\(stageName)\" successfully deleted from CloudKit.")
+                    }
                 }
             })
         }
