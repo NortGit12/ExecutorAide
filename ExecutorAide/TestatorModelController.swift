@@ -113,6 +113,7 @@ class TestatorModelController {
         let existingTestator = resultsArray?.first
         
         existingTestator?.name = testator.name
+        existingTestator?.recordIDData = nil
         existingTestator?.image = testator.image
         existingTestator?.stages = testator.stages
         
