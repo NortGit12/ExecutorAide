@@ -73,7 +73,7 @@ public class Testator: SyncableObject, CloudKitManagedObject {
     // MARK: - Initializers
     //==================================================
     
-    convenience init?(image: NSData, name: String, stages: [Stage]?, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
+    convenience init?(image: NSData, name: String, stages: [Stage]? = nil, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
         guard let testatorEntity = NSEntityDescription.entity(forEntityName: Testator.type, in: context) else {
             

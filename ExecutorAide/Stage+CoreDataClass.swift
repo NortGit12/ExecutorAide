@@ -63,7 +63,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
     // MARK: - Initializers
     //==================================================
     
-    convenience init?(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, tasks: [Task]?, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
+    convenience init?(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, tasks: [Task]? = nil, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
         guard let stageEntity = NSEntityDescription.entity(forEntityName: Stage.type, in: context) else {
             
