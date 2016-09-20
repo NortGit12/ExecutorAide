@@ -54,13 +54,13 @@ class NewTestatorPopoverViewController: UIViewController {
         
         if let nameText = testatorNameTextField.text {
             guard let testatorImage = testatorImage else {
-                TestatorModelController.shared.createTestator(name: nameText, image: UIImage(named: "user"))
+                TestatorModelController.shared.createTestator(image: UIImage(named: "user"), name: nameText, stages: [DataTemplateController.stage1, DataTemplateController.stage2, DataTemplateController.stage3])
                 self.dismiss(animated: true, completion: nil)
                 return
             }
             
             // Image was picked
-            TestatorModelController.shared.createTestator(name: nameText, image: testatorImage)
+            TestatorModelController.shared.createTestator(image: testatorImage, name: nameText, stages: [DataTemplateController.stage1, DataTemplateController.stage2, DataTemplateController.stage3])
             self.dismiss(animated: true, completion: nil)
         }
     }

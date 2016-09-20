@@ -36,6 +36,7 @@
 		1FF6DBC41D8B442A009CCAC7 /* SyncableObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6DBBF1D8B442A009CCAC7 /* SyncableObject+CoreDataClass.swift */; };
 		1FF6DBC51D8B442A009CCAC7 /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6DBC01D8B442A009CCAC7 /* Task+CoreDataClass.swift */; };
 		1FF6DBC61D8B442A009CCAC7 /* Testator+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF6DBC11D8B442A009CCAC7 /* Testator+CoreDataClass.swift */; };
+		22033C941D918BA500FC4FA0 /* DataTemplateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22033C931D918BA500FC4FA0 /* DataTemplateController.swift */; };
 		22319A761D90456700472494 /* StageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22319A751D90456700472494 /* StageViewController.swift */; };
 		22319A7E1D9045B500472494 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22319A771D9045B500472494 /* MainTabBarController.swift */; };
 		22319A7F1D9045B500472494 /* NewTestatorPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22319A781D9045B500472494 /* NewTestatorPopoverViewController.swift */; };
@@ -103,6 +104,7 @@
 		1FF6DBBF1D8B442A009CCAC7 /* SyncableObject+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SyncableObject+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1FF6DBC01D8B442A009CCAC7 /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1FF6DBC11D8B442A009CCAC7 /* Testator+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Testator+CoreDataClass.swift"; sourceTree = "<group>"; };
+		22033C931D918BA500FC4FA0 /* DataTemplateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTemplateController.swift; sourceTree = "<group>"; };
 		22319A751D90456700472494 /* StageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageViewController.swift; sourceTree = "<group>"; };
 		22319A771D9045B500472494 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		22319A781D9045B500472494 /* NewTestatorPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTestatorPopoverViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 		1F0DE53E1D8C449D008EE273 /* ModelController */ = {
 			isa = PBXGroup;
 			children = (
+				22033C931D918BA500FC4FA0 /* DataTemplateController.swift */,
 				1F0DE5491D8CAE43008EE273 /* DetailModelController.swift */,
 				1F0DE5431D8CAE07008EE273 /* StageModelController.swift */,
 				1F0DE5471D8CAE32008EE273 /* SubTaskModelController.swift */,
@@ -456,6 +459,7 @@
 				1FF6DBBA1D8B43DD009CCAC7 /* Detail+CoreDataProperties.swift in Sources */,
 				1F0DE5421D8C6E41008EE273 /* PersistenceController.swift in Sources */,
 				1FF6DBC21D8B442A009CCAC7 /* Stage+CoreDataClass.swift in Sources */,
+				22033C941D918BA500FC4FA0 /* DataTemplateController.swift in Sources */,
 				22319A7F1D9045B500472494 /* NewTestatorPopoverViewController.swift in Sources */,
 				1FF6DBAC1D8B36C2009CCAC7 /* SyncableObject+CoreDataProperties.swift in Sources */,
 				1FF6DBC31D8B442A009CCAC7 /* SubTask+CoreDataClass.swift in Sources */,

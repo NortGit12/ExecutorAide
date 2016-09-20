@@ -44,7 +44,7 @@ class TestatorViewController: UIViewController, UITableViewDelegate, UITableView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toStagesSegue" {
             guard let destinationVC = segue.destination as? StageViewController else { return }
-            // TODO: Set first stage as default tab
+            destinationVC.stage = Stage(descriptor: "This is a test stage", name: "Preparation", sortValue: 0, tasks: nil)
         } else if segue.identifier == "showNewTestatorPopover" {
             guard let popoverNavController = segue.destination as? UINavigationController, let popoverVC = popoverNavController.viewControllers.first as? NewTestatorPopoverViewController else { return }
             popoverVC.setupPopoverDisplay(containerWidth: self.view.frame.width, containerHeight: self.view.frame.height)
@@ -54,6 +54,7 @@ class TestatorViewController: UIViewController, UITableViewDelegate, UITableView
                 controller.delegate = self
                 controller.backgroundColor = UIColor.lightGray
                 controller.permittedArrowDirections = [.down, .up]
+                
                 if controller.arrowDirection == .down {
                     controller.sourceRect = CGRect(x: sourceView.frame.width * 0.5, y: 0, width: 0, height: 0)
                 } else if controller.arrowDirection == .up {

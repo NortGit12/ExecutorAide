@@ -81,12 +81,9 @@ public class Stage: SyncableObject, CloudKitManagedObject {
         
         let tasksMutableOrderedSet = NSMutableOrderedSet()
         if let tasks = tasks {
-            
             for task in tasks {
-                
                 tasksMutableOrderedSet.add(task)
             }
-            
             self.tasks = NSOrderedSet(set: tasksMutableOrderedSet.copy() as! Set<AnyHashable>)
         }
         
