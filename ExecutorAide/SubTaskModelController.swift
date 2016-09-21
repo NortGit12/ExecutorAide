@@ -72,6 +72,36 @@ class SubTaskModelController {
         }
     }
     
+    func create(subTasks: [SubTask], completion: (() -> Void)? = nil) {
+        PersistenceController.shared.saveContext()
+        var counter = 0
+        for subTask in subTasks {
+            if let subTaskCloudKitRecord = subTask.cloudKitRecord {
+                cloudKitManager.saveRecord(database: cloudKitManager.privateDatabase, record: subTaskCloudKitRecord, completion: { (record, error) in
+                    if error != nil {
+                        print("Error: New sub-task \"\(subTask.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
+                    }
+                    if let record = record {
+                        let moc = PersistenceController.shared.moc
+                        /*
+                         The "...AndWait" makes the subsequent work wiat for the performBlock to finish.  By default, the moc.performBlock(...) is asynchronous, so the work in there would be done asynchronously on another thread and the subsequent lines would run immediately.
+                         */
+                        moc.performAndWait({
+                            subTask.updateRecordIDData(record: record)
+                            print("New sub-task \"\(subTask.name)\" successfully saved to CloudKit.")
+                            counter += 1
+                            if counter == subTasks.count {
+                                if let completion = completion {
+                                    completion()
+                                }
+                            }
+                        })
+                    }
+                })
+            }
+        }
+    }
+    
     func fetchSubTasks() -> [SubTask]? {
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: SubTask.type)

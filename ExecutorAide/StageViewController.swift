@@ -11,7 +11,11 @@ import CoreData
 
 class StageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate/*, SubTaskTableViewCellDelegate*/ {
 
-    var stage: Stage?
+    var stages: [Stage]? {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     var fetchedResultsController: NSFetchedResultsController<Stage>?
     
     @IBOutlet weak var tableView: UITableView!
@@ -20,14 +24,21 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         setupCustomCells()
         setupNavbar()
+        
+        stages = StageModelController.shared.fetchStages()
+        
     }
     
     func setupNavbar() {
-        title = stage?.name
-        let titleView = navigationController?.navigationItem.titleView
-        let progressView = UIProgressView()
-        titleView?.addSubview(progressView)
-        if let percentComplete = stage?.percentComplete {
+        title = stages?[0].name
+//        let titleView = navigationController?.navigationItem.titleView
+        let progressView = UIProgressView(frame: CGRect(x: 0, y: 0, width: 50, height: 10))
+        progressView.progressViewStyle = .bar
+//        titleView?.addSubview(progressView)
+        
+        navigationController?.navigationItem.titleView = progressView
+        
+        if let percentComplete = stages?[0].percentComplete {
             progressView.progress = percentComplete
         }
     }
@@ -42,12 +53,12 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     // MARK: - TableViewDataSource Methods
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let stage = stage, let tasks = stage.tasks else { return 0 }
+        guard let stages = stages, let tasks = stages[0].tasks else { return 0 }
         return tasks.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let stage = stage, let tasks = stage.tasks, let task = tasks[section] as? Task, let subtasks = task.subTasks else { return 0 }
+        guard let stages = stages, let tasks = stages[0].tasks, let task = tasks[section] as? Task, let subtasks = task.subTasks else { return 0 }
         return subtasks.count
     }
 
@@ -55,7 +66,7 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: subTaskCellReuseIdentifier, for: indexPath) as? SubTaskTableViewCell else { return UITableViewCell() }
         
-        guard let subTask = stage?.tasks?[indexPath.row] as? SubTask else { return UITableViewCell() }
+        guard let subTask = stages?[0].tasks?[indexPath.row] as? SubTask else { return UITableViewCell() }
         cell.updateCellWithSubTask(subTask: subTask)
         
         return cell
@@ -63,7 +74,7 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let tasks = stage?.tasks, let task = tasks[section] as? Task else { return "" }
+        guard let tasks = stages?[0].tasks, let task = tasks[section] as? Task else { return "" }
         return task.name
     }
     

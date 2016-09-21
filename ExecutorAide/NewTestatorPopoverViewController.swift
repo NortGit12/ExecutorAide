@@ -10,12 +10,14 @@ import UIKit
 
 class NewTestatorPopoverViewController: UIViewController {
 
+    @IBOutlet weak var activityIndicatorView: UIView!
     @IBOutlet weak var testatorNameTextField: UITextField!
     
     var testatorImage: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicatorView.isHidden = true
     }
     
     override func viewDidLayoutSubviews() {
@@ -51,17 +53,25 @@ class NewTestatorPopoverViewController: UIViewController {
     // MARK: - IBActions
     
     @IBAction func doneButtonTapped(_ sender: AnyObject) {
-        
+        activityIndicatorView.isHidden = false
         if let nameText = testatorNameTextField.text {
             guard let testatorImage = testatorImage else {
-                TestatorModelController.shared.createTestator(image: UIImage(named: "user"), name: nameText, stages: [DataTemplateController.stage1, DataTemplateController.stage2, DataTemplateController.stage3])
-                self.dismiss(animated: true, completion: nil)
+                TestatorModelController.shared.createTestator(image: UIImage(named: "user"), name: nameText, completion: {
+                    DataTemplateController.initializeTemplate()
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                })
                 return
             }
             
             // Image was picked
-            TestatorModelController.shared.createTestator(image: testatorImage, name: nameText, stages: [DataTemplateController.stage1, DataTemplateController.stage2, DataTemplateController.stage3])
-            self.dismiss(animated: true, completion: nil)
+            TestatorModelController.shared.createTestator(image: testatorImage, name: nameText, completion: {
+                DataTemplateController.initializeTemplate()
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            })
         }
     }
     

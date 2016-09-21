@@ -14,7 +14,9 @@ class TestatorViewController: UIViewController, UITableViewDelegate, UITableView
     
     var testators = [Testator]() {
         didSet {
-            tableViewHeight.constant = CGFloat(testators.count * 44)
+            DispatchQueue.main.async {
+                self.setupViewWithTestators()
+            }
         }
     }
     
@@ -23,6 +25,33 @@ class TestatorViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "TestatorTableViewCell", bundle: nil), forCellReuseIdentifier: testatorCellReuseIdentifier)
+        setupViewWithTestators()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        testators = TestatorModelController.shared.fetchTestators()
+    }
+    
+    func setupViewWithTestators() {
+        DispatchQueue.main.async {
+            // Setup label
+            let noTestatorsLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 20))
+            noTestatorsLabel.text = "No testators"
+            noTestatorsLabel.center = self.view.center
+            noTestatorsLabel.textAlignment = .center
+            if self.testators.isEmpty {
+                noTestatorsLabel.isHidden = false
+                self.view.addSubview(noTestatorsLabel)
+                self.tableView.isHidden = true
+            } else {
+                noTestatorsLabel.isHidden = true
+                self.tableView.isHidden = false
+                self.tableViewHeight.constant = CGFloat(self.testators.count * testatorCellHeight)
+                self.tableView.reloadData()
+            }
+        }
     }
     
     // MARK: - UITableViewDataSource Methods
@@ -39,12 +68,20 @@ class TestatorViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(testatorCellHeight)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "toStagesSegue", sender: self)
+    }
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toStagesSegue" {
             guard let destinationVC = segue.destination as? StageViewController else { return }
-            destinationVC.stage = Stage(descriptor: "This is a test stage", name: "Preparation", sortValue: 0, tasks: nil)
+//            destinationVC.stages = Stage(descriptor: "This is a test stage", name: "Preparation", sortValue: 0, tasks: nil)
         } else if segue.identifier == "showNewTestatorPopover" {
             guard let popoverNavController = segue.destination as? UINavigationController, let popoverVC = popoverNavController.viewControllers.first as? NewTestatorPopoverViewController else { return }
             popoverVC.setupPopoverDisplay(containerWidth: self.view.frame.width, containerHeight: self.view.frame.height)

@@ -18,39 +18,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hSy-xU-GBH">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="IgX-8m-OUN"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="dataSource" destination="irv-0f-U3U" id="Hzf-ds-Jo3"/>
-                                    <outlet property="delegate" destination="irv-0f-U3U" id="Thc-QX-MBj"/>
-                                </connections>
-                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NRh-nk-9fe">
-                                <state key="normal" title="New Testator">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="5kZ-HL-GJa"/>
+                                </constraints>
+                                <state key="normal" title="Add New Testator">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="newTestatorButtonTapped:" destination="irv-0f-U3U" eventType="touchUpInside" id="I3y-ci-KdF"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hSy-xU-GBH">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="pt5-CD-2Su"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="irv-0f-U3U" id="Hzf-ds-Jo3"/>
+                                    <outlet property="delegate" destination="irv-0f-U3U" id="Thc-QX-MBj"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="NRh-nk-9fe" firstAttribute="centerX" secondItem="BZX-5o-iy9" secondAttribute="centerX" id="QB6-dz-8WV"/>
-                            <constraint firstItem="Vf2-38-5U4" firstAttribute="top" relation="greaterThanOrEqual" secondItem="NRh-nk-9fe" secondAttribute="bottom" constant="8" id="Vb9-hA-N7u"/>
-                            <constraint firstItem="hSy-xU-GBH" firstAttribute="leading" secondItem="BZX-5o-iy9" secondAttribute="leading" id="i71-Q1-9zj"/>
-                            <constraint firstAttribute="trailing" secondItem="hSy-xU-GBH" secondAttribute="trailing" id="jFP-CH-wC0"/>
-                            <constraint firstItem="hSy-xU-GBH" firstAttribute="top" secondItem="I9G-1p-Mc1" secondAttribute="bottom" id="vqA-Rt-rX4"/>
-                            <constraint firstItem="NRh-nk-9fe" firstAttribute="top" secondItem="hSy-xU-GBH" secondAttribute="bottom" constant="14" id="xRG-1I-XIk"/>
+                            <constraint firstItem="NRh-nk-9fe" firstAttribute="top" secondItem="I9G-1p-Mc1" secondAttribute="bottom" constant="8" id="0QT-E3-R3j"/>
+                            <constraint firstItem="hSy-xU-GBH" firstAttribute="leading" secondItem="BZX-5o-iy9" secondAttribute="leading" id="Fzr-by-8fg"/>
+                            <constraint firstItem="NRh-nk-9fe" firstAttribute="centerX" secondItem="BZX-5o-iy9" secondAttribute="centerX" id="c1O-pQ-KEg"/>
+                            <constraint firstAttribute="trailing" secondItem="hSy-xU-GBH" secondAttribute="trailing" id="emR-bs-EVT"/>
+                            <constraint firstItem="Vf2-38-5U4" firstAttribute="top" secondItem="hSy-xU-GBH" secondAttribute="bottom" id="exB-a5-U7I"/>
+                            <constraint firstItem="hSy-xU-GBH" firstAttribute="top" secondItem="NRh-nk-9fe" secondAttribute="bottom" constant="8" id="xaf-Co-8yv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="d1D-PM-f8C"/>
                     <connections>
                         <outlet property="tableView" destination="hSy-xU-GBH" id="kfl-br-Ua9"/>
-                        <outlet property="tableViewHeight" destination="IgX-8m-OUN" id="t5a-IT-gAz"/>
+                        <outlet property="tableViewHeight" destination="pt5-CD-2Su" id="Tcx-Ua-h7s"/>
                         <segue destination="DM7-Ng-PCo" kind="show" identifier="toStagesSegue" id="lkh-ed-rbq"/>
                         <segue destination="g3T-W3-btJ" kind="popoverPresentation" identifier="showNewTestatorPopover" popoverAnchorView="NRh-nk-9fe" id="l4G-iY-e6f">
                             <popoverArrowDirection key="popoverArrowDirection"/>

@@ -38,15 +38,29 @@
                                     <segue destination="PGc-YV-M1e" kind="embed" identifier="imagePickerEmbed" id="FiU-1A-Li1"/>
                                 </connections>
                             </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhQ-gz-5Sy">
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="rbx-p5-cFF"/>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="rbx-p5-cFF" firstAttribute="centerX" secondItem="lhQ-gz-5Sy" secondAttribute="centerX" id="DHa-BS-SDH"/>
+                                    <constraint firstItem="rbx-p5-cFF" firstAttribute="centerY" secondItem="lhQ-gz-5Sy" secondAttribute="centerY" id="vIK-MK-dgv"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="2qI-cy-Dv1" firstAttribute="centerX" secondItem="cKP-Vh-hbz" secondAttribute="centerX" id="1cY-Rr-erz"/>
+                            <constraint firstItem="lhQ-gz-5Sy" firstAttribute="leading" secondItem="cKP-Vh-hbz" secondAttribute="leading" id="EHx-CS-mF0"/>
                             <constraint firstItem="2qI-cy-Dv1" firstAttribute="width" secondItem="1hN-tz-njR" secondAttribute="width" multiplier="0.5" id="H1N-NR-6mv"/>
                             <constraint firstItem="1hN-tz-njR" firstAttribute="trailing" secondItem="cKP-Vh-hbz" secondAttribute="trailingMargin" id="HUX-GL-AaE"/>
+                            <constraint firstItem="lhQ-gz-5Sy" firstAttribute="top" secondItem="5zi-rK-Ihf" secondAttribute="bottom" id="Rvp-ao-jaS"/>
                             <constraint firstItem="2qI-cy-Dv1" firstAttribute="top" secondItem="1hN-tz-njR" secondAttribute="bottom" constant="20" id="Z7E-UA-hEo"/>
                             <constraint firstItem="1hN-tz-njR" firstAttribute="leading" secondItem="cKP-Vh-hbz" secondAttribute="leadingMargin" id="fxi-AS-64R"/>
                             <constraint firstItem="2qI-cy-Dv1" firstAttribute="centerY" secondItem="cKP-Vh-hbz" secondAttribute="centerY" id="jCb-kJ-Qol"/>
+                            <constraint firstItem="ylt-gs-WBA" firstAttribute="top" secondItem="lhQ-gz-5Sy" secondAttribute="bottom" id="rkb-Zx-nnA"/>
+                            <constraint firstAttribute="trailing" secondItem="lhQ-gz-5Sy" secondAttribute="trailing" id="uKU-6g-Jx9"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New Testator" id="2an-OH-dCE">
@@ -64,6 +78,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="600"/>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="lhQ-gz-5Sy" id="nf8-Cr-xbv"/>
                         <outlet property="testatorNameTextField" destination="1hN-tz-njR" id="JD7-5U-TNM"/>
                     </connections>
                 </viewController>

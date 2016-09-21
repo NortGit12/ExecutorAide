@@ -19,7 +19,6 @@ public class Testator: SyncableObject, CloudKitManagedObject {
     static let type = "Testator"
     static let imageKey = "image"
     static let nameKey = "name"
-    static let sortValueKey = "sortValue"
     static let stagesKey = "stages"
     
     var recordType: String { return Testator.type }
@@ -47,7 +46,7 @@ public class Testator: SyncableObject, CloudKitManagedObject {
         
         record[Testator.imageKey] = CKAsset(fileURL: self.temporaryImageURL as URL)
         record[Testator.nameKey] = self.name as NSString
-        record[Testator.sortValueKey] = self.sortValue as NSNumber
+
         
         var stagesReferencesArray = [CKReference]()
         if self.stages.count > 0 {
