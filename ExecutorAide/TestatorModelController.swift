@@ -32,7 +32,7 @@ class TestatorModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createTestator(image: UIImage?, name: String, completion: (() -> Void)? = nil) {
+    func createTestator(image: UIImage?, name: String, completion: ((_ testator: Testator?) -> Void)? = nil) {
         
         guard let image = image
             , let imageData = UIImagePNGRepresentation(image)
@@ -52,7 +52,7 @@ class TestatorModelController {
                 defer {
                     
                     if let completion = completion {
-                        completion()
+                        completion(testator)
                     }
                 }
                 

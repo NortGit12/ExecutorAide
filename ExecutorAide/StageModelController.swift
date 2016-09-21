@@ -74,35 +74,11 @@ class StageModelController {
     }
     
     func create(stages: [Stage], completion: (() -> Void)? = nil) {
-        PersistenceController.shared.saveContext()
-        var counter = 0
         for stage in stages {
-            if let stageCloudKitRecord = stage.cloudKitRecord {
-                cloudKitManager.saveRecord(database: cloudKitManager.privateDatabase, record: stageCloudKitRecord, completion: { (record, error) in
-                    if error != nil {
-                        NSLog("Error: New Stage \"\(stage.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
-                        return
-                    }
-                    if let record = record {
-                        let moc = PersistenceController.shared.moc
-                        /*
-                         The "...AndWait" makes the subsequent work wait for teh perform block to finish.  By default, the moc. performBlock(...) is asynchronous, so the work in there would e done asynchronously on another thread and the subsequent lines would run immediately.
-                         */
-                        moc.performAndWait {
-                            stage.updateRecordIDData(record: record)
-                            NSLog("New Stage \"\(stage.name)\" successfully saved to CloudKit.")
-                            counter += 1
-                            
-                            // If all stages have been saved, execute completion
-                            if counter == stages.count {
-                                if let completion = completion {
-                                    completion()
-                                }
-                            }
-                        }
-                    }
-                })
-            }
+            createStage(descriptor: stage.descriptor, name: stage.name, sortValue: stage.sortValue, testator: stage.testator)
+        }
+        if let completion = completion {
+            completion()
         }
     }
     

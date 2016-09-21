@@ -10,15 +10,15 @@ import Foundation
 
 struct DataTemplateController {
     
-    static func initializeTemplate() {
+    static func initializeTemplate(forTestator testator: Testator) {
         
-        
-        StageModelController.shared.createStage(descriptor: "test", name: "fdsaf", percentComplete: 0.0, sortValue: 0) { 
-            print("created stage?")
+        let stage1 = Stage(descriptor: "t1", name: "t1", sortValue: 0, testator: testator)!
+        let stage2 = Stage(descriptor: "t2", name: "t2", sortValue: 0, testator: testator)!
+        let stage3 = Stage(descriptor: "t3", name: "t3", sortValue: 0, testator: testator)!
+
+        StageModelController.shared.create(stages: [stage1, stage2, stage3]) { 
+            //
         }
-        
-        
-        
 //        StageModelController.shared.create(stages: [DataTemplateController.stage1]) {
 //            TaskModelController.shared.create(tasks: DataTemplateController.defaultStage1Tasks, completion: { 
 //                SubTaskModelController.shared.create(subTasks: DataTemplateController.defaultStage1SubTasks, completion: {
@@ -29,46 +29,47 @@ struct DataTemplateController {
     }
     
     // MARK: - Stage 1
+
+//        static let stage1 = Stage(descriptor: "During this stage, prepare for the passing of the testator by collecting all necessary information.", name: "Prepare", sortValue: 0, testator: testator)
+
     
-    static let stage1 = Stage(descriptor: "During this stage, prepare for the passing of the testator by collecting all necessary information.", name: "Prepare", sortValue: 0)!
+//    static let defaultStage1Tasks: [Task] = [
+////        Task(name: "Get Estate Documents In Order", sortValue: 0, stage: DataTemplateController.stage1)!,
+////        Task(name: "Add Executor to Accounts", sortValue: 1, stage: DataTemplateController.stage1, subTasks: DataTemplateController.AddExecutorToAccountsSubTasks)!
+//    ]
     
-    static let defaultStage1Tasks: [Task] = [
-//        Task(name: "Get Estate Documents In Order", sortValue: 0, stage: DataTemplateController.stage1)!,
-//        Task(name: "Add Executor to Accounts", sortValue: 1, stage: DataTemplateController.stage1, subTasks: DataTemplateController.AddExecutorToAccountsSubTasks)!
-    ]
-    
-    static let defaultStage1SubTasks: [SubTask] = [
-        SubTask(descriptor: "Make sure the testator has their will in order.", details: nil, name: "Will", sortValue: 0, task: DataTemplateController.defaultStage1Tasks[0])!,
-        SubTask(descriptor: "", details: nil, name: "Trust", sortValue: 1, task: DataTemplateController.defaultStage1Tasks[0])!,
-        SubTask(descriptor: "", details: nil, name: "Power of Attorney", sortValue: 2, task: DataTemplateController.defaultStage1Tasks[0])!,
-        
-        SubTask(descriptor: "Add yourself to the testator's financial accounts", details: nil, name: "Financial Accounts", sortValue: 0, task: DataTemplateController.defaultStage1Tasks[1])!,
-        SubTask(descriptor: "Add yourself to the testator's medical accounts", details: nil, name: "Medical Accounts", sortValue: 1, task: DataTemplateController.defaultStage1Tasks[1])!,
-        SubTask(descriptor: "Add yourself to the testator's business accounts", details: nil, name: "Business Accounts", sortValue: 2, task: DataTemplateController.defaultStage1Tasks[1])!
-    ]
+//    static let defaultStage1SubTasks: [SubTask] = [
+//        SubTask(descriptor: "Make sure the testator has their will in order.", details: nil, name: "Will", sortValue: 0, task: DataTemplateController.defaultStage1Tasks[0])!,
+//        SubTask(descriptor: "", details: nil, name: "Trust", sortValue: 1, task: DataTemplateController.defaultStage1Tasks[0])!,
+//        SubTask(descriptor: "", details: nil, name: "Power of Attorney", sortValue: 2, task: DataTemplateController.defaultStage1Tasks[0])!,
+//        
+//        SubTask(descriptor: "Add yourself to the testator's financial accounts", details: nil, name: "Financial Accounts", sortValue: 0, task: DataTemplateController.defaultStage1Tasks[1])!,
+//        SubTask(descriptor: "Add yourself to the testator's medical accounts", details: nil, name: "Medical Accounts", sortValue: 1, task: DataTemplateController.defaultStage1Tasks[1])!,
+//        SubTask(descriptor: "Add yourself to the testator's business accounts", details: nil, name: "Business Accounts", sortValue: 2, task: DataTemplateController.defaultStage1Tasks[1])!
+//    ]
     
     // MARK: - Stage 2
     
-    static let stage2 = Stage(descriptor: "Upon the death of the testator, perform the immediately necessary actions and allow yourself and others to grieve.", name: "Upon Death", sortValue: 1)!
+//    static let stage2 = Stage(descriptor: "Upon the death of the testator, perform the immediately necessary actions and allow yourself and others to grieve.", name: "Upon Death", sortValue: 1)!
     
-    static let defaultStage2Tasks: [Task] = [
-        Task(name: "Manage Communication", sortValue: 0, stage: DataTemplateController.stage2)!,
-        Task(name: "Secure Assets", sortValue: 1, stage: DataTemplateController.stage2)!
-    ]
+//    static let defaultStage2Tasks: [Task] = [
+//        Task(name: "Manage Communication", sortValue: 0, stage: DataTemplateController.stage2)!,
+//        Task(name: "Secure Assets", sortValue: 1, stage: DataTemplateController.stage2)!
+//    ]
     
-    static let defaultStage2SubTasks: [SubTask] = [
-        // Communication Management
-        SubTask(descriptor: "", details: nil, name: "Notify family & close friends of the death", sortValue: 0, task: DataTemplateController.defaultStage2Tasks[0])!,
-        SubTask(descriptor: "", details: nil, name: "Notify authorities", sortValue: 1, task: DataTemplateController.defaultStage2Tasks[0])!,
-        SubTask(descriptor: "", details: nil, name: "Organize and delegate further communications (media, incoming phone calls, etc.)", sortValue: 2, task: DataTemplateController.defaultStage2Tasks[0])!,
-        
-        // Secure assets
-        SubTask(descriptor: "Collect credit cards", details: nil, name: "Credit Cards", sortValue: 0, task: DataTemplateController.defaultStage2Tasks[1])!,
-        SubTask(descriptor: "Ensure that all valuable belongings are in a secure location", details: nil, name: "Valuable Belongings", sortValue: 1, task: DataTemplateController.defaultStage2Tasks[1])!,
-        SubTask(descriptor: "Secure all keys to the testator's properties", details: nil, name: "Keys", sortValue: 2, task: DataTemplateController.defaultStage2Tasks[1])!
-    ]
+//    static let defaultStage2SubTasks: [SubTask] = [
+//        // Communication Management
+//        SubTask(descriptor: "", details: nil, name: "Notify family & close friends of the death", sortValue: 0, task: DataTemplateController.defaultStage2Tasks[0])!,
+//        SubTask(descriptor: "", details: nil, name: "Notify authorities", sortValue: 1, task: DataTemplateController.defaultStage2Tasks[0])!,
+//        SubTask(descriptor: "", details: nil, name: "Organize and delegate further communications (media, incoming phone calls, etc.)", sortValue: 2, task: DataTemplateController.defaultStage2Tasks[0])!,
+//        
+//        // Secure assets
+//        SubTask(descriptor: "Collect credit cards", details: nil, name: "Credit Cards", sortValue: 0, task: DataTemplateController.defaultStage2Tasks[1])!,
+//        SubTask(descriptor: "Ensure that all valuable belongings are in a secure location", details: nil, name: "Valuable Belongings", sortValue: 1, task: DataTemplateController.defaultStage2Tasks[1])!,
+//        SubTask(descriptor: "Secure all keys to the testator's properties", details: nil, name: "Keys", sortValue: 2, task: DataTemplateController.defaultStage2Tasks[1])!
+//    ]
     
     // MARK: - Stage 3
     
-    static let stage3 = Stage(descriptor: "When you feel ready, begin managing the estate of the testator", name: "Estate Management", sortValue: 2)!
+//    static let stage3 = Stage(descriptor: "When you feel ready, begin managing the estate of the testator", name: "Estate Management", sortValue: 2)!
 }
