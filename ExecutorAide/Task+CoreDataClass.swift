@@ -58,6 +58,9 @@ public class Task: SyncableObject, CloudKitManagedObject {
                     let subTaskReference = CKReference(recordID: recordID, action: .deleteSelf)
                     subTasksReferences.append(subTaskReference)
                 }
+            } else {
+                
+                record[Task.subTasksKey] = [SubTask]() as NSArray
             }
         }
         

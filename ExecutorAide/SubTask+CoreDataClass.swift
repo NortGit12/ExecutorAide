@@ -46,6 +46,9 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
                     let detailReference = CKReference(recordID: recordID, action: .deleteSelf)
                     detailsReferences.append(detailReference)
                 }
+            } else {
+                
+                record[SubTask.detailsKey] = [Detail]() as NSArray
             }
         }
         

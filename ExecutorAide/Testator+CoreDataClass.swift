@@ -63,7 +63,11 @@ public class Testator: SyncableObject, CloudKitManagedObject {
             }
             
             record[Testator.stagesKey] = stagesReferencesArray as NSArray
+        } else {
+            
+            record[Testator.stagesKey] = [Stage]() as NSArray
         }
+
         
         return record
     }

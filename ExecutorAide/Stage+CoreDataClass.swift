@@ -53,6 +53,9 @@ public class Stage: SyncableObject, CloudKitManagedObject {
                 }
                 
                 record[Stage.tasksKey] = tasksReferencesArray as NSArray
+            } else {
+                
+                record[Stage.tasksKey] = [Task]() as NSArray
             }
         }
         
@@ -116,7 +119,34 @@ public class Stage: SyncableObject, CloudKitManagedObject {
         self.recordName = record.recordID.recordName
         self.percentComplete = percentComplete
         self.sortValue = sortValue
+        
+        if let tasksReferences = record[Task.subTasksKey] as? [CKReference] {
+            
+            let tasks = setTasks(tasksReferences: tasksReferences)
+            
+            self.tasks = NSOrderedSet(array: tasks)
+        }
     }
+    
+    //==================================================
+    // MARK: - Methods
+    //==================================================
+    
+    func setTasks(tasksReferences: [CKReference]) -> [Task] {
+        
+        var tasks = [Task]()
+        for taskReference in tasksReferences {
+            
+            let taskIDName = taskReference.recordID.recordName
+            if let task = TaskModelController.shared.fetchTaskByIDName(idName: taskIDName) {
+                
+                tasks.append(task)
+            }
+        }
+        
+        return tasks
+    }
+
 }
 
 
