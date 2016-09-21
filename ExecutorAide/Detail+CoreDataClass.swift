@@ -38,7 +38,7 @@ public class Detail: SyncableObject, CloudKitManagedObject {
             , let subTaskRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
             else {
             
-                print("Error: Could not unarchive the recordIDData when attempting to compute the cloudKitRecord")
+                print("Error: Could not unarchive the SubTask's recordIDData when attempting to compute the cloudKitRecord for a Detail.")
                 return nil
             }
         
@@ -64,6 +64,7 @@ public class Detail: SyncableObject, CloudKitManagedObject {
         
         self.contentType = contentType
         self.contentValue = contentValue
+        self.recordName = nameForManagedObject()
         self.sortValue = sortValue
         self.subTask = subTask
     }
@@ -90,6 +91,8 @@ public class Detail: SyncableObject, CloudKitManagedObject {
         
         self.contentType = contentType
         self.contentValue = contentValue
+        self.recordIDData = NSKeyedArchiver.archivedData(withRootObject: record.recordID) as NSData?
+        self.recordName = record.recordID.recordName
         self.sortValue = sortValue
         
         let subTaskIDName = subTaskReference.recordID.recordName

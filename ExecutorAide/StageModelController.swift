@@ -32,9 +32,9 @@ class StageModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createStage(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, completion: (() -> Void)? = nil) {
+    func createStage(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, testator: Testator, completion: (() -> Void)? = nil) {
         
-        let stage = Stage(descriptor: descriptor, name: name, percentComplete: percentComplete, sortValue: sortValue)
+        let stage = Stage(descriptor: descriptor, name: name, percentComplete: percentComplete, sortValue: sortValue, testator: testator)
         
         PersistenceController.shared.saveContext()
         

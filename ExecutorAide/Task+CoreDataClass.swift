@@ -37,7 +37,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
             , let stageRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
             else {
         
-            print("Error: Could not unarchive the recordIDData when attempting to compute the cloudKitRecord for a Task.")
+            print("Error: Could not unarchive the Stage's recordIDData when attempting to compute the cloudKitRecord for a Task.")
             return nil
         }
         
@@ -58,13 +58,14 @@ public class Task: SyncableObject, CloudKitManagedObject {
                     let subTaskReference = CKReference(recordID: recordID, action: .deleteSelf)
                     subTasksReferences.append(subTaskReference)
                 }
+                
+                record[Task.subTasksKey] = subTasksReferences as NSArray
+                
             } else {
                 
                 record[Task.subTasksKey] = [SubTask]() as NSArray
             }
         }
-        
-        record[Task.subTasksKey] = subTasksReferences as NSArray
         
         return record
     }
@@ -119,13 +120,6 @@ public class Task: SyncableObject, CloudKitManagedObject {
         
         self.init(entity: taskEntity, insertInto: context)
         
-        if let subTasksReferences = record[Task.subTasksKey] as? [CKReference] {
-            
-            let subTasks = setSubTasks(subTasksReferences: subTasksReferences)
-            
-            self.subTasks = NSOrderedSet(array: subTasks)
-        }
-        
         self.name = name
         self.recordName = record.recordID.recordName
         self.recordIDData = NSKeyedArchiver.archivedData(withRootObject: record.recordID) as NSData?
@@ -139,6 +133,13 @@ public class Task: SyncableObject, CloudKitManagedObject {
         }
         
         self.stage = stage
+        
+        if let subTasksReferences = record[Task.subTasksKey] as? [CKReference] {
+            
+            let subTasks = setSubTasks(subTasksReferences: subTasksReferences)
+            
+            self.subTasks = NSOrderedSet(array: subTasks)
+        }
     }
     
     //==================================================

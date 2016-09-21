@@ -22,7 +22,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
     static let percentCompleteKey = "percentComplete"
     static let sortValueKey = "sortValue"
     static let tasksKey = "tasks"
-    static let testatorsKey = "testators"
+    static let testatorKey = "testator"
     
     var recordType: String { return Stage.type }
     
@@ -59,6 +59,17 @@ public class Stage: SyncableObject, CloudKitManagedObject {
             }
         }
         
+        guard let recordIDData = self.testator.recordIDData as? Data
+            , let testatorRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
+            else {
+                
+                print("Error: Could not unarchive the Testator's recordIDData when attempting to compute the cloudKitRecord for a Stage.")
+                return nil
+        }
+        
+        let testatorReference = CKReference(recordID: testatorRecordID, action: .deleteSelf)
+        record[Stage.testatorKey] = testatorReference as CKReference
+        
         return record
     }
     
@@ -66,7 +77,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
     // MARK: - Initializers
     //==================================================
     
-    convenience init?(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, tasks: [Task]? = nil, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
+    convenience init?(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, tasks: [Task]? = nil, testator: Testator, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
         guard let stageEntity = NSEntityDescription.entity(forEntityName: Stage.type, in: context) else {
             
@@ -90,7 +101,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
             self.tasks = NSOrderedSet(orderedSet: tasksMutableOrderedSet)
         }
         
-        // The maintenance of self.testators will be managed by Core Data as it manages the "stages" relationship in the Testators entity.
+        self.testator = testator
     }
     
     convenience required public init?(record: CKRecord, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
@@ -99,6 +110,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
             , let name = record[Stage.nameKey] as? String
             , let percentComplete = record[Stage.percentCompleteKey] as? Float
             , let sortValue = record[Stage.sortValueKey] as? Int
+            , let testatorReference = record[Stage.testatorKey] as? CKReference
             else {
                 
                 print("Error: Could not create the \(Stage.type) from the CloudKit record.")
@@ -126,6 +138,15 @@ public class Stage: SyncableObject, CloudKitManagedObject {
             
             self.tasks = NSOrderedSet(array: tasks)
         }
+        
+        let testatorIDName = testatorReference.recordID.recordName
+        guard let testator = TestatorModelController.shared.fetchTestatorByIDName(idName: testatorIDName) else {
+            
+            print("Error: Could not identify the testator by its ID name \"\(testatorIDName)\".")
+            return nil
+        }
+        
+        self.testator = testator
     }
     
     //==================================================

@@ -32,6 +32,11 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
         let recordID = CKRecordID(recordName: self.recordName)
         let record = CKRecord(recordType: SubTask.type, recordID: recordID)
         
+        if let descriptor = self.descriptor {
+         
+            record[SubTask.descriptorKey] = descriptor as NSString
+        }
+        
         var detailsReferences = [CKReference]()
         if let details = self.details {
             
@@ -46,13 +51,15 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
                     let detailReference = CKReference(recordID: recordID, action: .deleteSelf)
                     detailsReferences.append(detailReference)
                 }
+                
+                record[SubTask.detailsKey] = detailsReferences as NSArray
+                
             } else {
                 
                 record[SubTask.detailsKey] = [Detail]() as NSArray
             }
         }
         
-        record[SubTask.detailsKey] = detailsReferences as NSArray
         record[SubTask.isCompletedKey] = self.isCompleted as NSNumber
         record[SubTask.nameKey] = self.name as NSString
         record[SubTask.sortValueKey] = self.sortValue as NSNumber
@@ -61,7 +68,7 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
             , let taskRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
             else {
                 
-                print("Error: Could not unarchive the recordIDData when attempting to compute the cloudKitRecord for a SubTask.")
+                print("Error: Could not unarchive the Task's recordIDData when attempting to compute the cloudKitRecord for a SubTask.")
                 return nil
         }
         

@@ -12,7 +12,7 @@
         <attribute name="percentComplete" attributeType="Float" minValueString="0" maxValueString="1" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="sortValue" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Task" inverseName="stage" inverseEntity="Task" syncable="YES"/>
-        <relationship name="testators" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Testator" inverseName="stages" inverseEntity="Testator" syncable="YES"/>
+        <relationship name="testator" maxCount="1" deletionRule="Nullify" ordered="YES" destinationEntity="Testator" inverseName="stages" inverseEntity="Testator" syncable="YES"/>
     </entity>
     <entity name="SubTask" representedClassName=".SubTask" parentEntity="SyncableObject" syncable="YES">
         <attribute name="descriptor" optional="YES" attributeType="String" syncable="YES"/>
@@ -35,7 +35,7 @@
     <entity name="Testator" representedClassName=".Testator" parentEntity="SyncableObject" syncable="YES">
         <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <relationship name="stages" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Stage" inverseName="testators" inverseEntity="Stage" syncable="YES"/>
+        <relationship name="stages" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Stage" inverseName="testator" inverseEntity="Stage" syncable="YES"/>
     </entity>
     <elements>
         <element name="Detail" positionX="567" positionY="-216" width="128" height="103"/>

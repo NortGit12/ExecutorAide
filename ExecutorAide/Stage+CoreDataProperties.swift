@@ -21,7 +21,7 @@ extension Stage {
     @NSManaged public var percentComplete: Float
     @NSManaged public var sortValue: Int
     @NSManaged public var tasks: NSOrderedSet?
-    @NSManaged public var testators: NSOrderedSet?
+    @NSManaged public var testator: Testator
 
 }
 
