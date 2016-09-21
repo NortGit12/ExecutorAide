@@ -56,8 +56,9 @@ class NewTestatorPopoverViewController: UIViewController {
         activityIndicatorView.isHidden = false
         if let nameText = testatorNameTextField.text {
             guard let testatorImage = testatorImage else {
-                TestatorModelController.shared.createTestator(image: UIImage(named: "user"), name: nameText, completion: {
-                    DataTemplateController.initializeTemplate()
+                TestatorModelController.shared.createTestator(image: UIImage(named: "user"), name: nameText, completion: { (testator) in
+                    guard let testator = testator else { return }
+                    DataTemplateController.initializeTemplate(forTestator: testator)
                     DispatchQueue.main.async {
                         self.dismiss(animated: true, completion: nil)
                     }
@@ -66,8 +67,9 @@ class NewTestatorPopoverViewController: UIViewController {
             }
             
             // Image was picked
-            TestatorModelController.shared.createTestator(image: testatorImage, name: nameText, completion: {
-                DataTemplateController.initializeTemplate()
+            TestatorModelController.shared.createTestator(image: testatorImage, name: nameText, completion: { (testator) in
+                guard let testator = testator else { return }
+                DataTemplateController.initializeTemplate(forTestator: testator)
                 DispatchQueue.main.async {
                     self.dismiss(animated: true, completion: nil)
                 }

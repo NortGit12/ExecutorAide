@@ -29,6 +29,11 @@
                                     <action selector="newTestatorButtonTapped:" destination="irv-0f-U3U" eventType="touchUpInside" id="I3y-ci-KdF"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Testators" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ln-3p-gl5">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hSy-xU-GBH">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -44,14 +49,17 @@
                         <constraints>
                             <constraint firstItem="NRh-nk-9fe" firstAttribute="top" secondItem="I9G-1p-Mc1" secondAttribute="bottom" constant="8" id="0QT-E3-R3j"/>
                             <constraint firstItem="hSy-xU-GBH" firstAttribute="leading" secondItem="BZX-5o-iy9" secondAttribute="leading" id="Fzr-by-8fg"/>
+                            <constraint firstItem="1Ln-3p-gl5" firstAttribute="centerX" secondItem="BZX-5o-iy9" secondAttribute="centerX" id="VEu-R1-imQ"/>
                             <constraint firstItem="NRh-nk-9fe" firstAttribute="centerX" secondItem="BZX-5o-iy9" secondAttribute="centerX" id="c1O-pQ-KEg"/>
                             <constraint firstAttribute="trailing" secondItem="hSy-xU-GBH" secondAttribute="trailing" id="emR-bs-EVT"/>
                             <constraint firstItem="Vf2-38-5U4" firstAttribute="top" secondItem="hSy-xU-GBH" secondAttribute="bottom" id="exB-a5-U7I"/>
+                            <constraint firstItem="1Ln-3p-gl5" firstAttribute="centerY" secondItem="BZX-5o-iy9" secondAttribute="centerY" id="obq-n3-W66"/>
                             <constraint firstItem="hSy-xU-GBH" firstAttribute="top" secondItem="NRh-nk-9fe" secondAttribute="bottom" constant="8" id="xaf-Co-8yv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="d1D-PM-f8C"/>
                     <connections>
+                        <outlet property="noTestatorsLabel" destination="1Ln-3p-gl5" id="ekO-Aa-ERA"/>
                         <outlet property="tableView" destination="hSy-xU-GBH" id="kfl-br-Ua9"/>
                         <outlet property="tableViewHeight" destination="pt5-CD-2Su" id="Tcx-Ua-h7s"/>
                         <segue destination="DM7-Ng-PCo" kind="show" identifier="toStagesSegue" id="lkh-ed-rbq"/>
