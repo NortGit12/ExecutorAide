@@ -11,6 +11,7 @@ import UIKit
 class TestatorViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPopoverPresentationControllerDelegate {
     
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var noTestatorsLabel: UILabel!
     
     var testators = [Testator]() {
         didSet {
@@ -37,16 +38,12 @@ class TestatorViewController: UIViewController, UITableViewDelegate, UITableView
     func setupViewWithTestators() {
         DispatchQueue.main.async {
             // Setup label
-            let noTestatorsLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 20))
-            noTestatorsLabel.text = "No testators"
-            noTestatorsLabel.center = self.view.center
-            noTestatorsLabel.textAlignment = .center
             if self.testators.isEmpty {
-                noTestatorsLabel.isHidden = false
-                self.view.addSubview(noTestatorsLabel)
+                self.noTestatorsLabel.isHidden = false
                 self.tableView.isHidden = true
             } else {
-                noTestatorsLabel.isHidden = true
+                self.noTestatorsLabel.isHidden = true
+                self.noTestatorsLabel.text = ""
                 self.tableView.isHidden = false
                 self.tableViewHeight.constant = CGFloat(self.testators.count * testatorCellHeight)
                 self.tableView.reloadData()

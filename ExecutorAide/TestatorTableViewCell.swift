@@ -34,15 +34,20 @@ class TestatorTableViewCell: UITableViewCell {
     }
     
     func updateImageView() {
-        testatorImageView.layer.masksToBounds = true
-        testatorImageView.layer.cornerRadius = testatorImageView.frame.width/2
-        testatorImageView.contentMode = .scaleAspectFill
+        DispatchQueue.main.async {
+            self.testatorImageView.layer.masksToBounds = true
+            self.testatorImageView.layer.cornerRadius = self.testatorImageView.frame.width/2
+            self.testatorImageView.contentMode = .scaleAspectFill
+        }
+        
     }
     
     func updateCellWithTestator(testator: Testator) {
-        nameLabel.text = testator.name
-        guard let imageData = testator.image, let testatorImage = UIImage(data: imageData as Data) else { return }
-        testatorImageView.image = testatorImage
-        updateImageView()
+        DispatchQueue.main.async {
+            self.nameLabel.text = testator.name
+            guard let imageData = testator.image, let testatorImage = UIImage(data: imageData as Data) else { return }
+            self.testatorImageView.image = testatorImage
+            self.updateImageView()
+        }
     }
 }
