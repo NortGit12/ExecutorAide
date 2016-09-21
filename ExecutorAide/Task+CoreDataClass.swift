@@ -74,7 +74,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
     // MARK: - Initializers
     //==================================================
 
-    convenience init?(name: String, sortValue: Int, stage: Stage, subTasks: [SubTask]? = nil, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
+    convenience init?(name: String, sortValue: Int, subTasks: [SubTask]? = nil, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
         guard let taskEntity = NSEntityDescription.entity(forEntityName: Task.type, in: context) else {
             
@@ -87,7 +87,6 @@ public class Task: SyncableObject, CloudKitManagedObject {
         self.name = name
         self.recordName = nameForManagedObject()
         self.sortValue = sortValue
-        self.stage = stage
         
         let subTasksMutableOrderedSet = NSMutableOrderedSet()
         if let subTasks = subTasks {

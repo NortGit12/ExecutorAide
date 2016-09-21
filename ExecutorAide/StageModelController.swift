@@ -19,16 +19,6 @@ class StageModelController {
     let cloudKitManager = CloudKitManager()
     
     //==================================================
-    // MARK: - Initializer
-    //==================================================
-    
-    init() {
-        
-        // Call createInitialDataSet() to populate an initial set of data for a new Testator
-        //        createInitialDataSet()
-    }
-    
-    //==================================================
     // MARK: - Methods (CRUD)
     //==================================================
     
@@ -183,15 +173,6 @@ class StageModelController {
                 }
             })
         }
-    }
-    
-    //==================================================
-    // MARK: - Methods (other)
-    //==================================================
-    
-    func createInitialDataSet() {
-        
-        // TODO: Finish implementation
     }
 }
 

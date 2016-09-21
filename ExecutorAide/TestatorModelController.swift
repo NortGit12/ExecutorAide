@@ -19,16 +19,6 @@ class TestatorModelController {
     let cloudKitManager = CloudKitManager()
     
     //==================================================
-    // MARK: - Initializer
-    //==================================================
-    
-    init() {
-        
-        // Call createInitialDataSet() to populate an initial set of data for a new Testator
-//        createInitialDataSet()
-    }
-    
-    //==================================================
     // MARK: - Methods (CRUD)
     //==================================================
     
@@ -175,15 +165,6 @@ class TestatorModelController {
                 }
             })
         }
-    }
-    
-    //==================================================
-    // MARK: - Methods (other)
-    //==================================================
-    
-    func createInitialDataSet(name: String, image: UIImage) {
-    
-        // TODO: Add the rest of the create* ModelController calls to provide a default subset of data.
     }
 }
 

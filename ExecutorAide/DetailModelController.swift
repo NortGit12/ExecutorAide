@@ -19,10 +19,6 @@ class DetailModelController {
     let cloudKitManager = CloudKitManager()
     
     //==================================================
-    // MARK: - Initializer
-    //==================================================
-    
-    //==================================================
     // MARK: - Methods (CRUD)
     //==================================================
     
@@ -167,15 +163,6 @@ class DetailModelController {
                 }
             })
         }
-    }
-    
-    //==================================================
-    // MARK: - Methods (other)
-    //==================================================
-    
-    func createInitialDataSet() {
-        
-        // TODO: Finish implementation
     }
 }
 

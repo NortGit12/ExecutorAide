@@ -82,7 +82,7 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
     // MARK: - Initializers
     //==================================================
 
-    convenience init?(descriptor: String?, details: [Detail]? = nil, isCompleted: Bool = false, name: String, sortValue: Int, task: Task, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
+    convenience init?(descriptor: String?, details: [Detail]? = nil, isCompleted: Bool = false, name: String, sortValue: Int, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
         guard let subTaskEntity = NSEntityDescription.entity(forEntityName: SubTask.type, in: context) else {
             
@@ -109,7 +109,6 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
         self.name = name
         self.recordName = nameForManagedObject()
         self.sortValue = sortValue
-        self.task = task
     }
     
     convenience required public init?(record: CKRecord, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
