@@ -22,11 +22,13 @@ class SubTaskModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createSubTask(descriptor: String?, isCompleted: Bool = false, name: String, sortValue: Int, task: Task, completion: (() -> Void)? = nil) {
+    func createSubTask(descriptor: String?, isCompleted: Bool = false, name: String, sortValue: Int, completion: (() -> Void)? = nil) {
         
-        let subTask = SubTask(descriptor: descriptor, isCompleted: isCompleted, name: name, sortValue: sortValue, task: task)
+        let subTask = SubTask(descriptor: descriptor, isCompleted: isCompleted, name: name, sortValue: sortValue)
         
-        PersistenceController.shared.saveContext()
+        PersistenceController.shared.moc.performAndWait {
+            PersistenceController.shared.saveContext()
+        }
         
         if let subTaskCloudKitRecord = subTask?.cloudKitRecord {
             
@@ -46,13 +48,11 @@ class SubTaskModelController {
                 
                 if let record = record {
                     
-                    let moc = PersistenceController.shared.moc
-                    
                     /*
                      The "...AndWait" makes the subsequent work wiat for the performBlock to finish.  By default, the moc.performBlock(...) is asynchronous, so the work in there would be done asynchronously on another thread and the subsequent lines would run immediately.
                      */
                     
-                    moc.performAndWait({ 
+                    PersistenceController.shared.moc.performAndWait({
                         
                         subTask?.updateRecordIDData(record: record)
                         print("New sub-task \"\(subTask?.name)\" successfully saved to CloudKit.")
@@ -63,24 +63,36 @@ class SubTaskModelController {
     }
     
     func create(subTasks: [SubTask], completion: (() -> Void)? = nil) {
-        PersistenceController.shared.saveContext()
+        
+        PersistenceController.shared.moc.performAndWait {
+            PersistenceController.shared.saveContext()
+        }
+        
         var counter = 0
         for subTask in subTasks {
+            
             if let subTaskCloudKitRecord = subTask.cloudKitRecord {
+                
                 cloudKitManager.saveRecord(database: cloudKitManager.privateDatabase, record: subTaskCloudKitRecord, completion: { (record, error) in
+                    
                     if error != nil {
                         print("Error: New sub-task \"\(subTask.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
                     }
+                    
                     if let record = record {
-                        let moc = PersistenceController.shared.moc
+                        
                         /*
                          The "...AndWait" makes the subsequent work wiat for the performBlock to finish.  By default, the moc.performBlock(...) is asynchronous, so the work in there would be done asynchronously on another thread and the subsequent lines would run immediately.
                          */
-                        moc.performAndWait({
+                        
+                        PersistenceController.shared.moc.performAndWait({
+                            
                             subTask.updateRecordIDData(record: record)
                             print("New sub-task \"\(subTask.name)\" successfully saved to CloudKit.")
                             counter += 1
+                            
                             if counter == subTasks.count {
+                                
                                 if let completion = completion {
                                     completion()
                                 }
@@ -98,14 +110,21 @@ class SubTaskModelController {
         let predicate = NSPredicate(value: true)
         request.predicate = predicate
         
-        let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [SubTask]
-        guard let sortedResultsArray = resultsArray?.sorted(by: { $0.sortValue < $1.sortValue }) else {
+        do {
+            let resultsArray = try PersistenceController.shared.moc.fetch(request) as? [SubTask]
+            guard let sortedResultsArray = resultsArray?.sorted(by: { $0.sortValue < $1.sortValue }) else {
+                
+                print("Error: The sub-tasks array could not be sorted.")
+                return nil
+            }
             
-            print("Error: The sub-tasks array could not be sorted.")
+            return sortedResultsArray
+            
+        } catch let error {
+            
+            print("Error fetching all SubTasks: \(error.localizedDescription)")
             return nil
         }
-        
-        return sortedResultsArray
     }
     
     func fetchSubTaskByIDName(idName: String) -> SubTask? {
@@ -114,9 +133,17 @@ class SubTaskModelController {
         let predicate = NSPredicate(format: "recordName == %@", argumentArray: [idName])
         request.predicate = predicate
         
-        let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [SubTask]
-        
-        return resultsArray?.first ?? nil
+        do {
+            let resultsArray = try PersistenceController.shared.moc.fetch(request) as? [SubTask]
+            
+            return resultsArray?.first
+            
+        } catch let error {
+            
+            print("Error fetching SubTask with ID \"\(idName)\": \(error.localizedDescription)")
+            return nil
+        }
+
     }
     
     func updateSubTask(subTask: SubTask, completion: (() -> Void)? = nil) {
@@ -125,18 +152,27 @@ class SubTaskModelController {
         let predicate = NSPredicate(format: "recordName == %@", argumentArray: [subTask.recordName])
         request.predicate = predicate
         
-        let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [SubTask]
-        let existingSubTask = resultsArray?.first
-        
-        existingSubTask?.descriptor = subTask.descriptor
-        existingSubTask?.details = subTask.details
-        existingSubTask?.isCompleted = subTask.isCompleted
-        existingSubTask?.name = subTask.name
-        existingSubTask?.recordIDData = nil
-        existingSubTask?.sortValue = subTask.sortValue
-        existingSubTask?.task = subTask.task
-        
-        PersistenceController.shared.saveContext()
+        do {
+            let resultsArray = try PersistenceController.shared.moc.fetch(request) as? [SubTask]
+            let existingSubTask = resultsArray?.first
+            
+            existingSubTask?.descriptor = subTask.descriptor
+            existingSubTask?.details = subTask.details
+            existingSubTask?.isCompleted = subTask.isCompleted
+            existingSubTask?.name = subTask.name
+            existingSubTask?.recordIDData = nil
+            existingSubTask?.sortValue = subTask.sortValue
+            existingSubTask?.task = subTask.task
+            
+            PersistenceController.shared.moc.performAndWait {
+                PersistenceController.shared.saveContext()
+            }
+            
+        } catch let error {
+            
+            print("Error updating SubTask \"\(subTask.name)\": \(error.localizedDescription)")
+            return
+        }
         
         if let subTaskCloudKitRecord = subTask.cloudKitRecord {
             
@@ -167,8 +203,10 @@ class SubTaskModelController {
         
         if let subTaskCloudKitRecord = subTask.cloudKitRecord {
             
-            PersistenceController.shared.moc.delete(subTask)
-            PersistenceController.shared.saveContext()
+            PersistenceController.shared.moc.performAndWait {
+                PersistenceController.shared.moc.delete(subTask)
+                PersistenceController.shared.saveContext()
+            }
             
             cloudKitManager.deleteRecordWithID(database: cloudKitManager.privateDatabase, recordID: subTaskCloudKitRecord.recordID, completion: { (recordID, error) in
                 

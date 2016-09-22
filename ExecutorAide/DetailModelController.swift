@@ -22,11 +22,13 @@ class DetailModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createDetail(contentType: String, contentValue: String, sortValue: Int, subTask: SubTask, completion: (() -> Void)? = nil) {
+    func createDetail(contentType: String, contentValue: String, sortValue: Int, completion: (() -> Void)? = nil) {
         
-        let detail = Detail(contentType: contentType, contentValue: contentValue, sortValue: sortValue, subTask: subTask)
+        let detail = Detail(contentType: contentType, contentValue: contentValue, sortValue: sortValue)
         
-        PersistenceController.shared.saveContext()
+        PersistenceController.shared.moc.performAndWait {
+            PersistenceController.shared.saveContext()
+        }
         
         if let detailCloudKitRecord = detail?.cloudKitRecord {
             
@@ -41,19 +43,17 @@ class DetailModelController {
                 
                 if error != nil {
                     
-                    print("Error: New detail \"\(detail?.contentType)\" for sub-task \"\(subTask.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
+                    print("Error: New detail \"\(detail?.contentType)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
                     return
                 }
                 
                 if let record = record {
                     
-                    let moc = PersistenceController.shared.moc
-                    
                     /*
                      The "...AndWait" makes the subsequent work wait for the performBlock to finish.  By default, the moc.performBlock(...) is asynchronous, so the work in there would be done asynchronously on another thread and the subsequent lines woul run immediately.
                      */
                     
-                    moc.performAndWait({ 
+                    PersistenceController.shared.moc.performAndWait({
                         
                         detail?.updateRecordIDData(record: record)
                         print("New detail \"\(detail?.contentType)\" successfully saved to CloudKit.")
@@ -69,14 +69,21 @@ class DetailModelController {
         let predicate = NSPredicate(value: true)
         request.predicate = predicate
         
-        let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [Detail]
-        guard let sortedResultsArray = resultsArray?.sorted(by: { $0.sortValue < $1.sortValue }) else {
+        do {
+            let resultsArray = try PersistenceController.shared.moc.fetch(request) as? [Detail]
+            guard let sortedResultsArray = resultsArray?.sorted(by: { $0.sortValue < $1.sortValue }) else {
+                
+                print("Error: The details array could not be sorted.")
+                return nil
+            }
             
-            print("Error: The details array could not be sorted.")
+            return sortedResultsArray
+            
+        } catch let error {
+            
+            print("Error fetching all Details: \(error.localizedDescription)")
             return nil
         }
-        
-        return sortedResultsArray
     }
     
     func fetchDetailByIDName(idName: String) -> Detail? {
@@ -85,9 +92,17 @@ class DetailModelController {
         let predicate = NSPredicate(format: "recordName == %@", argumentArray: [idName])
         request.predicate = predicate
         
-        let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [Detail]
-        
-        return resultsArray?.first ?? nil
+        do {
+            let resultsArray = try PersistenceController.shared.moc.fetch(request) as? [Detail]
+            
+            return resultsArray?.first
+            
+        } catch let error {
+            
+            print("Error fetching Detail with ID \"\(idName)\": \(error.localizedDescription)")
+            return nil
+        }
+
     }
     
     func updateDetail(detail: Detail, completion: (() -> Void)? = nil) {
@@ -96,16 +111,25 @@ class DetailModelController {
         let predicate = NSPredicate(format: "recordName == %@", argumentArray: [detail.recordName])
         request.predicate = predicate
         
-        let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [Detail]
-        let existingDetail = resultsArray?.first
-        
-        existingDetail?.contentType = detail.contentType
-        existingDetail?.contentValue = detail.contentValue
-        existingDetail?.recordIDData = nil
-        existingDetail?.sortValue = detail.sortValue
-        existingDetail?.subTask = detail.subTask
-        
-        PersistenceController.shared.saveContext()
+        do {
+            let resultsArray = try PersistenceController.shared.moc.fetch(request) as? [Detail]
+            let existingDetail = resultsArray?.first
+            
+            existingDetail?.contentType = detail.contentType
+            existingDetail?.contentValue = detail.contentValue
+            existingDetail?.recordIDData = nil
+            existingDetail?.sortValue = detail.sortValue
+            existingDetail?.subTask = detail.subTask
+            
+            PersistenceController.shared.moc.performAndWait {
+                PersistenceController.shared.saveContext()
+            }
+            
+        } catch let error {
+            
+            print("Error updating Detail \"\(detail.contentType)\": \(error.localizedDescription)")
+            return
+        }
         
         if let detailCloudKitRecord = detail.cloudKitRecord {
             
@@ -136,8 +160,10 @@ class DetailModelController {
         
         if let detailCloudKitRecord = detail.cloudKitRecord {
             
-            PersistenceController.shared.moc.delete(detail)
-            PersistenceController.shared.saveContext()
+            PersistenceController.shared.moc.performAndWait {
+                PersistenceController.shared.moc.delete(detail)
+                PersistenceController.shared.saveContext()
+            }
             
             cloudKitManager.deleteRecordWithID(database: cloudKitManager.privateDatabase, recordID: detailCloudKitRecord.recordID, completion: { (recordID, error) in
                 

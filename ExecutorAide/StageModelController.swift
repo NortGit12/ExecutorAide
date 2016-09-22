@@ -22,11 +22,13 @@ class StageModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createStage(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, testator: Testator, completion: (() -> Void)? = nil) {
+    func createStage(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, completion: (() -> Void)? = nil) {
         
-        let stage = Stage(descriptor: descriptor, name: name, percentComplete: percentComplete, sortValue: sortValue, testator: testator)
+        let stage = Stage(descriptor: descriptor, name: name, percentComplete: percentComplete, sortValue: sortValue)
         
-        PersistenceController.shared.saveContext()
+        PersistenceController.shared.moc.performAndWait {
+            PersistenceController.shared.saveContext()
+        }
         
         if let stageCloudKitRecord = stage?.cloudKitRecord {
             
@@ -47,13 +49,11 @@ class StageModelController {
                 
                 if let record = record {
                     
-                    let moc = PersistenceController.shared.moc
-                    
                     /*
                      The "...AndWait" makes the subsequent work wait for teh perform block to finish.  By default, the moc. performBlock(...) is asynchronous, so the work in there would e done asynchronously on another thread and the subsequent lines would run immediately.
                      */
                     
-                    moc.performAndWait {
+                    PersistenceController.shared.moc.performAndWait {
                         
                         stage?.updateRecordIDData(record: record)
                         print("New Stage \"\(stage?.name)\" successfully saved to CloudKit.")
@@ -64,9 +64,12 @@ class StageModelController {
     }
     
     func create(stages: [Stage], completion: (() -> Void)? = nil) {
+        
         for stage in stages {
-            createStage(descriptor: stage.descriptor, name: stage.name, sortValue: stage.sortValue, testator: stage.testator)
+            
+            createStage(descriptor: stage.descriptor, name: stage.name, sortValue: stage.sortValue)
         }
+        
         if let completion = completion {
             completion()
         }
@@ -78,14 +81,22 @@ class StageModelController {
         let predicate = NSPredicate(value: true)
         request.predicate = predicate
         
-        let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [Stage]
-        guard let sortedResultsArray = resultsArray?.sorted(by: { $0.sortValue < $1.sortValue }) else {
+        do {
+            let resultsArray = try PersistenceController.shared.moc.fetch(request) as? [Stage]
             
-            print("Error: The stages array could not be sorted.")
+            guard let sortedResultsArray = resultsArray?.sorted(by: { $0.sortValue < $1.sortValue }) else {
+                
+                print("Error: The stages array could not be sorted when fetching all Stages.")
+                return nil
+            }
+            
+            return sortedResultsArray
+            
+        } catch let error {
+            
+            print("Error fetching all Stages: \(error.localizedDescription)")
             return nil
         }
-        
-        return sortedResultsArray
     }
     
     func fetchStageByIDName(idName: String) -> Stage? {
@@ -94,9 +105,16 @@ class StageModelController {
         let predicate = NSPredicate(format: "recordName == %@", argumentArray: [idName])
         request.predicate = predicate
         
-        let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [Stage]
-        
-        return resultsArray?.first ?? nil
+        do {
+            let resultsArray = try PersistenceController.shared.moc.fetch(request) as? [Stage]
+            
+            return resultsArray?.first
+            
+        } catch let error {
+            
+            print("Error fetching Stage with ID \"\(idName)\": \(error.localizedDescription)")
+            return nil
+        }
     }
     
     func updateStage(stage: Stage, completion: (() -> Void)? = nil) {
@@ -105,17 +123,26 @@ class StageModelController {
         let predicate = NSPredicate(format: "recordName == %@", argumentArray: [stage.recordName])
         request.predicate = predicate
         
-        let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [Stage]
-        let existingStage = resultsArray?.first
-        
-        existingStage?.descriptor = stage.descriptor
-        existingStage?.name = stage.name
-        existingStage?.recordIDData = nil
-        existingStage?.percentComplete = stage.percentComplete
-        existingStage?.sortValue = stage.sortValue
-        existingStage?.tasks = stage.tasks
-        
-        PersistenceController.shared.saveContext()
+        do {
+            let resultsArray = try PersistenceController.shared.moc.fetch(request) as? [Stage]
+            let existingStage = resultsArray?.first
+            
+            existingStage?.descriptor = stage.descriptor
+            existingStage?.name = stage.name
+            existingStage?.recordIDData = nil
+            existingStage?.percentComplete = stage.percentComplete
+            existingStage?.sortValue = stage.sortValue
+            existingStage?.tasks = stage.tasks
+            
+            PersistenceController.shared.moc.performAndWait {
+                PersistenceController.shared.saveContext()
+            }
+            
+        } catch let error {
+            
+            print("Error updating Stage \"\(stage.name)\": \(error.localizedDescription)")
+            return
+        }
         
         if let stageCloudKitRecord = stage.cloudKitRecord {
             
@@ -146,8 +173,10 @@ class StageModelController {
         
         if let stageCloudKitRecord = stage.cloudKitRecord {
             
-            PersistenceController.shared.moc.delete(stage)
-            PersistenceController.shared.saveContext()
+            PersistenceController.shared.moc.performAndWait {
+                PersistenceController.shared.moc.delete(stage)
+                PersistenceController.shared.saveContext()
+            }
             
             cloudKitManager.deleteRecordWithID(database: cloudKitManager.privateDatabase, recordID: stageCloudKitRecord.recordID, completion: { (recordID, error) in
                 

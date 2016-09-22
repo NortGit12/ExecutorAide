@@ -22,26 +22,37 @@ class TaskModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createTask(name: String, sortValue: Int, stage: Stage, completion: (() -> Void)? = nil) {
-        let task = Task(name: name, sortValue: sortValue, stage: stage)
-        PersistenceController.shared.saveContext()
+    func createTask(name: String, sortValue: Int, completion: (() -> Void)? = nil) {
+        
+        let task = Task(name: name, sortValue: sortValue)
+        
+        PersistenceController.shared.moc.performAndWait {
+            PersistenceController.shared.saveContext()
+        }
+        
         if let taskCloudKitRecord = task?.cloudKitRecord {
+            
             cloudKitManager.saveRecord(database: cloudKitManager.privateDatabase, record: taskCloudKitRecord, completion: { (record, error) in
+                
                 defer {
+                    
                     if let completion = completion {
                         completion()
                     }
                 }
+                
                 if error != nil {
+                    
                     print("Error: New task \"\(task?.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
                     return
                 }
+                
                 if let record = record {
-                    let moc = PersistenceController.shared.moc
+                    
                     /*
                      The "...AndWait" makes the subsequent work wait for the performBlock to finish.  By default, the moc.performBlock(...) is asynchronous, so the work in there would be done asynchronously on another thread and the subsequent lines would run immeciately.
                      */
-                    moc.performAndWait {
+                    PersistenceController.shared.moc.performAndWait {
                         task?.updateRecordIDData(record: record)
                         print("New task \"\(task?.name)\" successfully saved to CloudKit.")
                     }
@@ -51,27 +62,39 @@ class TaskModelController {
     }
     
     func create(tasks: [Task], completion: (() -> Void)? = nil) {
-        PersistenceController.shared.saveContext()
+        
+        PersistenceController.shared.moc.performAndWait {
+            PersistenceController.shared.saveContext()
+        }
+        
         var counter = 0
         for task in tasks {
+            
             if let taskCloudKitRecord = task.cloudKitRecord {
+                
                 cloudKitManager.saveRecord(database: cloudKitManager.privateDatabase, record: taskCloudKitRecord, completion: { (record, error) in
+                    
                     if error != nil {
+                        
                         print("Error: New task \"\(task.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
                         return
                     }
+                    
                     if let record = record {
-                        let moc = PersistenceController.shared.moc
+                        
                         /*
                          The "...AndWait" makes the subsequent work wait for the performBlock to finish.  By default, the moc.performBlock(...) is asynchronous, so the work in there would be done asynchronously on another thread and the subsequent lines would run immeciately.
                          */
-                        moc.performAndWait {
+                        
+                        PersistenceController.shared.moc.performAndWait {
+                            
                             task.updateRecordIDData(record: record)
                             print("New task \"\(task.name)\" successfully saved to CloudKit.")
                             counter += 1
                             
                             // If all stages have been saved, execute completion
                             if counter == tasks.count {
+                                
                                 if let completion = completion {
                                     completion()
                                 }
@@ -89,14 +112,21 @@ class TaskModelController {
         let predicate = NSPredicate(value: true)
         request.predicate = predicate
         
-        let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [Task]
-        guard let sortedResultsArray = resultsArray?.sorted(by: { $0.sortValue < $1.sortValue }) else {
+        do {
+            let resultsArray = try PersistenceController.shared.moc.fetch(request) as? [Task]
+            guard let sortedResultsArray = resultsArray?.sorted(by: { $0.sortValue < $1.sortValue }) else {
+                
+                print("Error: The tasks array could not be sorted.")
+                return nil
+            }
             
-            print("Error: The tasks array could not be sorted.")
+            return sortedResultsArray
+            
+        } catch let error {
+            
+            print("Error fetching all Tasks: \(error.localizedDescription)")
             return nil
         }
-        
-        return sortedResultsArray
     }
     
     func fetchTaskByIDName(idName: String) -> Task? {
@@ -105,9 +135,16 @@ class TaskModelController {
         let predicate = NSPredicate(format: "recordName == %@", argumentArray: [idName])
         request.predicate = predicate
         
-        let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [Task]
-        
-        return resultsArray?.first ?? nil
+        do {
+            let resultsArray = try PersistenceController.shared.moc.fetch(request) as? [Task]
+            
+            return resultsArray?.first
+            
+        } catch let error {
+            
+            print("Error fetching Task with ID \"\(idName)\": \(error.localizedDescription)")
+            return nil
+        }
     }
     
     func updateTask(task: Task, completion: (() -> Void)? = nil) {
@@ -116,16 +153,25 @@ class TaskModelController {
         let predicate = NSPredicate(format: "recordName == %@", argumentArray: [task.recordName])
         request.predicate = predicate
         
-        let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [Task]
-        let existingTask = resultsArray?.first
-        
-        existingTask?.name = task.name
-        existingTask?.recordIDData = nil
-        existingTask?.sortValue = task.sortValue
-        existingTask?.stage = task.stage
-        existingTask?.subTasks = task.subTasks
-        
-        PersistenceController.shared.saveContext()
+        do {
+            let resultsArray = try PersistenceController.shared.moc.fetch(request) as? [Task]
+            let existingTask = resultsArray?.first
+            
+            existingTask?.name = task.name
+            existingTask?.recordIDData = nil
+            existingTask?.sortValue = task.sortValue
+            existingTask?.stage = task.stage
+            existingTask?.subTasks = task.subTasks
+            
+            PersistenceController.shared.moc.performAndWait {
+                PersistenceController.shared.saveContext()
+            }
+            
+        } catch let error {
+            
+            print("Error updating Task \"\(task.name)\": \(error.localizedDescription)")
+            return
+        }
         
         if let taskCloudKitRecord = task.cloudKitRecord {
             
@@ -156,8 +202,10 @@ class TaskModelController {
         
         if let taskCloudKitRecord = task.cloudKitRecord {
             
-            PersistenceController.shared.moc.delete(task)
-            PersistenceController.shared.saveContext()
+            PersistenceController.shared.moc.performAndWait {
+                PersistenceController.shared.moc.delete(task)
+                PersistenceController.shared.saveContext()
+            }
             
             cloudKitManager.deleteRecordWithID(database: cloudKitManager.privateDatabase, recordID: taskCloudKitRecord.recordID, completion: { (recordID, error) in
                 

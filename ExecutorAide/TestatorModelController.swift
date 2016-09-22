@@ -33,7 +33,10 @@ class TestatorModelController {
             }
         
         let testator = Testator(image: imageData as NSData, name: name)
-        PersistenceController.shared.saveContext()
+        
+        PersistenceController.shared.moc.performAndWait {
+            PersistenceController.shared.saveContext()
+        }
         
         if let testatorCloudKitRecord = testator?.cloudKitRecord {
             
@@ -54,13 +57,11 @@ class TestatorModelController {
                 
                 if let record = record {
                     
-                    let moc = PersistenceController.shared.moc
-                    
                     /*
                      The "...AndWait" makes the subsequent work wait for the performBlock to finish.  By default, the moc.performBlock(...) is asynchronous, so the work in there would e done asynchronously on another thread and the subsequent lines would run immediately.
                      */
                     
-                    moc.perform({ 
+                    PersistenceController.shared.moc.perform({
                         
                         testator?.updateRecordIDData(record: record)
                         print("New Testator \"\(testator?.name)\" successfully saved to CloudKit.")
@@ -70,16 +71,23 @@ class TestatorModelController {
         }
     }
     
-    func fetchTestators() -> [Testator] {
+    func fetchTestators() -> [Testator]? {
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: Testator.type)
         let predicate = NSPredicate(value: true)
         request.predicate = predicate
         
-        var resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [Testator]
-        resultsArray?.sort(by: { $0.0.name < $0.1.name })
-        
-        return (resultsArray ?? nil)!
+        do {
+            var resultsArray = try PersistenceController.shared.moc.fetch(request) as? [Testator]
+            resultsArray?.sort(by: { $0.0.name < $0.1.name })
+            
+            return resultsArray
+            
+        } catch let error {
+            
+            print("Error fetching all Testators: \(error.localizedDescription)")
+            return nil
+        }
     }
     
     func fetchTestatorByIDName(idName: String) -> Testator? {
@@ -88,9 +96,16 @@ class TestatorModelController {
         let predicate = NSPredicate(format: "recordName == %@", argumentArray: [idName])
         request.predicate = predicate
         
-        let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [Testator]
-        
-        return resultsArray?.first ?? nil
+        do {
+            let resultsArray = try PersistenceController.shared.moc.fetch(request) as? [Testator]
+            
+            return resultsArray?.first
+            
+        } catch let error {
+            
+            print("Error fetching Testator with ID \"\(idName)\": \(error.localizedDescription)")
+            return nil
+        }
     }
     
     func updateTestator(testator: Testator, completion: (() -> Void)? = nil) {
@@ -99,15 +114,24 @@ class TestatorModelController {
         let predicate = NSPredicate(format: "recordName == %@", argumentArray: [testator.recordName])
         request.predicate = predicate
         
-        let resultsArray = (try? PersistenceController.shared.moc.fetch(request)) as? [Testator]
-        let existingTestator = resultsArray?.first
-        
-        existingTestator?.name = testator.name
-        existingTestator?.recordIDData = nil
-        existingTestator?.image = testator.image
-        existingTestator?.stages = testator.stages
-        
-        PersistenceController.shared.saveContext()
+        do {
+            let resultsArray = try PersistenceController.shared.moc.fetch(request) as? [Testator]
+            let existingTestator = resultsArray?.first
+            
+            existingTestator?.name = testator.name
+            existingTestator?.recordIDData = nil
+            existingTestator?.image = testator.image
+            existingTestator?.stages = testator.stages
+            
+            PersistenceController.shared.moc.performAndWait {
+                PersistenceController.shared.saveContext()
+            }
+            
+        } catch let error {
+            
+            print("Error updating Testator \"\(testator.name)\": \(error.localizedDescription)")
+            return
+        }
         
         if let testatorCloudKitRecord = testator.cloudKitRecord {
             
@@ -138,8 +162,10 @@ class TestatorModelController {
         
         if let testatorCloudKitRecord = testator.cloudKitRecord {
             
-            PersistenceController.shared.moc.delete(testator)
-            PersistenceController.shared.saveContext()
+            PersistenceController.shared.moc.performAndWait {
+                PersistenceController.shared.moc.delete(testator)
+                PersistenceController.shared.saveContext()
+            }
             
             cloudKitManager.deleteRecordWithID(database: cloudKitManager.privateDatabase, recordID: testatorCloudKitRecord.recordID, completion: { (recordID, error) in
                 
