@@ -20,12 +20,6 @@ public class Testator: SyncableObject, CloudKitManagedObject {
     static let imageKey = "image"
     static let nameKey = "name"
     static let stagesKey = "stages"
-
-//    public override func awakeFromInsert() {
-//        super.awakeFromInsert()
-//        // create default template
-////        DataTemplateController.initializeTemplate()
-//    }
     
     var recordType: String { return Testator.type }
     
@@ -47,12 +41,16 @@ public class Testator: SyncableObject, CloudKitManagedObject {
     
     var cloudKitRecord: CKRecord? {
         
-        let recordID = CKRecordID(recordName: self.recordName)
-        let record = CKRecord(recordType: recordType, recordID: recordID)
+        var record = CKRecord(recordType: Testator.type)
+        PersistenceController.shared.moc.performAndWait {
+            
+            let recordID = CKRecordID(recordName: self.recordName)
+            record = CKRecord(recordType: self.recordType, recordID: recordID)
+            
+            record[Testator.imageKey] = CKAsset(fileURL: self.temporaryImageURL as URL)
+            record[Testator.nameKey] = self.name as NSString
+        }
         
-        record[Testator.imageKey] = CKAsset(fileURL: self.temporaryImageURL as URL)
-        record[Testator.nameKey] = self.name as NSString
-
         return record
     }
     

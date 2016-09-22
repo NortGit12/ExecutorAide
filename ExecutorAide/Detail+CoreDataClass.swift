@@ -27,23 +27,27 @@ public class Detail: SyncableObject, CloudKitManagedObject {
     
     var cloudKitRecord: CKRecord? {
         
-        let recordID = CKRecordID(recordName: self.recordName)
-        let record = CKRecord(recordType: Detail.type, recordID: recordID)
-        
-        record[Detail.contentTypeKey] = self.contentType as NSString
-        record[Detail.contentValueKey] = self.contentValue as NSString
-        record[Detail.sortValueKey] = self.sortValue as NSNumber
-        
-        guard let recordIDData = self.subTask.recordIDData as? Data
-            , let subTaskRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
-            else {
+        var record = CKRecord(recordType: Detail.type)
+        PersistenceController.shared.moc.performAndWait {
             
-                print("Error: Could not unarchive the SubTask's recordIDData when attempting to compute the cloudKitRecord for a Detail.")
-                return nil
+            let recordID = CKRecordID(recordName: self.recordName)
+            record = CKRecord(recordType: self.recordType, recordID: recordID)
+            
+            record[Detail.contentTypeKey] = self.contentType as NSString
+            record[Detail.contentValueKey] = self.contentValue as NSString
+            record[Detail.sortValueKey] = self.sortValue as NSNumber
+            
+            guard let recordIDData = self.subTask.recordIDData as? Data
+                , let subTaskRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
+                else {
+                    
+                    print("Error: Could not unarchive the SubTask's recordIDData when attempting to compute the cloudKitRecord for a Detail.")
+                    return
             }
-        
-        let subTaskReference = CKReference(recordID: subTaskRecordID, action: .deleteSelf)
-        record[Detail.subTaskKey] = subTaskReference as CKReference
+            
+            let subTaskReference = CKReference(recordID: subTaskRecordID, action: .deleteSelf)
+            record[Detail.subTaskKey] = subTaskReference as CKReference
+        }
         
         return record
     }

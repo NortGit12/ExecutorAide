@@ -27,22 +27,26 @@ public class Task: SyncableObject, CloudKitManagedObject {
     
     var cloudKitRecord: CKRecord? {
         
-        let recordID = CKRecordID(recordName: self.recordName)
-        let record = CKRecord(recordType: recordType, recordID: recordID)
-        
-        record[Task.nameKey] = self.name as NSString
-        record[Task.sortValueKey] = self.sortValue as NSNumber
-        
-        guard let recordIDData = self.stage.recordIDData
-            , let stageRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData as Data) as? CKRecordID
-            else {
-        
-            print("Error: Could not unarchive the Stage's recordIDData when attempting to compute the cloudKitRecord for a Task: Task name: \(self.name), Stage name: \(self.stage.name)")
-            return nil
+        var record = CKRecord(recordType: Task.type)
+        PersistenceController.shared.moc.performAndWait {
+            
+            let recordID = CKRecordID(recordName: self.recordName)
+            record = CKRecord(recordType: self.recordType, recordID: recordID)
+            
+            record[Task.nameKey] = self.name as NSString
+            record[Task.sortValueKey] = self.sortValue as NSNumber
+            
+            guard let recordIDData = self.stage.recordIDData as? Data
+                , let stageRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
+                else {
+                    
+                    print("Error: Could not unarchive the Stage's recordIDData when attempting to compute the cloudKitRecord for a Task.")
+                    return
+            }
+            
+            let stageReference = CKReference(recordID: stageRecordID, action: .deleteSelf)
+            record[Task.stageKey] = stageReference as CKReference
         }
-        
-        let stageReference = CKReference(recordID: stageRecordID, action: .deleteSelf)
-        record[Task.stageKey] = stageReference as CKReference
         
         return record
     }

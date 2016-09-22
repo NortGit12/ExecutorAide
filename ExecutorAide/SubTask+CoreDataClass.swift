@@ -29,28 +29,32 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
     
     var cloudKitRecord: CKRecord? {
         
-        let recordID = CKRecordID(recordName: self.recordName)
-        let record = CKRecord(recordType: SubTask.type, recordID: recordID)
-        
-        if let descriptor = self.descriptor {
-         
-            record[SubTask.descriptorKey] = descriptor as NSString
-        }
-        
-        record[SubTask.isCompletedKey] = self.isCompleted as NSNumber
-        record[SubTask.nameKey] = self.name as NSString
-        record[SubTask.sortValueKey] = self.sortValue as NSNumber
-        
-        guard let recordIDData = self.task.recordIDData
-            , let taskRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData as Data) as? CKRecordID
-            else {
+        var record = CKRecord(recordType: SubTask.type)
+        PersistenceController.shared.moc.performAndWait {
+            
+            let recordID = CKRecordID(recordName: self.recordName)
+            record = CKRecord(recordType: self.recordType, recordID: recordID)
+            
+            if let descriptor = self.descriptor {
                 
-                print("Error: Could not unarchive the Task's recordIDData when attempting to compute the cloudKitRecord for a SubTask.")
-                return nil
+                record[SubTask.descriptorKey] = descriptor as NSString
+            }
+            
+            record[SubTask.isCompletedKey] = self.isCompleted as NSNumber
+            record[SubTask.nameKey] = self.name as NSString
+            record[SubTask.sortValueKey] = self.sortValue as NSNumber
+            
+            guard let recordIDData = self.task.recordIDData as? Data
+                , let taskRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
+                else {
+                    
+                    print("Error: Could not unarchive the Task's recordIDData when attempting to compute the cloudKitRecord for a SubTask.")
+                    return
+            }
+            
+            let taskReference = CKReference(recordID: taskRecordID, action: .deleteSelf)
+            record[SubTask.taskKey] = taskReference as CKReference
         }
-        
-        let taskReference = CKReference(recordID: taskRecordID, action: .deleteSelf)
-        record[SubTask.taskKey] = taskReference as CKReference
         
         return record
     }
