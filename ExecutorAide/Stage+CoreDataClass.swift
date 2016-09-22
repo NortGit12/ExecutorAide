@@ -26,6 +26,12 @@ public class Stage: SyncableObject, CloudKitManagedObject {
     
     var recordType: String { return Stage.type }
     
+    
+//    public override func awakeFromInsert() {
+//        // Default Tasks
+//    }
+    
+    
     var cloudKitRecord: CKRecord? {
         
         let recordID = CKRecordID(recordName: self.recordName)
@@ -36,8 +42,8 @@ public class Stage: SyncableObject, CloudKitManagedObject {
         record[Stage.percentCompleteKey] = self.percentComplete as NSNumber
         record[Stage.sortValueKey] = self.sortValue as NSNumber
         
-        guard let recordIDData = self.testator.recordIDData as? Data
-            , let testatorRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
+        guard let recordIDData = self.testator.recordIDData
+            , let testatorRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData as Data) as? CKRecordID
             else {
                 
                 print("Error: Could not unarchive the Testator's recordIDData when attempting to compute the cloudKitRecord for a Stage.")

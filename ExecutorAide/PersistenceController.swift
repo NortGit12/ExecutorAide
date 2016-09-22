@@ -29,8 +29,8 @@ class PersistenceController {
         
         do {
             try moc.save()
-        } catch {
-            print("Error: Failed to save the Managed Object Context")
+        } catch let error {
+            print("Error: Failed to save the Managed Object Context: \(error)")
         }
     }
     

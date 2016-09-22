@@ -20,6 +20,12 @@ public class Testator: SyncableObject, CloudKitManagedObject {
     static let imageKey = "image"
     static let nameKey = "name"
     static let stagesKey = "stages"
+
+//    public override func awakeFromInsert() {
+//        super.awakeFromInsert()
+//        // create default template
+////        DataTemplateController.initializeTemplate()
+//    }
     
     var recordType: String { return Testator.type }
     
@@ -47,28 +53,6 @@ public class Testator: SyncableObject, CloudKitManagedObject {
         record[Testator.imageKey] = CKAsset(fileURL: self.temporaryImageURL as URL)
         record[Testator.nameKey] = self.name as NSString
 
-        
-        var stagesReferencesArray = [CKReference]()
-        if self.stages.count > 0 {
-            
-            for stage in self.stages {
-                
-                guard let stage = stage as? Stage
-                    , let recordIDData = stage.recordIDData as? Data
-                    , let recordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
-                    else { continue }
-                
-                let stageReference = CKReference(recordID: recordID, action: .deleteSelf)
-                stagesReferencesArray.append(stageReference)
-            }
-            
-            record[Testator.stagesKey] = stagesReferencesArray as NSArray
-        } else {
-            
-            record[Testator.stagesKey] = [Stage]() as NSArray
-        }
-
-        
         return record
     }
     

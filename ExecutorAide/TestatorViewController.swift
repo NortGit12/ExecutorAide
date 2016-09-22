@@ -26,13 +26,9 @@ class TestatorViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UINib(nibName: "TestatorTableViewCell", bundle: nil), forCellReuseIdentifier: testatorCellReuseIdentifier)
-        setupViewWithTestators()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-        testators = TestatorModelController.shared.fetchTestators()
+        PersistenceController.shared.performFullSync { 
+            self.testators = TestatorModelController.shared.fetchTestators()!
+        }
     }
     
     func setupViewWithTestators() {

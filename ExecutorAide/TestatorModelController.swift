@@ -77,17 +77,20 @@ class TestatorModelController {
         let predicate = NSPredicate(value: true)
         request.predicate = predicate
         
-        do {
-            var resultsArray = try PersistenceController.shared.moc.fetch(request) as? [Testator]
-            resultsArray?.sort(by: { $0.0.name < $0.1.name })
-            
-            return resultsArray
-            
-        } catch let error {
-            
-            print("Error fetching all Testators: \(error.localizedDescription)")
-            return nil
+        var resultsArray: [Testator]? = nil
+        
+        PersistenceController.shared.moc.performAndWait {
+            do {
+                resultsArray = try PersistenceController.shared.moc.fetch(request) as? [Testator] ?? []
+                resultsArray?.sort(by: { $0.0.name < $0.1.name })
+                
+            } catch let error {
+                print("Error fetching all Testators: \(error.localizedDescription)")
+            }
         }
+        
+        
+        return resultsArray ?? nil
     }
     
     func fetchTestatorByIDName(idName: String) -> Testator? {

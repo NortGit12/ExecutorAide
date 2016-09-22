@@ -41,8 +41,8 @@ public class SubTask: SyncableObject, CloudKitManagedObject {
         record[SubTask.nameKey] = self.name as NSString
         record[SubTask.sortValueKey] = self.sortValue as NSNumber
         
-        guard let recordIDData = self.task.recordIDData as? Data
-            , let taskRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
+        guard let recordIDData = self.task.recordIDData
+            , let taskRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData as Data) as? CKRecordID
             else {
                 
                 print("Error: Could not unarchive the Task's recordIDData when attempting to compute the cloudKitRecord for a SubTask.")
