@@ -22,9 +22,9 @@ class StageModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createStage(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, task: Task, completion: (() -> Void)? = nil) {
+    func createStage(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, testator: Testator, completion: (() -> Void)? = nil) {
         
-        let stage = Stage(descriptor: descriptor, name: name, percentComplete: percentComplete, sortValue: sortValue, task: task)
+        let stage = Stage(descriptor: descriptor, name: name, percentComplete: percentComplete, sortValue: sortValue, testator: testator)
         
         PersistenceController.shared.moc.performAndWait {
             PersistenceController.shared.saveContext()
@@ -65,10 +65,10 @@ class StageModelController {
     
     func create(stages: [Stage], completion: (() -> Void)? = nil) {
         
-        for stage in stages {
-            
-            createStage(descriptor: stage.descriptor, name: stage.name, sortValue: stage.sortValue, testator: stage.testator)
-        }
+//        for stage in stages {
+//            
+//            createStage(descriptor: stage.descriptor, name: stage.name, sortValue: stage.sortValue, testator: stage.testator)
+//        }
         
         if let completion = completion {
             completion()

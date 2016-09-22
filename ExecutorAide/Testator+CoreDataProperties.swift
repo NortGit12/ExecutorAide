@@ -18,7 +18,6 @@ extension Testator {
 
     @NSManaged public var image: NSData?
     @NSManaged public var name: String
-    @NSManaged public var sortValue: Int
     @NSManaged public var stages: NSOrderedSet
 
 }

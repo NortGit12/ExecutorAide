@@ -33,4 +33,22 @@ class ExecutorAideTests: XCTestCase {
         }
     }
     
+    //==================================================
+    // MARK: - TestatorModelController
+    //==================================================
+    
+    func testCreateTestator() {
+        
+        if let defaultTestatorImage = UIImage(named: "user"), let imageData = UIImagePNGRepresentation(defaultTestatorImage) {
+        
+            let testator = Testator(image: NSData(data: imageData), name: "Dean Norton")
+            
+            // Validate the Core Data record
+            
+            
+            
+            // Validate the CloudKit record
+            
+        }
+    }
 }
