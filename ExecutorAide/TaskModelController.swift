@@ -29,7 +29,7 @@ class TaskModelController {
         PersistenceController.shared.moc.performAndWait {
             PersistenceController.shared.saveContext()
         }
-        
+
         if let taskCloudKitRecord = task?.cloudKitRecord {
             
             cloudKitManager.saveRecord(database: cloudKitManager.privateDatabase, record: taskCloudKitRecord, completion: { (record, error) in

@@ -20,6 +20,12 @@ public class Testator: SyncableObject, CloudKitManagedObject {
     static let imageKey = "image"
     static let nameKey = "name"
     static let stagesKey = "stages"
+
+//    public override func awakeFromInsert() {
+//        super.awakeFromInsert()
+//        // create default template
+////        DataTemplateController.initializeTemplate()
+//    }
     
     var recordType: String { return Testator.type }
     

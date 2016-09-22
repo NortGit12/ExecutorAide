@@ -26,6 +26,12 @@ public class Stage: SyncableObject, CloudKitManagedObject {
     
     var recordType: String { return Stage.type }
     
+    
+//    public override func awakeFromInsert() {
+//        // Default Tasks
+//    }
+    
+    
     var cloudKitRecord: CKRecord? {
         
         let recordID = CKRecordID(recordName: self.recordName)

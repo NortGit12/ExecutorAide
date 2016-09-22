@@ -42,7 +42,6 @@ class DetailModelController {
                 }
                 
                 if error != nil {
-                    
                     print("Error: New detail \"\(detail?.contentType)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
                     return
                 }
