@@ -22,7 +22,7 @@ class StageModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createStage(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, testator: Testator, completion: (() -> Void)? = nil) {
+    func createStage(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, testator: Testator, completion: (() -> Void)?) {
         
         let stage = Stage(descriptor: descriptor, name: name, percentComplete: percentComplete, sortValue: sortValue, testator: testator)
         
@@ -43,7 +43,7 @@ class StageModelController {
                 
                 if error != nil {
                     
-                    print("Error: New Stage \"\(stage?.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
+//                    print("Error: New Stage \"\(stage?.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
                     return
                 }
                 
@@ -64,14 +64,20 @@ class StageModelController {
     }
     
     func create(stages: [Stage], completion: (() -> Void)? = nil) {
-        
-        for stage in stages {
-            
-            createStage(descriptor: stage.descriptor, name: stage.name, sortValue: stage.sortValue, testator: stage.testator)
-        }
-        
-        if let completion = completion {
-            completion()
+        PersistenceController.shared.moc.performAndWait {
+            var counter = 0
+            for stage in stages {
+                self.createStage(descriptor: stage.descriptor, name: stage.name, sortValue: 0, testator: stage.testator, completion: {
+                    counter += 1
+                    
+                    if counter == stages.count {
+                        if let completion = completion {
+                            completion()
+                        }
+                    }
+                    
+                })
+            }
         }
     }
     

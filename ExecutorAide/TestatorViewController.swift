@@ -31,11 +31,6 @@ class TestatorViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-//        testators = TestatorModelController.shared.fetchTestators()
-    }
-    
     func setupViewWithTestators() {
         DispatchQueue.main.async {
             // Setup label

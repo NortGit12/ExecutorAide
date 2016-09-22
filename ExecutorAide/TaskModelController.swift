@@ -22,7 +22,7 @@ class TaskModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createTask(name: String, sortValue: Int, stage: Stage, completion: (() -> Void)? = nil) {
+    func createTask(name: String, sortValue: Int, stage: Stage, completion: (() -> Void)?) {
         
         let task = Task(name: name, sortValue: sortValue, stage: stage)
         
@@ -31,11 +31,8 @@ class TaskModelController {
         }
 
         if let taskCloudKitRecord = task?.cloudKitRecord {
-            
             cloudKitManager.saveRecord(database: cloudKitManager.privateDatabase, record: taskCloudKitRecord, completion: { (record, error) in
-                
                 defer {
-                    
                     if let completion = completion {
                         completion()
                     }
@@ -62,43 +59,15 @@ class TaskModelController {
     }
     
     func create(tasks: [Task], completion: (() -> Void)? = nil) {
-        
         PersistenceController.shared.moc.performAndWait {
-            PersistenceController.shared.saveContext()
-        }
-        
-        var counter = 0
-        for task in tasks {
-            
-            if let taskCloudKitRecord = task.cloudKitRecord {
-                
-                cloudKitManager.saveRecord(database: cloudKitManager.privateDatabase, record: taskCloudKitRecord, completion: { (record, error) in
+            var counter = 0
+            for task in tasks {
+                self.createTask(name: task.name, sortValue: task.sortValue, stage: task.stage, completion: {
+                    counter += 1
                     
-                    if error != nil {
-                        
-                        print("Error: New task \"\(task.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
-                        return
-                    }
-                    
-                    if let record = record {
-                        
-                        /*
-                         The "...AndWait" makes the subsequent work wait for the performBlock to finish.  By default, the moc.performBlock(...) is asynchronous, so the work in there would be done asynchronously on another thread and the subsequent lines would run immeciately.
-                         */
-                        
-                        PersistenceController.shared.moc.performAndWait {
-                            
-                            task.updateRecordIDData(record: record)
-                            print("New task \"\(task.name)\" successfully saved to CloudKit.")
-                            counter += 1
-                            
-                            // If all stages have been saved, execute completion
-                            if counter == tasks.count {
-                                
-                                if let completion = completion {
-                                    completion()
-                                }
-                            }
+                    if counter == tasks.count {
+                        if let completion = completion {
+                            completion()
                         }
                     }
                 })

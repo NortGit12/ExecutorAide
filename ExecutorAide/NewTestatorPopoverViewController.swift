@@ -56,6 +56,7 @@ class NewTestatorPopoverViewController: UIViewController {
         activityIndicatorView.isHidden = false
         if let nameText = testatorNameTextField.text {
             guard let testatorImage = testatorImage else {
+                
                 TestatorModelController.shared.createTestator(image: UIImage(named: "user"), name: nameText, completion: { (testator) in
                     guard let testator = testator else { return }
                     DataTemplateController.initializeTemplate(forTestator: testator, completion: { 

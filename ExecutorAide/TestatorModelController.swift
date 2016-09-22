@@ -79,17 +79,17 @@ class TestatorModelController {
         
         var resultsArray: [Testator]? = nil
         
-        let moc = Stack.shared.managedObjectContext
-        moc.performAndWait {
+        PersistenceController.shared.moc.performAndWait {
             do {
                 resultsArray = try PersistenceController.shared.moc.fetch(request) as? [Testator] ?? []
+                resultsArray?.sort(by: { $0.0.name < $0.1.name })
                 
             } catch let error {
                 print("Error fetching all Testators: \(error.localizedDescription)")
             }
         }
         
-        resultsArray?.sort(by: { $0.0.name < $0.1.name })
+        
         return resultsArray ?? nil
     }
     
