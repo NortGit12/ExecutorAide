@@ -22,9 +22,9 @@ class DetailModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createDetail(contentType: String, contentValue: String, sortValue: Int, completion: (() -> Void)? = nil) {
+    func createDetail(contentType: String, contentValue: String, sortValue: Int, subTask: SubTask, completion: (() -> Void)? = nil) {
         
-        let detail = Detail(contentType: contentType, contentValue: contentValue, sortValue: sortValue)
+        let detail = Detail(contentType: contentType, contentValue: contentValue, sortValue: sortValue, subTask: subTask)
         
         PersistenceController.shared.moc.performAndWait {
             PersistenceController.shared.saveContext()

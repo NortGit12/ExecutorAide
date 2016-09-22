@@ -22,9 +22,9 @@ class StageModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createStage(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, completion: (() -> Void)? = nil) {
+    func createStage(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, task: Task, completion: (() -> Void)? = nil) {
         
-        let stage = Stage(descriptor: descriptor, name: name, percentComplete: percentComplete, sortValue: sortValue)
+        let stage = Stage(descriptor: descriptor, name: name, percentComplete: percentComplete, sortValue: sortValue, task: task)
         
         PersistenceController.shared.moc.performAndWait {
             PersistenceController.shared.saveContext()
@@ -67,7 +67,7 @@ class StageModelController {
         
         for stage in stages {
             
-            createStage(descriptor: stage.descriptor, name: stage.name, sortValue: stage.sortValue)
+            createStage(descriptor: stage.descriptor, name: stage.name, sortValue: stage.sortValue, testator: stage.testator)
         }
         
         if let completion = completion {
@@ -132,7 +132,6 @@ class StageModelController {
             existingStage?.recordIDData = nil
             existingStage?.percentComplete = stage.percentComplete
             existingStage?.sortValue = stage.sortValue
-            existingStage?.tasks = stage.tasks
             
             PersistenceController.shared.moc.performAndWait {
                 PersistenceController.shared.saveContext()

@@ -22,9 +22,9 @@ class TaskModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createTask(name: String, sortValue: Int, completion: (() -> Void)? = nil) {
+    func createTask(name: String, sortValue: Int, stage: Stage, completion: (() -> Void)? = nil) {
         
-        let task = Task(name: name, sortValue: sortValue)
+        let task = Task(name: name, sortValue: sortValue, stage: stage)
         
         PersistenceController.shared.moc.performAndWait {
             PersistenceController.shared.saveContext()
@@ -161,7 +161,6 @@ class TaskModelController {
             existingTask?.recordIDData = nil
             existingTask?.sortValue = task.sortValue
             existingTask?.stage = task.stage
-            existingTask?.subTasks = task.subTasks
             
             PersistenceController.shared.moc.performAndWait {
                 PersistenceController.shared.saveContext()

@@ -76,7 +76,7 @@ public class Testator: SyncableObject, CloudKitManagedObject {
     // MARK: - Initializers
     //==================================================
     
-    convenience init?(image: NSData, name: String, stages: [Stage]? = nil, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
+    convenience init?(image: NSData, name: String, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
         guard let testatorEntity = NSEntityDescription.entity(forEntityName: Testator.type, in: context) else {
             
@@ -89,18 +89,6 @@ public class Testator: SyncableObject, CloudKitManagedObject {
         self.image = image
         self.name = name
         self.recordName = nameForManagedObject()
-        
-        let stagesMutableOrderedSet = NSMutableOrderedSet()
-        if let stages = stages {
-            
-            for stage in stages {
-                
-                stagesMutableOrderedSet.add(stage)
-            }
-            
-            self.stages = NSOrderedSet(orderedSet: stagesMutableOrderedSet)
-        }
-
     }
     
     convenience required public init?(record: CKRecord, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
@@ -126,32 +114,6 @@ public class Testator: SyncableObject, CloudKitManagedObject {
         self.name = name
         self.recordIDData = NSKeyedArchiver.archivedData(withRootObject: record.recordID) as NSData?
         self.recordName = record.recordID.recordName
-        
-        if let stagesReferences = record[Testator.stagesKey] as? [CKReference] {
-            
-            let stages = setStages(stagesReferences: stagesReferences)
-            
-            self.stages = NSOrderedSet(array: stages)
-        }
-    }
-    
-    //==================================================
-    // MARK: - Methods
-    //==================================================
-    
-    func setStages(stagesReferences: [CKReference]) -> [Stage] {
-        
-        var stages = [Stage]()
-        for stagesReference in stagesReferences {
-            
-            let stageIDName = stagesReference.recordID.recordName
-            if let stage = StageModelController.shared.fetchStageByIDName(idName: stageIDName) {
-                
-                stages.append(stage)
-            }
-        }
-        
-        return stages
     }
 }
 

@@ -22,9 +22,9 @@ class SubTaskModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createSubTask(descriptor: String?, isCompleted: Bool = false, name: String, sortValue: Int, completion: (() -> Void)? = nil) {
+    func createSubTask(descriptor: String?, isCompleted: Bool = false, name: String, sortValue: Int, task: Task, completion: (() -> Void)? = nil) {
         
-        let subTask = SubTask(descriptor: descriptor, isCompleted: isCompleted, name: name, sortValue: sortValue)
+        let subTask = SubTask(descriptor: descriptor, isCompleted: isCompleted, name: name, sortValue: sortValue, task: task)
         
         PersistenceController.shared.moc.performAndWait {
             PersistenceController.shared.saveContext()
@@ -157,7 +157,6 @@ class SubTaskModelController {
             let existingSubTask = resultsArray?.first
             
             existingSubTask?.descriptor = subTask.descriptor
-            existingSubTask?.details = subTask.details
             existingSubTask?.isCompleted = subTask.isCompleted
             existingSubTask?.name = subTask.name
             existingSubTask?.recordIDData = nil

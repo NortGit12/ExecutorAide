@@ -36,29 +36,6 @@ public class Stage: SyncableObject, CloudKitManagedObject {
         record[Stage.percentCompleteKey] = self.percentComplete as NSNumber
         record[Stage.sortValueKey] = self.sortValue as NSNumber
         
-        var tasksReferencesArray = [CKReference]()
-        if let tasks = self.tasks {
-            
-            if tasks.count > 0 {
-                
-                for task in tasks {
-                    
-                    guard let task = task as? Task
-                        , let recordIDData = task.recordIDData as? Data
-                        , let recordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
-                        else { continue }
-                    
-                    let taskReference = CKReference(recordID: recordID, action: .deleteSelf)
-                    tasksReferencesArray.append(taskReference)
-                }
-                
-                record[Stage.tasksKey] = tasksReferencesArray as NSArray
-            } else {
-                
-                record[Stage.tasksKey] = [Task]() as NSArray
-            }
-        }
-        
         guard let recordIDData = self.testator.recordIDData as? Data
             , let testatorRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
             else {
@@ -77,7 +54,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
     // MARK: - Initializers
     //==================================================
     
-    convenience init?(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, tasks: [Task]? = nil, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
+    convenience init?(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, testator: Testator, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
         guard let stageEntity = NSEntityDescription.entity(forEntityName: Stage.type, in: context) else {
             
@@ -93,13 +70,7 @@ public class Stage: SyncableObject, CloudKitManagedObject {
         self.recordName = nameForManagedObject()
         self.sortValue = sortValue
         
-        let tasksMutableOrderedSet = NSMutableOrderedSet()
-        if let tasks = tasks {
-            for task in tasks {
-                tasksMutableOrderedSet.add(task)
-            }
-            self.tasks = NSOrderedSet(orderedSet: tasksMutableOrderedSet)
-        }
+        self.testator = testator
     }
     
     convenience required public init?(record: CKRecord, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
@@ -130,13 +101,6 @@ public class Stage: SyncableObject, CloudKitManagedObject {
         self.percentComplete = percentComplete
         self.sortValue = sortValue
         
-        if let tasksReferences = record[Task.subTasksKey] as? [CKReference] {
-            
-            let tasks = setTasks(tasksReferences: tasksReferences)
-            
-            self.tasks = NSOrderedSet(array: tasks)
-        }
-        
         let testatorIDName = testatorReference.recordID.recordName
         guard let testator = TestatorModelController.shared.fetchTestatorByIDName(idName: testatorIDName) else {
             
@@ -146,26 +110,6 @@ public class Stage: SyncableObject, CloudKitManagedObject {
         
         self.testator = testator
     }
-    
-    //==================================================
-    // MARK: - Methods
-    //==================================================
-    
-    func setTasks(tasksReferences: [CKReference]) -> [Task] {
-        
-        var tasks = [Task]()
-        for taskReference in tasksReferences {
-            
-            let taskIDName = taskReference.recordID.recordName
-            if let task = TaskModelController.shared.fetchTaskByIDName(idName: taskIDName) {
-                
-                tasks.append(task)
-            }
-        }
-        
-        return tasks
-    }
-
 }
 
 

@@ -44,29 +44,6 @@ public class Task: SyncableObject, CloudKitManagedObject {
         let stageReference = CKReference(recordID: stageRecordID, action: .deleteSelf)
         record[Task.stageKey] = stageReference as CKReference
         
-        var subTasksReferences = [CKReference]()
-        if let subTasks = self.subTasks {
-            
-            if subTasks.count > 0 {
-                for subTask in subTasks {
-                    
-                    guard let subTask = subTask as? SubTask
-                        , let recordIDData = subTask.recordIDData as? Data
-                        , let recordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
-                        else { continue }
-                    
-                    let subTaskReference = CKReference(recordID: recordID, action: .deleteSelf)
-                    subTasksReferences.append(subTaskReference)
-                }
-                
-                record[Task.subTasksKey] = subTasksReferences as NSArray
-                
-            } else {
-                
-                record[Task.subTasksKey] = [SubTask]() as NSArray
-            }
-        }
-        
         return record
     }
     
@@ -74,7 +51,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
     // MARK: - Initializers
     //==================================================
 
-    convenience init?(name: String, sortValue: Int, subTasks: [SubTask]? = nil, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
+    convenience init?(name: String, sortValue: Int, stage: Stage, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
         guard let taskEntity = NSEntityDescription.entity(forEntityName: Task.type, in: context) else {
             
@@ -88,16 +65,7 @@ public class Task: SyncableObject, CloudKitManagedObject {
         self.recordName = nameForManagedObject()
         self.sortValue = sortValue
         
-        let subTasksMutableOrderedSet = NSMutableOrderedSet()
-        if let subTasks = subTasks {
-        
-            for subTask in subTasks {
-                
-                subTasksMutableOrderedSet.add(subTask)
-            }
-            
-            self.subTasks = NSOrderedSet(orderedSet: subTasksMutableOrderedSet)
-        }
+        self.stage = stage
     }
     
     convenience required public init?(record: CKRecord, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
@@ -132,32 +100,6 @@ public class Task: SyncableObject, CloudKitManagedObject {
         }
         
         self.stage = stage
-        
-        if let subTasksReferences = record[Task.subTasksKey] as? [CKReference] {
-            
-            let subTasks = setSubTasks(subTasksReferences: subTasksReferences)
-            
-            self.subTasks = NSOrderedSet(array: subTasks)
-        }
-    }
-    
-    //==================================================
-    // MARK: - Methods
-    //==================================================
-    
-    func setSubTasks(subTasksReferences: [CKReference]) -> [SubTask] {
-        
-        var subTasks = [SubTask]()
-        for subTaskReference in subTasksReferences {
-            
-            let subTaskIDName = subTaskReference.recordID.recordName
-            if let subTask = SubTaskModelController.shared.fetchSubTaskByIDName(idName: subTaskIDName) {
-                
-                subTasks.append(subTask)
-            }
-        }
-        
-        return subTasks
     }
 }
 

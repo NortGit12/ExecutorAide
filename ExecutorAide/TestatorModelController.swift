@@ -121,7 +121,6 @@ class TestatorModelController {
             existingTestator?.name = testator.name
             existingTestator?.recordIDData = nil
             existingTestator?.image = testator.image
-            existingTestator?.stages = testator.stages
             
             PersistenceController.shared.moc.performAndWait {
                 PersistenceController.shared.saveContext()
