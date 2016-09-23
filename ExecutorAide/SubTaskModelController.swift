@@ -34,16 +34,14 @@ class SubTaskModelController {
             
             cloudKitManager.saveRecord(database: cloudKitManager.privateDatabase, record: subTaskCloudKitRecord, completion: { (record, error) in
                 
-                defer {
-                    
-                    if let completion = completion {
-                        completion()
-                    }
-                }
-                
                 if error != nil {
                     
                     print("Error: New sub-task \"\(subTask?.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
+                    
+                    if let completion = completion {
+                        completion()
+                        return
+                    }
                 }
                 
                 if let record = record {
@@ -56,6 +54,10 @@ class SubTaskModelController {
                         
                         subTask?.updateRecordIDData(record: record)
                         print("New sub-task \"\(subTask?.name)\" successfully saved to CloudKit.")
+                        
+                        if let completion = completion {
+                            completion()
+                        }
                     })
                 }
             })

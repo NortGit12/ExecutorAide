@@ -25,6 +25,7 @@ struct DataTemplateController {
                 Task(name: "Add Executor to Accounts", sortValue: 1, stage: stage1)!
             ]
             
+            
             let defaultStage1SubTasks: [SubTask] = [
                 
                 SubTask(descriptor: "Make sure the testator has their will in order.", name: "Will", sortValue: 0, task: defaultStage1Tasks[0])!,
@@ -37,11 +38,11 @@ struct DataTemplateController {
             ]
             
             StageModelController.shared.create(stages: [stage1, stage2, stage3], completion: {
-                print("Created stages")
+                
                 TaskModelController.shared.create(tasks: defaultStage1Tasks, completion: {
-                    print("Created tasks")
-                    SubTaskModelController.shared.create(subTasks: defaultStage1SubTasks, completion: { 
-                        print("Created subtasks")
+
+                    SubTaskModelController.shared.create(subTasks: defaultStage1SubTasks, completion: {
+                        
                         completion()
                     })
                 })

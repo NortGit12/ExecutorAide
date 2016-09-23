@@ -39,7 +39,6 @@ public class Task: SyncableObject, CloudKitManagedObject {
             guard let recordIDData = self.stage.recordIDData as? Data
                 , let stageRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
                 else {
-                    
                     print("Error: Could not unarchive the Stage's recordIDData when attempting to compute the cloudKitRecord for a Task.")
                     return
             }

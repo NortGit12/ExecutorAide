@@ -42,17 +42,13 @@ class TestatorModelController {
             
             cloudKitManager.saveRecord(database: cloudKitManager.privateDatabase, record: testatorCloudKitRecord, completion: { (record, error) in
                 
-                defer {
-                    
-                    if let completion = completion {
-                        completion(testator)
-                    }
-                }
-                
                 if error != nil {
                     
                     print("Error: New Testator could not be saved to CloudKit.  \(error?.localizedDescription)")
-                    return
+                    if let completion = completion {
+                        completion(testator)
+                        return
+                    }
                 }
                 
                 if let record = record {
@@ -65,6 +61,10 @@ class TestatorModelController {
                         
                         testator?.updateRecordIDData(record: record)
                         print("New Testator \"\(testator?.name)\" successfully saved to CloudKit.")
+                        
+                        if let completion = completion {
+                            completion(testator)
+                        }
                     })
                 }
             })

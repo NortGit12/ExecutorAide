@@ -34,16 +34,12 @@ class DetailModelController {
             
             cloudKitManager.saveRecord(database: cloudKitManager.privateDatabase, record: detailCloudKitRecord, completion: { (record, error) in
                 
-                defer {
-                    
-                    if let completion = completion {
-                        completion()
-                    }
-                }
-                
                 if error != nil {
                     print("Error: New detail \"\(detail?.contentType)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
-                    return
+                    if let completion = completion {
+                        completion()
+                        return
+                    }
                 }
                 
                 if let record = record {
@@ -56,6 +52,10 @@ class DetailModelController {
                         
                         detail?.updateRecordIDData(record: record)
                         print("New detail \"\(detail?.contentType)\" successfully saved to CloudKit.")
+                        
+                        if let completion = completion {
+                            completion()
+                        }
                     })
                 }
             })

@@ -22,29 +22,25 @@ class StageModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createStage(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, testator: Testator, completion: (() -> Void)? = nil) {
-        
-        let stage = Stage(descriptor: descriptor, name: name, percentComplete: percentComplete, sortValue: sortValue, testator: testator)
+    func createStage(stage: Stage, completion: (() -> Void)?) {
         
         PersistenceController.shared.moc.performAndWait {
             PersistenceController.shared.saveContext()
         }
         
-        if let stageCloudKitRecord = stage?.cloudKitRecord {
+        if let stageCloudKitRecord = stage.cloudKitRecord {
             
             cloudKitManager.saveRecord(database: cloudKitManager.privateDatabase, record: stageCloudKitRecord, completion: { (record, error) in
                 
-                defer {
+                if error != nil {
+                    
+                    print("Error: New Stage \"\(stage.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
                     
                     if let completion = completion {
                         completion()
+                        return
                     }
-                }
-                
-                if error != nil {
                     
-                    print("Error: New Stage \"\(stage?.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
-                    return
                 }
                 
                 if let record = record {
@@ -55,8 +51,12 @@ class StageModelController {
                     
                     PersistenceController.shared.moc.performAndWait {
                         
-                        stage?.updateRecordIDData(record: record)
-                        print("New Stage \"\(stage?.name)\" successfully saved to CloudKit.")
+                        stage.updateRecordIDData(record: record)
+                        print("New Stage \"\(stage.name)\" successfully saved to CloudKit.")
+                        
+                        if let completion = completion {
+                            completion()
+                        }
                     }
                 }
             })
@@ -64,15 +64,21 @@ class StageModelController {
     }
     
     func create(stages: [Stage], completion: (() -> Void)? = nil) {
-        
-//        for stage in stages {
-//            
-//            createStage(descriptor: stage.descriptor, name: stage.name, sortValue: stage.sortValue, testator: stage.testator)
-//        }
-        
-        if let completion = completion {
-            completion()
+        PersistenceController.shared.moc.performAndWait {
+            var counter = 0
+            for stage in stages {
+                self.createStage(stage: stage, completion: { 
+                    counter += 1
+                    
+                    if counter == stages.count {
+                        if let completion = completion {
+                            completion()
+                        }
+                    }
+                })
+            }
         }
+        
     }
     
     func fetchStages() -> [Stage]? {
