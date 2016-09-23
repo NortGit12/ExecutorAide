@@ -68,6 +68,16 @@ public class Testator: SyncableObject, CloudKitManagedObject {
         
         self.init(entity: testatorEntity, insertInto: context)
         
+        if image.length == 0 {
+            print("Error: The image is empty.")
+            return nil
+        }
+        
+        if name.characters.count == 0 {
+            print("Error: The name is empty.")
+            return nil
+        }
+        
         self.image = image
         self.name = name
         self.recordName = nameForManagedObject()
