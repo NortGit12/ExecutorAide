@@ -8,21 +8,19 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
+class MainTabBarController: UITabBarController {
 
+    var stages: [Stage]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = self
+        setupTabBarTitles()
     }
     
-//    override func viewWillAppear(animated: Bool) {
-//        super.viewWillAppear(animated)
-//        let stage1 = StageViewController()
-//        let stage1Item = UITabBarItem(title: "Preparation", image: UIImage(named: ""), selectedImage: UIImage(named: ""))
-//        stage1.tabBarItem = stage1Item
-//        
-//        let controllers = [stage1]
-//        self.viewControllers = controllers
-//    }
-
+    func setupTabBarTitles() {
+        guard let stages = stages else { return }
+        for i in 0...stages.count - 1 {
+            tabBar.items?[i].title = stages[i].name
+        }
+    }
 }

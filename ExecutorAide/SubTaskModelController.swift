@@ -104,6 +104,29 @@ class SubTaskModelController {
         }
     }
     
+    func fetchSubTasks(for task: Task) -> [SubTask]? {
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: SubTask.type)
+        let predicate = NSPredicate(format: "task == %@", argumentArray: [task])
+        request.predicate = predicate
+        
+        do {
+            let resultsArray = try PersistenceController.shared.moc.fetch(request) as? [SubTask]
+            guard let sortedResultsArray = resultsArray?.sorted(by: { $0.sortValue < $1.sortValue }) else {
+                
+                print("Error: The sub-tasks array could not be sorted.")
+                return nil
+            }
+            
+            return sortedResultsArray
+            
+        } catch let error {
+            
+            print("Error fetching all SubTasks: \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
     func fetchSubTaskByIDName(idName: String) -> SubTask? {
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: SubTask.type)

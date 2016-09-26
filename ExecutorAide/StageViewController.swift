@@ -10,27 +10,46 @@ import UIKit
 import CoreData
 
 class StageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate/*, SubTaskTableViewCellDelegate*/ {
-
-    var stages: [Stage]? {
-        didSet {
-            tableView.reloadData()
-        }
-    }
-    var fetchedResultsController: NSFetchedResultsController<Stage>?
     
     @IBOutlet weak var tableView: UITableView!
     
+    var stage: Stage? {
+        didSet {
+            DispatchQueue.main.async {
+                guard let stage = self.stage else { return }
+                self.tasks = TaskModelController.shared.fetchTasks(for: stage)
+            }
+        }
+    }
+    
+    var tasks: [Task]? = [] {
+        didSet {
+            DispatchQueue.main.async {
+                guard let tasks = self.tasks else { return }
+                for task in tasks {
+                    let subTasks = SubTaskModelController.shared.fetchSubTasks(for: task)
+                    guard let subTaskArray = subTasks else { return }
+                    self.subTasks?.append(subTaskArray)
+                    
+                }
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    var subTasks: [[SubTask]]? = []
+
+    var fetchedResultsController: NSFetchedResultsController<Stage>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.reloadData()
         setupCustomCells()
         setupNavbar()
-        
-        stages = StageModelController.shared.fetchStages()
-        
     }
     
     func setupNavbar() {
-        title = stages?[0].name
+        title = stage?.name
 //        let titleView = navigationController?.navigationItem.titleView
         let progressView = UIProgressView(frame: CGRect(x: 0, y: 0, width: 50, height: 10))
         progressView.progressViewStyle = .bar
@@ -38,7 +57,7 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         navigationController?.navigationItem.titleView = progressView
         
-        if let percentComplete = stages?[0].percentComplete {
+        if let percentComplete = stage?.percentComplete {
             progressView.progress = percentComplete
         }
     }
@@ -53,20 +72,19 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     // MARK: - TableViewDataSource Methods
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let stages = stages, let tasks = stages[0].tasks else { return 0 }
+        guard let tasks = tasks else { return 0 }
         return tasks.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let stages = stages, let tasks = stages[0].tasks, let task = tasks[section] as? Task, let subtasks = task.subTasks else { return 0 }
-        return subtasks.count
+        guard let subTasks = subTasks else { return 0 }
+        return subTasks[section].count
     }
 
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: subTaskCellReuseIdentifier, for: indexPath) as? SubTaskTableViewCell else { return UITableViewCell() }
-        
-        guard let subTask = stages?[0].tasks?[indexPath.row] as? SubTask else { return UITableViewCell() }
+        let taskIndex = indexPath.section
+        guard let subTask = subTasks?[taskIndex][indexPath.row] else { return UITableViewCell() }
         cell.updateCellWithSubTask(subTask: subTask)
         
         return cell
@@ -74,9 +92,10 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let tasks = stages?[0].tasks, let task = tasks[section] as? Task else { return "" }
-        return task.name
+        guard let tasks = tasks else { return "" }
+        return tasks[section].name
     }
+    
     
     // MARK: - NSFetchedResultsController Delegate Methods
     

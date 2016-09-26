@@ -16,8 +16,8 @@ struct DataTemplateController {
         moc.performAndWait {
             
             guard let stage1 = Stage(descriptor: "During this stage, prepare for the passing of the testator by collecting all necessary information.", name: "Prepare", sortValue: 0, testator: testator) else { return }
-            guard let stage2 = Stage(descriptor: "Upon the death of the testator, perform the immediately necessary actions and allow yourself and others to grieve.", name: "Upon Death", sortValue: 0, testator: testator) else { return }
-            guard let stage3 = Stage(descriptor: "When you feel ready, begin managing the estate of the testator", name: "Estate Management", sortValue: 0, testator: testator) else { return }
+            guard let stage2 = Stage(descriptor: "Upon the death of the testator, perform the immediately necessary actions and allow yourself and others to grieve.", name: "Upon Death", sortValue: 1, testator: testator) else { return }
+            guard let stage3 = Stage(descriptor: "When you feel ready, begin managing the estate of the testator", name: "Estate Management", sortValue: 2, testator: testator) else { return }
             
             
             let defaultStage1Tasks: [Task] = [

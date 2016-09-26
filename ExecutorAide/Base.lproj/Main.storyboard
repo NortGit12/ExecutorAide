@@ -90,13 +90,13 @@
             </objects>
             <point key="canvasLocation" x="132" y="185"/>
         </scene>
-        <!--StageView-->
+        <!--TabBarViewController-->
         <scene sceneID="5rK-vb-02k">
             <objects>
-                <viewControllerPlaceholder storyboardName="StageView" id="DM7-Ng-PCo" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="TabBarViewController" id="DM7-Ng-PCo" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tkm-MJ-xHg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1635" y="185"/>
+            <point key="canvasLocation" x="1634" y="184"/>
         </scene>
         <!--NewTestatorPopover-->
         <scene sceneID="fjP-7y-c73">

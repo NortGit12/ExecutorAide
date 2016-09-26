@@ -29,7 +29,7 @@ class SubTaskTableViewCell: UITableViewCell {
     
     func updateCellWithSubTask(subTask: SubTask) {
         subTaskNameLabel.text = subTask.name
-        subTaskDescriptionLabel.text = subTask.description
+//        subTaskDescriptionLabel.text = subTask.description
     }
     
     func updateCheckmarkWithCompletedState(isCompleted: Bool) {

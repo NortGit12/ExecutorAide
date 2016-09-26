@@ -6,48 +6,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Upon Death-->
-        <scene sceneID="YZp-Gi-k4q">
-            <objects>
-                <viewController id="yWq-qG-YsM" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Mqd-UP-uWC"/>
-                        <viewControllerLayoutGuide type="bottom" id="mqw-Uk-6xU"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="rkF-BA-lcr">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Upon Death" id="zpO-CD-ePS"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dSH-ZB-YXR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1374" y="-326"/>
-        </scene>
-        <!--Estate Management-->
-        <scene sceneID="3U4-Av-bJL">
-            <objects>
-                <viewController id="Mph-Kc-C6t" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="hMi-sU-dpD"/>
-                        <viewControllerLayoutGuide type="bottom" id="upf-X8-3Tx"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="FDh-0G-yp3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Estate Management" id="ovf-vU-wTh"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4hl-oM-ggU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1374" y="320"/>
-        </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar Controller-->
         <scene sceneID="UlE-hE-aNN">
             <objects>
-                <tabBarController id="fIH-Z8-JXD" sceneMemberID="viewController">
+                <tabBarController id="fIH-Z8-JXD" customClass="MainTabBarController" customModule="ExecutorAide" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="fwe-d4-Aag">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -55,8 +17,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="6le-Bf-d73" kind="relationship" relationship="viewControllers" id="KOP-hQ-QEr"/>
-                        <segue destination="yWq-qG-YsM" kind="relationship" relationship="viewControllers" id="kX4-yx-LWD"/>
-                        <segue destination="Mph-Kc-C6t" kind="relationship" relationship="viewControllers" id="ad2-6l-KUx"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RWt-6j-g54" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -99,7 +59,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wmg-ov-C0W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1374" y="-972"/>
+            <point key="canvasLocation" x="1236" y="-268"/>
         </scene>
     </scenes>
 </document>

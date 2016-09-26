@@ -105,6 +105,30 @@ class StageModelController {
         }
     }
     
+    func fetchStages(for testator: Testator) -> [Stage]? {
+        
+        let request  = NSFetchRequest<NSFetchRequestResult>(entityName: Stage.type)
+        let predicate = NSPredicate(format: "testator.recordName == %@", argumentArray: [testator.recordName])
+        request.predicate = predicate
+        
+        do {
+            let resultsArray = try PersistenceController.shared.moc.fetch(request) as? [Stage]
+            
+            guard let sortedResultsArray = resultsArray?.sorted(by: { $0.sortValue < $1.sortValue }) else {
+                
+                print("Error: The stages array could not be sorted when fetching all Stages.")
+                return nil
+            }
+            
+            return sortedResultsArray
+            
+        } catch let error {
+            
+            print("Error fetching all Stages: \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
     func fetchStageByIDName(idName: String) -> Stage? {
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: Stage.type)

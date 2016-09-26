@@ -98,6 +98,29 @@ class TaskModelController {
         }
     }
     
+    func fetchTasks(for stage: Stage) -> [Task]? {
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Task.type)
+        let predicate = NSPredicate(format: "stage.recordName == %@", argumentArray: [stage.recordName])
+        request.predicate = predicate
+        
+        do {
+            let resultsArray = try PersistenceController.shared.moc.fetch(request) as? [Task]
+            guard let sortedResultsArray = resultsArray?.sorted(by: { $0.sortValue < $1.sortValue }) else {
+                
+                print("Error: The tasks array could not be sorted.")
+                return nil
+            }
+            
+            return sortedResultsArray
+            
+        } catch let error {
+            
+            print("Error fetching Tasks from Stage \(stage): \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
     func fetchTaskByIDName(idName: String) -> Task? {
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: Task.type)
