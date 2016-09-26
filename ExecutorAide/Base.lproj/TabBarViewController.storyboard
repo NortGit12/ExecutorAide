@@ -69,7 +69,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kvd-cv-47J"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kvd-cv-47J">
+                                <connections>
+                                    <segue destination="VTO-AI-mVZ" kind="embed" identifier="stage2ViewEmbed" id="UTg-Tq-HhY"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -97,7 +101,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oFB-hJ-vQ6"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oFB-hJ-vQ6">
+                                <connections>
+                                    <segue destination="VTO-AI-mVZ" kind="embed" identifier="stage3ViewEmbed" id="bx0-um-URC"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -150,4 +158,7 @@
             <point key="canvasLocation" x="2182" y="-282"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="bx0-um-URC"/>
+    </inferredMetricsTieBreakers>
 </document>
