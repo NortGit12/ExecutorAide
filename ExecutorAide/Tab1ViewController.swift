@@ -16,6 +16,9 @@ class Tab1ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let rightButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(stageViewController.showEditing(sender:)))
+        self.navigationItem.rightBarButtonItem = rightButton
     }
 
     // MARK: - Navigation

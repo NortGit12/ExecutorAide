@@ -82,6 +82,7 @@ class TestatorViewController: UIViewController, UITableViewDelegate, UITableView
             let selectedTestator = testators[selectedIndexPath.row]
             guard let stages = StageModelController.shared.fetchStages(for: selectedTestator) else { return }
             tabBarVC.stages = stages
+            tabBarVC.title = selectedTestator.name
             firstTabVC.stage = stages[0]
         } else if segue.identifier == "showNewTestatorPopover" {
             guard let popoverNavController = segue.destination as? UINavigationController, let popoverVC = popoverNavController.viewControllers.first as? NewTestatorPopoverViewController else { return }

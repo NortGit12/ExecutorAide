@@ -90,53 +90,25 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
     }
     
-
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let tasks = tasks else { return "" }
         return tasks[section].name
     }
     
-    
-    // MARK: - NSFetchedResultsController Delegate Methods
-    
-    func controllerWillChangeContent(controller: NSFetchedResultsController<Stage>) {
-        tableView.beginUpdates()
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
-    
-    func controller(controller: NSFetchedResultsController<Stage>, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
-        switch type {
-        case .delete:
-            tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .automatic)
-        case .insert:
-            tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .automatic)
-        default:
-            break
+
+    func showEditing(sender: UIBarButtonItem) {
+        if self.tableView.isEditing == true {
+            self.tableView.isEditing = false
+            self.navigationItem.rightBarButtonItem?.title = "Done"
+        } else {
+            self.tableView.isEditing = true
+            self.navigationItem.rightBarButtonItem?.title = "Edit"
         }
     }
-    
-    func controller(controller: NSFetchedResultsController<Stage>, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-        switch type {
-        case .delete:
-            guard let indexPath = indexPath else {return}
-     
-            tableView.deleteRows(at: [indexPath as IndexPath], with: .automatic)
-        case .insert:
-            guard let newIndexPath = newIndexPath else {return}
-            tableView.insertRows(at: [newIndexPath as IndexPath], with: .automatic)
-        case.update:
-            guard let indexPath = indexPath else {return}
-            tableView.reloadRows(at: [indexPath as IndexPath], with: .automatic)
-        case .move:
-            guard let indexPath = indexPath, let newIndexPath = newIndexPath else {return}
-            tableView.deleteRows(at: [indexPath as IndexPath], with: .automatic)
-            tableView.insertRows(at: [newIndexPath as IndexPath], with: .automatic)
-        }
-    }
-    
-    func controllerDidChangeContent(controller: NSFetchedResultsController<Stage>) {
-        tableView.endUpdates()
-    }
-    
+
     // MARK: - SubTaskTableViewCellDelegate Method
     
 //    func subTaskTableViewCellDidReceiveTap() -> SubTask {

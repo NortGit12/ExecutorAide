@@ -22,21 +22,19 @@ class SubTaskModelController {
     // MARK: - Methods (CRUD)
     //==================================================
     
-    func createSubTask(descriptor: String?, isCompleted: Bool = false, name: String, sortValue: Int, task: Task, completion: (() -> Void)?) {
-        
-        let subTask = SubTask(descriptor: descriptor, isCompleted: isCompleted, name: name, sortValue: sortValue, task: task)
+    func createSubTask(subTask: SubTask, completion: (() -> Void)?) {
         
         PersistenceController.shared.moc.performAndWait {
             PersistenceController.shared.saveContext()
         }
         
-        if let subTaskCloudKitRecord = subTask?.cloudKitRecord {
+        if let subTaskCloudKitRecord = subTask.cloudKitRecord {
             
             cloudKitManager.saveRecord(database: cloudKitManager.privateDatabase, record: subTaskCloudKitRecord, completion: { (record, error) in
                 
                 if error != nil {
                     
-                    print("Error: New sub-task \"\(subTask?.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
+                    print("Error: New sub-task \"\(subTask.name)\" could not be saved to CloudKit.  \(error?.localizedDescription)")
                     
                     if let completion = completion {
                         completion()
@@ -52,8 +50,8 @@ class SubTaskModelController {
                     
                     PersistenceController.shared.moc.performAndWait({
                         
-                        subTask?.updateRecordIDData(record: record)
-                        print("New sub-task \"\(subTask?.name)\" successfully saved to CloudKit.")
+                        subTask.updateRecordIDData(record: record)
+                        print("New sub-task \"\(subTask.name)\" successfully saved to CloudKit.")
                         
                         if let completion = completion {
                             completion()
@@ -68,7 +66,7 @@ class SubTaskModelController {
         PersistenceController.shared.moc.performAndWait {
             var counter = 0
             for subTask in subTasks {
-                self.createSubTask(descriptor: subTask.descriptor, name: subTask.name, sortValue: subTask.sortValue, task: subTask.task, completion: {
+                self.createSubTask(subTask: subTask, completion: { 
                     counter += 1
                     
                     if counter == subTasks.count {
