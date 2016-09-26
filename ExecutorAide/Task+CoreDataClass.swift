@@ -36,13 +36,13 @@ public class Task: SyncableObject, CloudKitManagedObject {
             record[Task.nameKey] = self.name as NSString
             record[Task.sortValueKey] = self.sortValue as NSNumber
             
-            guard let recordIDData = self.stage.recordIDData as? Data
-                , let stageRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
+            guard let stageCloudKitRecord = self.stage.cloudKitRecord
                 else {
-                    print("Error: Could not unarchive the Stage's recordIDData when attempting to compute the cloudKitRecord for a Task.")
+                    print("Error: Could not unarchive the Stage's recordID when attempting to compute the cloudKitRecord for a Task.")
                     return
             }
             
+            let stageRecordID = stageCloudKitRecord["recordID"] as! CKRecordID
             let stageReference = CKReference(recordID: stageRecordID, action: .deleteSelf)
             record[Task.stageKey] = stageReference as CKReference
         }

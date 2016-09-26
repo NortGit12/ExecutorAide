@@ -12,9 +12,8 @@ import CloudKit
 
 class TestatorUnitTests: XCTestCase {
     
-//    let defaultImage = UIImage(named: "user")
     let defaultImageData = NSData(data: UIImagePNGRepresentation(UIImage(named: "user")!)!)
-    let defaultName = "Unit Tester"
+    let defaultName = "Unit Test TestatorName"
     
     //==================================================
     // MARK: - Basic Initializer
@@ -45,7 +44,7 @@ class TestatorUnitTests: XCTestCase {
     func testInitializingWithoutAllExpectedValueFromCKRecordThatNilIsReturned() {
         
         // Create CKRecord, missing some data, or even empty
-        let record = CKRecord(recordType: "Testator")
+        let record = CKRecord(recordType: Testator.type)
         
         guard let _ = Testator(record: record) else { return }
         
@@ -87,8 +86,6 @@ class TestatorUnitTests: XCTestCase {
             XCTFail("The testator could not be created.")
             return
         }
-        
-        XCTAssertNotNil(testator)
         
         guard let imageAssetData = testatorCloudKitRecord[Testator.imageKey] as? CKAsset
             , let imageDataFromCloudKitRecord = NSData(contentsOf: imageAssetData.fileURL)

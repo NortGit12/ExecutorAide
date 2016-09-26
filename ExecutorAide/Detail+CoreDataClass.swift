@@ -37,14 +37,13 @@ public class Detail: SyncableObject, CloudKitManagedObject {
             record[Detail.contentValueKey] = self.contentValue as NSString
             record[Detail.sortValueKey] = self.sortValue as NSNumber
             
-            guard let recordIDData = self.subTask.recordIDData as? Data
-                , let subTaskRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
+            guard let subTaskCloudKitRecord = self.subTask.cloudKitRecord
                 else {
-                    
-                    print("Error: Could not unarchive the SubTask's recordIDData when attempting to compute the cloudKitRecord for a Detail.")
+                    print("Error: Could not unarchive the SubTask's recordID when attempting to compute the cloudKitRecord for a Detail.")
                     return
             }
             
+            let subTaskRecordID = subTaskCloudKitRecord["recordID"] as! CKRecordID
             let subTaskReference = CKReference(recordID: subTaskRecordID, action: .deleteSelf)
             record[Detail.subTaskKey] = subTaskReference as CKReference
         }

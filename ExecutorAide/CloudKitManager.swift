@@ -323,6 +323,16 @@ class CloudKitManager {
     // MARK: - CloudKit Permissions
     //==================================================
     
+    func checkCloudKitAvailabilityStatus(completion: ((_ accountStatus: CKAccountStatus) -> Void)? = nil) {
+        
+        CKContainer.default().accountStatus { (accountStatus, error) in
+            
+            if let completion = completion {
+                completion(accountStatus)
+            }
+        }
+    }
+    
     func checkCloudKitAvailability() {
         
         CKContainer.default().accountStatus { (accountStatus, error) in
@@ -335,8 +345,6 @@ class CloudKitManager {
                 self.handleCloudKitUnavailable(accountStatus: accountStatus, error: error as NSError?)
             }
         }
-    
-    
     }
     
     func handleCloudKitUnavailable(accountStatus: CKAccountStatus, error:NSError?) {

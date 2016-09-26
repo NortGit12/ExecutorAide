@@ -74,7 +74,7 @@ public class Testator: SyncableObject, CloudKitManagedObject {
         }
         
         if name.characters.count == 0 {
-            print("Error: The name is empty.")
+            print("Error: The Testator name is empty.")
             return nil
         }
         

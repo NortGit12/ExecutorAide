@@ -39,16 +39,16 @@ public class Stage: SyncableObject, CloudKitManagedObject {
             record[Stage.percentCompleteKey] = self.percentComplete as NSNumber
             record[Stage.sortValueKey] = self.sortValue as NSNumber
             
-            guard let recordIDData = self.testator.recordIDData as? Data
-                , let testatorRecordID = NSKeyedUnarchiver.unarchiveObject(with: recordIDData) as? CKRecordID
+            guard let testatorCloudKitRecord = self.testator.cloudKitRecord
                 else {
-                    
-                    print("Error: Could not unarchive the Testator's recordIDData when attempting to compute the cloudKitRecord for a Stage.")
+                    print("Error: Could not unarchive the Testator's recordID when attempting to compute the cloudKitRecord for a Stage.")
                     return
             }
             
+            let testatorRecordID = testatorCloudKitRecord["recordID"] as! CKRecordID
             let testatorReference = CKReference(recordID: testatorRecordID, action: .deleteSelf)
             record[Stage.testatorKey] = testatorReference as CKReference
+            
         }
         
         return record
@@ -66,6 +66,21 @@ public class Stage: SyncableObject, CloudKitManagedObject {
             return nil
         }
         
+        if descriptor.characters.count == 0 {
+            print("Error: The Stage descriptor is empty.")
+            return nil
+        }
+        
+        if name.characters.count == 0 {
+            print("Error: The Stage name is empty.")
+            return nil
+        }
+        
+        if percentComplete < 0.0 || percentComplete > 1.0 {
+            print("Error: The Stage percent complete is outside of the acceptable range (0.0 to 1.0).")
+            return nil
+        }
+        
         self.init(entity: stageEntity, insertInto: context)
         
         self.descriptor = descriptor
@@ -73,7 +88,6 @@ public class Stage: SyncableObject, CloudKitManagedObject {
         self.percentComplete = percentComplete
         self.recordName = nameForManagedObject()
         self.sortValue = sortValue
-        
         self.testator = testator
     }
     
