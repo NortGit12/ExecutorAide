@@ -60,12 +60,6 @@ public class Stage: SyncableObject, CloudKitManagedObject {
     
     convenience init?(descriptor: String, name: String, percentComplete: Float = 0.0, sortValue: Int, testator: Testator, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
-        guard let stageEntity = NSEntityDescription.entity(forEntityName: Stage.type, in: context) else {
-            
-            print("Error: Could not create the entity description for a \(Stage.type).")
-            return nil
-        }
-        
         if descriptor.characters.count == 0 {
             print("Error: The Stage descriptor is empty.")
             return nil
@@ -78,6 +72,12 @@ public class Stage: SyncableObject, CloudKitManagedObject {
         
         if percentComplete < 0.0 || percentComplete > 1.0 {
             print("Error: The Stage percent complete is outside of the acceptable range (0.0 to 1.0).")
+            return nil
+        }
+        
+        guard let stageEntity = NSEntityDescription.entity(forEntityName: Stage.type, in: context) else {
+            
+            print("Error: Could not create the entity description for a \(Stage.type).")
             return nil
         }
         

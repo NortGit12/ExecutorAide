@@ -12,8 +12,13 @@ import CloudKit
 
 class StageModelUnitTests: XCTestCase {
     
+    //==================================================
+    // MARK: - Stored Properties
+    //==================================================
+    
     let defaultTestatorImageData = NSData(data: UIImagePNGRepresentation(UIImage(named: "user")!)!)
     let defaultTestatorName = "Unit Test TestatorName"
+    
     let defaultStageDescriptor = "Unit Test StageDescriptor"
     let defaultStageName = "Unit Test StageName"
     let defaultStagePercentComplete: Float = 0.0
@@ -116,18 +121,18 @@ class StageModelUnitTests: XCTestCase {
         
         guard let testator = Testator(image: defaultTestatorImageData, name: defaultTestatorName)
             , let stage = Stage(descriptor: defaultStageDescriptor, name: defaultStageName, percentComplete: defaultStagePercentComplete, sortValue: defaultStageSortValue, testator: testator)
-            , let StageCloudKitRecord = stage.cloudKitRecord
+            , let stageCloudKitRecord = stage.cloudKitRecord
             else {
                 
                 XCTFail("The Stage could not be created.")
                 return
         }
         
-        guard let descriptor = StageCloudKitRecord[Stage.descriptorKey] as? String
-            , let name = StageCloudKitRecord[Stage.nameKey] as? String
-            , let percentComplete = StageCloudKitRecord[Stage.percentCompleteKey] as? Float
-            , let sortValue = StageCloudKitRecord[Stage.sortValueKey] as? Int
-            , let testatorReference = StageCloudKitRecord[Stage.testatorKey] as? CKReference
+        guard let descriptor = stageCloudKitRecord[Stage.descriptorKey] as? String
+            , let name = stageCloudKitRecord[Stage.nameKey] as? String
+            , let percentComplete = stageCloudKitRecord[Stage.percentCompleteKey] as? Float
+            , let sortValue = stageCloudKitRecord[Stage.sortValueKey] as? Int
+            , let testatorReference = stageCloudKitRecord[Stage.testatorKey] as? CKReference
             else {
                 
                 XCTFail("The CloudKit values should have been accessble.")

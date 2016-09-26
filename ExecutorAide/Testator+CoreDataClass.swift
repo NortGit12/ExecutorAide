@@ -60,14 +60,6 @@ public class Testator: SyncableObject, CloudKitManagedObject {
     
     convenience init?(image: NSData, name: String, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
-        guard let testatorEntity = NSEntityDescription.entity(forEntityName: Testator.type, in: context) else {
-            
-            print("Error: Could not create the entity description for a \(Testator.type).")
-            return nil
-        }
-        
-        self.init(entity: testatorEntity, insertInto: context)
-        
         if image.length == 0 {
             print("Error: The image is empty.")
             return nil
@@ -77,6 +69,14 @@ public class Testator: SyncableObject, CloudKitManagedObject {
             print("Error: The Testator name is empty.")
             return nil
         }
+        
+        guard let testatorEntity = NSEntityDescription.entity(forEntityName: Testator.type, in: context) else {
+            
+            print("Error: Could not create the entity description for a \(Testator.type).")
+            return nil
+        }
+        
+        self.init(entity: testatorEntity, insertInto: context)
         
         self.image = image
         self.name = name

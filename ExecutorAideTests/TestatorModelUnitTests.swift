@@ -1,8 +1,8 @@
 //
-//  TestatorUnitTests.swift
+//  TestatorModelUnitTests.swift
 //  ExecutorAide
 //
-//  Created by Jeff Norton on 9/22/16.
+//  Created by Jeff Norton on 9/26/16.
 //  Copyright © 2016 NortCham. All rights reserved.
 //
 
@@ -10,7 +10,11 @@ import XCTest
 import CloudKit
 @testable import ExecutorAide
 
-class TestatorUnitTests: XCTestCase {
+class TestatorModelUnitTests: XCTestCase {
+    
+    //==================================================
+    // MARK: - Stored Properties
+    //==================================================
     
     let defaultImageData = NSData(data: UIImagePNGRepresentation(UIImage(named: "user")!)!)
     let defaultName = "Unit Test TestatorName"
@@ -82,9 +86,9 @@ class TestatorUnitTests: XCTestCase {
         guard let testator = Testator(image: defaultImageData, name: defaultName)
             , let testatorCloudKitRecord = testator.cloudKitRecord
             else {
-            
-            XCTFail("The testator could not be created.")
-            return
+                
+                XCTFail("The testator could not be created.")
+                return
         }
         
         guard let imageAssetData = testatorCloudKitRecord[Testator.imageKey] as? CKAsset
@@ -94,7 +98,7 @@ class TestatorUnitTests: XCTestCase {
                 
                 XCTFail("The CloudKit values should have been accessble.")
                 return
-            }
+        }
         
         XCTAssertEqual(testator.image, imageDataFromCloudKitRecord)
         XCTAssertEqual(testator.name, nameFromCloudKitRecord)

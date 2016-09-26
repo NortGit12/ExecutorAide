@@ -56,6 +56,11 @@ public class Task: SyncableObject, CloudKitManagedObject {
 
     convenience init?(name: String, sortValue: Int, stage: Stage, context: NSManagedObjectContext = Stack.shared.managedObjectContext) {
         
+        if name.characters.count == 0 {
+            print("Error: The Task name is empty.")
+            return nil
+        }
+        
         guard let taskEntity = NSEntityDescription.entity(forEntityName: Task.type, in: context) else {
             
             print("Error: Could not create the entity description for a \(Task.type).")

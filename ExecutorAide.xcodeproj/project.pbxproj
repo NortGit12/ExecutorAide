@@ -15,8 +15,9 @@
 		1F0DE5481D8CAE32008EE273 /* SubTaskModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE5471D8CAE32008EE273 /* SubTaskModelController.swift */; };
 		1F0DE54A1D8CAE43008EE273 /* DetailModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE5491D8CAE43008EE273 /* DetailModelController.swift */; };
 		1F3051501D99B20A00992B2C /* OtherControllerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F30514F1D99B20A00992B2C /* OtherControllerUnitTests.swift */; };
+		1F3051521D99D79800992B2C /* TestatorModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3051511D99D79800992B2C /* TestatorModelUnitTests.swift */; };
+		1F3051541D99D8BE00992B2C /* TaskModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3051531D99D8BE00992B2C /* TaskModelUnitTests.swift */; };
 		1F43D2811D95CC2D00DFEBBA /* StageModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43D2801D95CC2D00DFEBBA /* StageModelUnitTests.swift */; };
-		1F5E9FFF1D94887100922E17 /* TestatorUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5E9FFE1D94887100922E17 /* TestatorUnitTests.swift */; };
 		1F5EA0021D948ABB00922E17 /* TestatorModelControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5EA0001D948ABB00922E17 /* TestatorModelControllerSpec.swift */; };
 		1F5EA0031D948ABB00922E17 /* TestatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5EA0011D948ABB00922E17 /* TestatorSpec.swift */; };
 		1F84E6D01D8B112900311680 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6CF1D8B112900311680 /* Stack.swift */; };
@@ -83,8 +84,9 @@
 		1F0DE5471D8CAE32008EE273 /* SubTaskModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTaskModelController.swift; sourceTree = "<group>"; };
 		1F0DE5491D8CAE43008EE273 /* DetailModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailModelController.swift; sourceTree = "<group>"; };
 		1F30514F1D99B20A00992B2C /* OtherControllerUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherControllerUnitTests.swift; sourceTree = "<group>"; };
+		1F3051511D99D79800992B2C /* TestatorModelUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestatorModelUnitTests.swift; sourceTree = "<group>"; };
+		1F3051531D99D8BE00992B2C /* TaskModelUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskModelUnitTests.swift; sourceTree = "<group>"; };
 		1F43D2801D95CC2D00DFEBBA /* StageModelUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageModelUnitTests.swift; sourceTree = "<group>"; };
-		1F5E9FFE1D94887100922E17 /* TestatorUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestatorUnitTests.swift; sourceTree = "<group>"; };
 		1F5EA0001D948ABB00922E17 /* TestatorModelControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestatorModelControllerSpec.swift; sourceTree = "<group>"; };
 		1F5EA0011D948ABB00922E17 /* TestatorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestatorSpec.swift; sourceTree = "<group>"; };
 		1F84E6CF1D8B112900311680 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
@@ -224,8 +226,9 @@
 			isa = PBXGroup;
 			children = (
 				1F43D2801D95CC2D00DFEBBA /* StageModelUnitTests.swift */,
+				1F3051531D99D8BE00992B2C /* TaskModelUnitTests.swift */,
+				1F3051511D99D79800992B2C /* TestatorModelUnitTests.swift */,
 				1F30514F1D99B20A00992B2C /* OtherControllerUnitTests.swift */,
-				1F5E9FFE1D94887100922E17 /* TestatorUnitTests.swift */,
 				1F5EA0001D948ABB00922E17 /* TestatorModelControllerSpec.swift */,
 				1F5EA0011D948ABB00922E17 /* TestatorSpec.swift */,
 				1F8DE5DC1D8AF31C00066819 /* Info.plist */,
@@ -505,11 +508,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F3051541D99D8BE00992B2C /* TaskModelUnitTests.swift in Sources */,
 				1F5EA0021D948ABB00922E17 /* TestatorModelControllerSpec.swift in Sources */,
 				1F5EA0031D948ABB00922E17 /* TestatorSpec.swift in Sources */,
+				1F3051521D99D79800992B2C /* TestatorModelUnitTests.swift in Sources */,
 				1F3051501D99B20A00992B2C /* OtherControllerUnitTests.swift in Sources */,
 				1F43D2811D95CC2D00DFEBBA /* StageModelUnitTests.swift in Sources */,
-				1F5E9FFF1D94887100922E17 /* TestatorUnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
