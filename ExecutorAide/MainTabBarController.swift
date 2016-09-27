@@ -10,17 +10,31 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
 
-    var stages: [Stage]?
+    var stages: [Stage]? {
+        didSet {
+            setupTabBarViews()
+        }
+    }
+    
+    var testator: Testator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTabBarTitles()
     }
     
-    func setupTabBarTitles() {
+    func setupTabBarViews() {
         guard let stages = stages else { return }
         for i in 0...stages.count - 1 {
             tabBar.items?[i].title = stages[i].name
         }
+        
+        
+        guard let firstNavigationController = viewControllers?[0] as? UINavigationController else { return }
+        guard let firstTabVC = firstNavigationController.viewControllers.first as? StageTableViewController else { return }
+        
+        
+        firstTabVC.stage = stages[0]
+//        secondTabVC.stage = stages[1]
+//        thirdTabVC.stage = stages[2]
     }
 }

@@ -78,27 +78,24 @@ class TestatorViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toStagesSegue" {
-            guard let tabBarVC = segue.destination as? MainTabBarController, let firstTabVC = tabBarVC.viewControllers?.first as? Tab1ViewController, let selectedIndexPath = tableView.indexPathForSelectedRow else { return }
+            
+            guard let tabBarVC = segue.destination as? MainTabBarController, let selectedIndexPath = tableView.indexPathForSelectedRow else { return }
             let selectedTestator = testators[selectedIndexPath.row]
             guard let stages = StageModelController.shared.fetchStages(for: selectedTestator) else { return }
-            tabBarVC.stages = stages
-            tabBarVC.title = selectedTestator.name
-            firstTabVC.stage = stages[0]
+            DispatchQueue.main.async {
+                tabBarVC.stages = stages
+                tabBarVC.testator = selectedTestator
+            }
+            
         } else if segue.identifier == "showNewTestatorPopover" {
             guard let popoverNavController = segue.destination as? UINavigationController, let popoverVC = popoverNavController.viewControllers.first as? NewTestatorPopoverViewController else { return }
             popoverVC.setupPopoverDisplay(containerWidth: self.view.frame.width, containerHeight: self.view.frame.height)
             let controller = popoverNavController.popoverPresentationController
             
-            if let controller = controller, let sourceView = controller.sourceView {
+            if let controller = controller {
                 controller.delegate = self
                 controller.backgroundColor = UIColor.lightGray
                 controller.permittedArrowDirections = [.down, .up]
-                
-                if controller.arrowDirection == .down {
-                    controller.sourceRect = CGRect(x: sourceView.frame.width * 0.5, y: 0, width: 0, height: 0)
-                } else if controller.arrowDirection == .up {
-                    controller.sourceRect = CGRect(x: sourceView.frame.width * 0.5, y: 1000, width: 0, height: 0)
-                }
             }
         }
     }

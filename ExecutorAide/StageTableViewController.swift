@@ -1,5 +1,5 @@
 //
-//  StageViewController.swift
+//  StageTableViewController.swift
 //  ExecutorAide
 //
 //  Created by Tim on 9/15/16.
@@ -9,9 +9,8 @@
 import UIKit
 import CoreData
 
-class StageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate/*, SubTaskTableViewCellDelegate*/ {
+class StageTableViewController: UITableViewController/*, SubTaskTableViewCellDelegate*/ {
     
-    @IBOutlet weak var tableView: UITableView!
     
     var stage: Stage? {
         didSet {
@@ -38,14 +37,13 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     var subTasks: [[SubTask]]? = []
-
-    var fetchedResultsController: NSFetchedResultsController<Stage>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.reloadData()
         setupCustomCells()
         setupNavbar()
+        
     }
     
     func setupNavbar() {
@@ -71,17 +69,17 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     // MARK: - TableViewDataSource Methods
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         guard let tasks = tasks else { return 0 }
         return tasks.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let subTasks = subTasks else { return 0 }
         return subTasks[section].count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: subTaskCellReuseIdentifier, for: indexPath) as? SubTaskTableViewCell else { return UITableViewCell() }
         let taskIndex = indexPath.section
         guard let subTask = subTasks?[taskIndex][indexPath.row] else { return UITableViewCell() }
@@ -90,12 +88,12 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let tasks = tasks else { return "" }
         return tasks[section].name
     }
     
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
 
@@ -109,6 +107,13 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
     }
 
+//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 80))
+//        headerView.backgroundColor = .blue
+//        return headerView
+//    }
+    
+    
     // MARK: - SubTaskTableViewCellDelegate Method
     
 //    func subTaskTableViewCellDidReceiveTap() -> SubTask {

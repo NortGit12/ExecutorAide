@@ -20,11 +20,18 @@ struct DataTemplateController {
             guard let stage3 = Stage(descriptor: "When you feel ready, begin managing the estate of the testator", name: "Estate Management", sortValue: 2, testator: testator) else { return }
             
             
-            let defaultStage1Tasks: [Task] = [
+            var defaultStage1Tasks: [Task] = [
                 Task(name: "Get Estate Documents In Order", sortValue: 0, stage: stage1)!,
                 Task(name: "Add Executor to Accounts", sortValue: 1, stage: stage1)!
             ]
             
+            let defaultStage2Tasks: [Task] = [
+                Task(name: "Some task", sortValue: 0, stage: stage2)!,
+                Task(name: "Another awesome task", sortValue: 1, stage: stage2)!
+            ]
+            
+            
+            let allDefaultTasks = defaultStage1Tasks + defaultStage2Tasks
             
             let defaultStage1SubTasks: [SubTask] = [
                 
@@ -37,9 +44,11 @@ struct DataTemplateController {
                 SubTask(descriptor: "Add yourself to the testator's business accounts", name: "Business Accounts", sortValue: 2, task: defaultStage1Tasks[1])!
             ]
             
+        
+            
             StageModelController.shared.create(stages: [stage1, stage2, stage3], completion: {
                 
-                TaskModelController.shared.create(tasks: defaultStage1Tasks, completion: {
+                TaskModelController.shared.create(tasks: allDefaultTasks, completion: {
 
                     SubTaskModelController.shared.create(subTasks: defaultStage1SubTasks, completion: {
                         
