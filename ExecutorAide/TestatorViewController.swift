@@ -79,12 +79,12 @@ class TestatorViewController: UIViewController, UITableViewDelegate, UITableView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toStagesSegue" {
             
-            guard let tabBarVC = segue.destination as? MainTabBarController, let selectedIndexPath = tableView.indexPathForSelectedRow else { return }
+            guard let stagesVC = segue.destination as? StageViewController, let selectedIndexPath = tableView.indexPathForSelectedRow else { return }
             let selectedTestator = testators[selectedIndexPath.row]
             guard let stages = StageModelController.shared.fetchStages(for: selectedTestator) else { return }
             DispatchQueue.main.async {
-                tabBarVC.stages = stages
-                tabBarVC.testator = selectedTestator
+                stagesVC.stages = stages
+                stagesVC.testator = selectedTestator
             }
             
         } else if segue.identifier == "showNewTestatorPopover" {
