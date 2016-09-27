@@ -11,53 +11,59 @@ import CoreData
 
 class StageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate/*, SubTaskTableViewCellDelegate*/ {
     
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var footerView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
-    var stage: Stage? {
+    var testator: Testator?
+    var stages: [Stage]? {
         didSet {
-            DispatchQueue.main.async {
-                guard let stage = self.stage else { return }
-                self.tasks = TaskModelController.shared.fetchTasks(for: stage)
+            guard let stages = stages else { return }
+            for i in 0...stages.count - 1 {
+                segmentedControl.setTitle(stages[i].name, forSegmentAt: i)
             }
         }
+        
     }
-    
-    var tasks: [Task]? = [] {
-        didSet {
-            DispatchQueue.main.async {
-                guard let tasks = self.tasks else { return }
-                for task in tasks {
-                    let subTasks = SubTaskModelController.shared.fetchSubTasks(for: task)
-                    guard let subTaskArray = subTasks else { return }
-                    self.subTasks?.append(subTaskArray)
-                    
-                }
-                self.tableView.reloadData()
-            }
-        }
-    }
-    
+    var selectedStage: Stage?
+    var tasks: [Task]? = []
     var subTasks: [[SubTask]]? = []
-
-    var fetchedResultsController: NSFetchedResultsController<Stage>?
+    
+    
+    
+    func clearData() {
+        self.tasks = []
+        self.subTasks = []
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.reloadData()
         setupCustomCells()
         setupNavbar()
+        reloadTableViewWithDataForSelectedStage()
+        setupSegmentedControl()
+        
+        let rightButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(self.showEditing(sender:)))
+        self.navigationItem.rightBarButtonItem = rightButton
+    }
+    
+    // MARK: - Setup UI
+    
+    func setupSegmentedControl() {
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(self.reloadTableViewWithDataForSelectedStage), for: .valueChanged)
     }
     
     func setupNavbar() {
-        title = stage?.name
-//        let titleView = navigationController?.navigationItem.titleView
+        title = selectedStage?.name
         let progressView = UIProgressView(frame: CGRect(x: 0, y: 0, width: 50, height: 10))
         progressView.progressViewStyle = .bar
 //        titleView?.addSubview(progressView)
         
         navigationController?.navigationItem.titleView = progressView
         
-        if let percentComplete = stage?.percentComplete {
+        if let percentComplete = selectedStage?.percentComplete {
             progressView.progress = percentComplete
         }
     }
@@ -67,6 +73,26 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.register(UINib(nibName: "SubTaskTableViewCell", bundle: nil), forCellReuseIdentifier: subTaskCellReuseIdentifier)
+    }
+    
+    // MARK: - Set Data
+    
+    func reloadTableViewWithDataForSelectedStage() {
+        DispatchQueue.main.async {
+            self.clearData()
+            self.selectedStage = self.stages?[self.segmentedControl.selectedSegmentIndex]
+            guard let stage = self.selectedStage else { return }
+            self.selectedStage = stage
+            let tasks = TaskModelController.shared.fetchTasks(for: stage)
+            self.tasks = tasks
+            guard let tasksForSelectedStage = tasks else { return }
+            for task in tasksForSelectedStage {
+                let subTasks = SubTaskModelController.shared.fetchSubTasks(for: task)
+                guard let subTaskArray = subTasks else { return }
+                self.subTasks?.append(subTaskArray)
+            }
+            self.tableView.reloadData()
+        }
     }
     
     // MARK: - TableViewDataSource Methods
@@ -95,20 +121,71 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         return tasks[section].name
     }
     
+    // MARK: - Editing
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
 
     func showEditing(sender: UIBarButtonItem) {
-        if self.tableView.isEditing == true {
-            self.tableView.isEditing = false
-            self.navigationItem.rightBarButtonItem?.title = "Done"
+        if tableView.isEditing == true {
+            tableView.isEditing = false
+            setupViewForEditing()
+            navigationItem.rightBarButtonItem?.title = "Edit"
         } else {
-            self.tableView.isEditing = true
-            self.navigationItem.rightBarButtonItem?.title = "Edit"
+            tableView.isEditing = true
+            setupViewForEditing()
+            navigationItem.rightBarButtonItem?.title = "Done"
         }
     }
-
+    
+    func setupViewForEditing() {
+        if tableView.isEditing == true {
+            footerView.isHidden = true
+            navigationController?.setToolbarHidden(false, animated: true)
+            var items = [UIBarButtonItem]()
+            items.append(
+                UIBarButtonItem(title: "Add new", style: .plain, target: self, action: #selector(self.addNewTapped))
+            )
+            items.append(
+                UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+            )
+            items.append(
+                UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(self.editButtonTapped))
+            )
+            navigationController?.toolbar.items = items
+        } else {
+            footerView.isHidden = false
+            navigationController?.setToolbarHidden(true, animated: true)
+        }
+    }
+    
+    func editButtonTapped() {
+        print("Edit button tapped")
+    }
+    
+    func addNewTapped() {
+        let activityView = UIAlertController(title: "Add a new item", message: "", preferredStyle: .actionSheet)
+        let newTaskAction = UIAlertAction(title: "New Task", style: .default) { (_) in
+            self.performSegue(withIdentifier: "newSubTaskSegue", sender: self)
+        }
+        let newSubTaskAction = UIAlertAction(title: "New Subtask", style: .default) { (_) in
+            self.performSegue(withIdentifier: "newTaskSegue", sender: self)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        activityView.addAction(newTaskAction)
+        activityView.addAction(newSubTaskAction)
+        activityView.addAction(cancelAction)
+        
+        present(activityView, animated: true, completion: nil)
+        
+        
+    }
+    
+    
     // MARK: - SubTaskTableViewCellDelegate Method
     
 //    func subTaskTableViewCellDidReceiveTap() -> SubTask {
