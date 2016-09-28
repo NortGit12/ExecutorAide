@@ -35,8 +35,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="0ru-EM-o84" secondAttribute="trailing" id="4Ra-1K-UML"/>
-                            <constraint firstItem="0ru-EM-o84" firstAttribute="leading" secondItem="SiS-OY-RSR" secondAttribute="leading" id="8QQ-t2-ElD"/>
+                            <constraint firstAttribute="trailing" secondItem="0ru-EM-o84" secondAttribute="trailing" constant="8" id="4Ra-1K-UML"/>
+                            <constraint firstItem="0ru-EM-o84" firstAttribute="leading" secondItem="SiS-OY-RSR" secondAttribute="leading" constant="8" id="8QQ-t2-ElD"/>
                             <constraint firstItem="0ru-EM-o84" firstAttribute="top" secondItem="3JZ-bZ-Kly" secondAttribute="bottom" constant="8" id="Cyk-Uf-TUY"/>
                         </constraints>
                     </view>

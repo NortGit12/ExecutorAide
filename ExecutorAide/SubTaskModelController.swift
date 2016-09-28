@@ -190,7 +190,6 @@ class SubTaskModelController {
                 
                 if let _ = records {
                     
-                    print("Updated \"\(subTask.name)\" sub-task saved successfully to CloudKit.")
                 }
             })
         }

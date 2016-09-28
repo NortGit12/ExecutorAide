@@ -16,6 +16,8 @@ class NewSubTaskViewController: UIViewController, UITextFieldDelegate, UIPickerV
     
     var parentTask: Task?
     
+    weak var delegate: NewElementDelegate?
+    
     var pickerViewDataSource: [Task] = []
     
     override func viewDidLoad() {
@@ -25,6 +27,8 @@ class NewSubTaskViewController: UIViewController, UITextFieldDelegate, UIPickerV
     // MARK: - TextField Delegate Methods
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        resignFirstResponder()
+        
         let pickerHeight: CGFloat = 200
         let pickerView = UIPickerView(frame: CGRect(x: 0, y: self.view.frame.height - pickerHeight, width: self.view.frame.width, height: pickerHeight))
         pickerView.backgroundColor = .blue
@@ -74,7 +78,9 @@ class NewSubTaskViewController: UIViewController, UITextFieldDelegate, UIPickerV
             guard let subTask = SubTask(descriptor: descriptor, name: nameText, sortValue: 0, task: parentTask) else { return }
             
             SubTaskModelController.shared.createSubTask(subTask: subTask, completion: { 
-                self.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true, completion: { 
+                    self.delegate?.stageWillUpdateWithNewData()
+                })
             })
             
         } else {

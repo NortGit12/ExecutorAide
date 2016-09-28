@@ -28,13 +28,9 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     var selectedStage: Stage?
     var tasks: [Task]? = []
     var subTasks: [[SubTask]]? = []
+
     
-    
-    
-    func clearData() {
-        self.tasks = []
-        self.subTasks = []
-    }
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +71,7 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.register(UINib(nibName: "SubTaskTableViewCell", bundle: nil), forCellReuseIdentifier: subTaskCellReuseIdentifier)
     }
     
-    // MARK: - Set Data
+    // MARK: - Set TableView Data
     
     func reloadTableViewWithDataForSelectedStage() {
         DispatchQueue.main.async {
@@ -93,6 +89,11 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
             self.tableView.reloadData()
         }
+    }
+    
+    func clearData() {
+        self.tasks = []
+        self.subTasks = []
     }
     
     // MARK: - TableViewDataSource Methods
@@ -126,16 +127,45 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        guard let task = self.tasks?[sourceIndexPath.section] else { return }
+        // Move subTask in VC dataSource
+        let section = sourceIndexPath.section
+        guard let subTaskToMove = subTasks?[section][sourceIndexPath.row] else { return }
+        subTasks?[section].remove(at: sourceIndexPath.row)
+        subTasks?[section].insert(subTaskToMove, at: destinationIndexPath.row)
+        
+        // Update CoreData data source
+        self.subTaskArrayDidChangeOrder(inTask: task)
+        
+    }
+    
+    // Prevent user from trying to move row to a different section
+    func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
+        if sourceIndexPath.section != proposedDestinationIndexPath.section {
+            var row = 0
+            if sourceIndexPath.section < proposedDestinationIndexPath.section {
+                row = self.tableView(tableView, numberOfRowsInSection: sourceIndexPath.section) - 1
+            }
+            return IndexPath(row: row, section: sourceIndexPath.section)
+        }
+        return proposedDestinationIndexPath
+    }
 
     func showEditing(sender: UIBarButtonItem) {
+        tableView.isEditing = !tableView.isEditing
         if tableView.isEditing == true {
-            tableView.isEditing = false
-            setupViewForEditing()
-            navigationItem.rightBarButtonItem?.title = "Edit"
-        } else {
-            tableView.isEditing = true
             setupViewForEditing()
             navigationItem.rightBarButtonItem?.title = "Done"
+            navigationItem.rightBarButtonItem?.style = .done
+        } else {
+            setupViewForEditing()
+            navigationItem.rightBarButtonItem?.title = "Edit"
         }
     }
     
@@ -154,9 +184,6 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
             )
             items.append(
                 UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-            )
-            items.append(
-                UIBarButtonItem(title: "Edit selected item", style: .plain, target: self, action: #selector(self.editButtonTapped))
             )
             navigationController?.toolbar.items = items
             
@@ -210,16 +237,38 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         if segue.identifier == "newSubTaskSegue" {
             guard let destinationVC = segue.destination as? UINavigationController, let newSubTaskVC = destinationVC.viewControllers.first as? NewSubTaskViewController, let tasks = self.tasks else { return }
             newSubTaskVC.pickerViewDataSource = tasks
+            newSubTaskVC.delegate = self
+        } else if segue.identifier == "newTaskSegue" {
+            guard let destinationVC = segue.destination as? UINavigationController, let newTaskVC = destinationVC.viewControllers.first as? NewTaskViewController, let selectedStage = selectedStage else { return }
+            newTaskVC.stage = selectedStage
+            newTaskVC.delegate = self
         }
     }
     
+    // MARK: - Helper Functions
     
-    // MARK: - SubTaskTableViewCellDelegate Method
-    
+    func subTaskArrayDidChangeOrder(inTask task: Task) {
+        let moc = Stack.shared.managedObjectContext
+        moc.performAndWait {
+            guard let subTasks = self.subTasks?[task.sortValue] else { return }
+            for subTask in subTasks {
+                guard let newSubTaskSortValue = subTasks.index(of: subTask) else { continue }
+                subTask.sortValue = newSubTaskSortValue
+                SubTaskModelController.shared.updateSubTask(subTask: subTask)
+            }
+        }
+    }
+}
+
+
+extension StageViewController: NewElementDelegate {
+    func stageWillUpdateWithNewData() {
+        reloadTableViewWithDataForSelectedStage()
+    }
+}
+
+//extension StageViewController: SubTaskTableViewCellDelegate {
 //    func subTaskTableViewCellDidReceiveTap() -> SubTask {
 //        
 //    }
-    
-    
-    
-}
+//}
