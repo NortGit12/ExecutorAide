@@ -63,3 +63,5 @@ playground.xcworkspace
 # fastlane/Preview.html
 # fastlane/screenshots
 # fastlane/test_output
+/executor-aide.sketch
+/group-project-notes.txt
