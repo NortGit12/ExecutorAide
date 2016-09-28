@@ -9,7 +9,7 @@
         <!--Stage View Controller-->
         <scene sceneID="0Dy-ar-pYg">
             <objects>
-                <viewController id="zW4-E5-ubc" customClass="StageViewController" customModule="ExecutorAide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="zW4-E5-ubc" customClass="StageViewController" customModule="ExecutorAide" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RWf-my-0Sa"/>
                         <viewControllerLayoutGuide type="bottom" id="ZR1-A2-2sW"/>

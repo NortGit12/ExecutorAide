@@ -140,7 +140,12 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func setupViewForEditing() {
+        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelButtonTapped))
         if tableView.isEditing == true {
+            // Setup navbar
+            self.navigationItem.leftBarButtonItem = leftBarButtonItem
+            
+            // Setup toolbar
             footerView.isHidden = true
             navigationController?.setToolbarHidden(false, animated: true)
             var items = [UIBarButtonItem]()
@@ -151,12 +156,19 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
                 UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
             )
             items.append(
-                UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(self.editButtonTapped))
+                UIBarButtonItem(title: "Edit selected item", style: .plain, target: self, action: #selector(self.editButtonTapped))
             )
             navigationController?.toolbar.items = items
+            
+            // Hide tabbar
+            tabBarController?.tabBar.isHidden = true
         } else {
+            navigationItem.leftBarButtonItem = nil
             footerView.isHidden = false
             navigationController?.setToolbarHidden(true, animated: true)
+            
+            // Show tabbar
+            
         }
     }
     
@@ -164,13 +176,20 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         print("Edit button tapped")
     }
     
+    func cancelButtonTapped() {
+        navigationItem.leftBarButtonItem = nil
+        navigationItem.rightBarButtonItem?.title = "Edit"
+        tableView.isEditing = false
+        setupViewForEditing()
+    }
+    
     func addNewTapped() {
         let activityView = UIAlertController(title: "Add a new item", message: "", preferredStyle: .actionSheet)
         let newTaskAction = UIAlertAction(title: "New Task", style: .default) { (_) in
-            self.performSegue(withIdentifier: "newSubTaskSegue", sender: self)
+            self.performSegue(withIdentifier: "newTaskSegue", sender: self)
         }
         let newSubTaskAction = UIAlertAction(title: "New Subtask", style: .default) { (_) in
-            self.performSegue(withIdentifier: "newTaskSegue", sender: self)
+            self.performSegue(withIdentifier: "newSubTaskSegue", sender: self)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
             self.dismiss(animated: true, completion: nil)
@@ -183,6 +202,15 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         present(activityView, animated: true, completion: nil)
         
         
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "newSubTaskSegue" {
+            guard let destinationVC = segue.destination as? UINavigationController, let newSubTaskVC = destinationVC.viewControllers.first as? NewSubTaskViewController, let tasks = self.tasks else { return }
+            newSubTaskVC.pickerViewDataSource = tasks
+        }
     }
     
     
