@@ -18,6 +18,7 @@
 		1F3051521D99D79800992B2C /* TestatorModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3051511D99D79800992B2C /* TestatorModelUnitTests.swift */; };
 		1F3051541D99D8BE00992B2C /* TaskModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3051531D99D8BE00992B2C /* TaskModelUnitTests.swift */; };
 		1F43D2811D95CC2D00DFEBBA /* StageModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43D2801D95CC2D00DFEBBA /* StageModelUnitTests.swift */; };
+		1F4487101D9CE5300065C5B6 /* SearchResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F44870F1D9CE5300065C5B6 /* SearchResultsTableViewCell.swift */; };
 		1F463DB71D9C27DE0085E555 /* ServicesCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F463DB61D9C27DE0085E555 /* ServicesCategoriesViewController.swift */; };
 		1F463DB91D9C2A800085E555 /* ServicesCategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F463DB81D9C2A800085E555 /* ServicesCategoriesTableViewCell.swift */; };
 		1F463DBB1D9C2D7E0085E555 /* ServiceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F463DBA1D9C2D7E0085E555 /* ServiceCategory.swift */; };
@@ -91,6 +92,7 @@
 		1F3051511D99D79800992B2C /* TestatorModelUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestatorModelUnitTests.swift; sourceTree = "<group>"; };
 		1F3051531D99D8BE00992B2C /* TaskModelUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskModelUnitTests.swift; sourceTree = "<group>"; };
 		1F43D2801D95CC2D00DFEBBA /* StageModelUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageModelUnitTests.swift; sourceTree = "<group>"; };
+		1F44870F1D9CE5300065C5B6 /* SearchResultsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsTableViewCell.swift; sourceTree = "<group>"; };
 		1F463DB61D9C27DE0085E555 /* ServicesCategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicesCategoriesViewController.swift; sourceTree = "<group>"; };
 		1F463DB81D9C2A800085E555 /* ServicesCategoriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicesCategoriesTableViewCell.swift; sourceTree = "<group>"; };
 		1F463DBA1D9C2D7E0085E555 /* ServiceCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceCategory.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 				222271A51D9B115E0082AAB5 /* NewSubTaskViewController.swift */,
 				222271A31D9B109E0082AAB5 /* NewTaskViewController.swift */,
 				22319A781D9045B500472494 /* NewTestatorPopoverViewController.swift */,
+				1F44870F1D9CE5300065C5B6 /* SearchResultsTableViewCell.swift */,
 				1F463DBC1D9C53B20085E555 /* SearchResultsViewController.swift */,
 				1F463DB81D9C2A800085E555 /* ServicesCategoriesTableViewCell.swift */,
 				1F463DB61D9C27DE0085E555 /* ServicesCategoriesViewController.swift */,
@@ -501,6 +504,7 @@
 				1FF6DBAE1D8B36C2009CCAC7 /* Testator+CoreDataProperties.swift in Sources */,
 				1F84E6D01D8B112900311680 /* Stack.swift in Sources */,
 				1FF6DBC51D8B442A009CCAC7 /* Task+CoreDataClass.swift in Sources */,
+				1F4487101D9CE5300065C5B6 /* SearchResultsTableViewCell.swift in Sources */,
 				1F463DB71D9C27DE0085E555 /* ServicesCategoriesViewController.swift in Sources */,
 				1F463DBB1D9C2D7E0085E555 /* ServiceCategory.swift in Sources */,
 				22319A761D90456700472494 /* StageViewController.swift in Sources */,

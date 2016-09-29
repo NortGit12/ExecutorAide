@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import MapKit
 
 class SearchResultsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -15,14 +16,14 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     // MARK: - Stored Properties
     //==================================================
     
-    @IBOutlet weak var testTextView: UITextView!
-//    @IBOutlet weak var resultsTitleLabel: UILabel!
-//    @IBOutlet weak var resultsTableView: UITableView!
+    @IBOutlet weak var resultsHeaderLabel: UILabel!
+    @IBOutlet weak var resultsTableView: UITableView!
     
     var locations = [CLLocation]()
     
     var categorySearchTerm: String?
     var locationSearchTerm: String?
+    var searchResponse: MKLocalSearchResponse?
     
     //==================================================
     // MARK: - General
@@ -31,9 +32,14 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let categorySearchTerm = self.categorySearchTerm, let locationSearchTerm = self.locationSearchTerm {
+        if let categorySearchTerm = self.categorySearchTerm
+            , let locationSearchTerm = self.locationSearchTerm
+            , let localSearchResponse = self.searchResponse {
             
-            testTextView.text = "categorySearchTerm = \(categorySearchTerm)\nlocationSearchTerm = \(locationSearchTerm)"
+            resultsTableView.rowHeight = UITableViewAutomaticDimension
+            resultsTableView.estimatedRowHeight = 50
+            
+            resultsHeaderLabel.text = "Search results for \"\(categorySearchTerm)\" in \(locationSearchTerm)"
         }
     }
 
@@ -42,12 +48,18 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     //==================================================
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        
+        return searchResponse?.mapItems.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchResultCell", for: indexPath) as? SearchResultsTableViewCell
+            , let item = searchResponse?.mapItems[indexPath.row]
+            else { return UITableViewCell() }
+        
+        print("item[\(indexPath.row)] = \(item)")
+        cell.updateWith(name: (item.name)!, distance: "2.0mi")
         
         return cell
     }
