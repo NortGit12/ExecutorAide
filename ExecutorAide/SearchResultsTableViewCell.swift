@@ -15,7 +15,7 @@ class SearchResultsTableViewCell: UITableViewCell {
     //==================================================
     
     @IBOutlet weak var resultNameLabel: UILabel!
-    @IBOutlet weak var resultDistanceLabel: UILabel!
+    @IBOutlet weak var appleMapImageView: UIImageView!
     
     //==================================================
     // MARK: - Methods
@@ -24,7 +24,6 @@ class SearchResultsTableViewCell: UITableViewCell {
     func updateWith(name: String, distance: String) {
         
         resultNameLabel.text = name
-        resultDistanceLabel.text = distance
     }
 
 }

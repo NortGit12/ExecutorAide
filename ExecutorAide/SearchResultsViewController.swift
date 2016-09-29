@@ -63,6 +63,20 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         
         return cell
     }
+    
+    //==================================================
+    // MARK: -
+    //==================================================
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if let localSearchResponse = self.searchResponse {
+            
+            let mapItem = localSearchResponse.mapItems[indexPath.row]
+            
+            mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDefault])
+        }
+    }
 
     /*
     //==================================================
