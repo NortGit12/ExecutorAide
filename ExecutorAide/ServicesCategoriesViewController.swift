@@ -60,6 +60,10 @@ class ServicesCategoriesViewController: UIViewController, SearchResultCellDelega
     
     func cellTapped(cell: ServicesCategoriesTableViewCell) {
         
+        categoriesSearchBar.text = ""
+        categoriesSearchBar.resignFirstResponder()
+        locationSearchBar.resignFirstResponder()
+        
         if locationSearchBar.text?.characters.count == 0 {
             
             let alertController = UIAlertController(title: "Location Needed", message: "Enter a location to search and try again.", preferredStyle: .alert)
