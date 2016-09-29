@@ -136,37 +136,40 @@ class ServicesCategoriesViewController: UIViewController, SearchResultCellDelega
     
     func forwardGeoCoding(address: String, completion: ((_ coordinate: CLLocationCoordinate2D?) -> Void)? = nil) {
         
-        CLGeocoder().geocodeAddressString(address) { (placemarks, error) in
+        if address.characters.count > 0 {
             
-            if let error = error {
-                print("Error with address: \(error.localizedDescription)")
+            CLGeocoder().geocodeAddressString(address) { (placemarks, error) in
                 
-                if let completion = completion {
-                    completion(nil)
-                }
-            }
-            
-            if let placemarks = placemarks {
-                
-                if placemarks.count == 0 {
-                    
-                    print("No location found")
+                if let error = error {
+                    print("Error with address \"\(address)\": \(error.localizedDescription)")
                     
                     if let completion = completion {
                         completion(nil)
                     }
                 }
                 
-                if let placemark = placemarks.first {
+                if let placemarks = placemarks {
                     
-                    let location = placemark.location
-                    let coordinate = location?.coordinate
-                    print("\nlat = \(coordinate?.latitude), long = \(coordinate?.longitude)")
-                    
-                    if let completion = completion {
-                        completion(coordinate)
+                    if placemarks.count == 0 {
+                        
+                        print("No location found")
+                        
+                        if let completion = completion {
+                            completion(nil)
+                        }
                     }
                     
+                    if let placemark = placemarks.first {
+                        
+                        let location = placemark.location
+                        let coordinate = location?.coordinate
+                        print("\nlat = \(coordinate?.latitude), long = \(coordinate?.longitude)")
+                        
+                        if let completion = completion {
+                            completion(coordinate)
+                        }
+                        
+                    }
                 }
             }
         }
@@ -388,7 +391,7 @@ extension ServicesCategoriesViewController : CLLocationManagerDelegate {
                     
                     self.locationSearchBar.text = "\(currentCity), \(currentRegion), \(currentCountry)"
                     
-                    print("Current location = \(currentCity), \(currentRegion), \(currentCountry) [\(centerOfCurrentLocation.latitude), \(centerOfCurrentLocation.longitude)]")
+//                    print("Current location = \(currentCity), \(currentRegion), \(currentCountry) [\(centerOfCurrentLocation.latitude), \(centerOfCurrentLocation.longitude)]")
                 }
             }
         }
