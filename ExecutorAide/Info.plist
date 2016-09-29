@@ -45,5 +45,7 @@
 	<string>This app uses the camera if the user prefers to take a picture of the testator.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app accesses the photo library if the user wants to choose an existing photo of the testator</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app would like to use your location to support searching for local services.</string>
 </dict>
 </plist>

@@ -18,6 +18,10 @@
 		1F3051521D99D79800992B2C /* TestatorModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3051511D99D79800992B2C /* TestatorModelUnitTests.swift */; };
 		1F3051541D99D8BE00992B2C /* TaskModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3051531D99D8BE00992B2C /* TaskModelUnitTests.swift */; };
 		1F43D2811D95CC2D00DFEBBA /* StageModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43D2801D95CC2D00DFEBBA /* StageModelUnitTests.swift */; };
+		1F463DB71D9C27DE0085E555 /* ServicesCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F463DB61D9C27DE0085E555 /* ServicesCategoriesViewController.swift */; };
+		1F463DB91D9C2A800085E555 /* ServicesCategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F463DB81D9C2A800085E555 /* ServicesCategoriesTableViewCell.swift */; };
+		1F463DBB1D9C2D7E0085E555 /* ServiceCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F463DBA1D9C2D7E0085E555 /* ServiceCategory.swift */; };
+		1F463DBD1D9C53B20085E555 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F463DBC1D9C53B20085E555 /* SearchResultsViewController.swift */; };
 		1F5EA0021D948ABB00922E17 /* TestatorModelControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5EA0001D948ABB00922E17 /* TestatorModelControllerSpec.swift */; };
 		1F5EA0031D948ABB00922E17 /* TestatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5EA0011D948ABB00922E17 /* TestatorSpec.swift */; };
 		1F84E6D01D8B112900311680 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F84E6CF1D8B112900311680 /* Stack.swift */; };
@@ -87,6 +91,10 @@
 		1F3051511D99D79800992B2C /* TestatorModelUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestatorModelUnitTests.swift; sourceTree = "<group>"; };
 		1F3051531D99D8BE00992B2C /* TaskModelUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskModelUnitTests.swift; sourceTree = "<group>"; };
 		1F43D2801D95CC2D00DFEBBA /* StageModelUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageModelUnitTests.swift; sourceTree = "<group>"; };
+		1F463DB61D9C27DE0085E555 /* ServicesCategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicesCategoriesViewController.swift; sourceTree = "<group>"; };
+		1F463DB81D9C2A800085E555 /* ServicesCategoriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicesCategoriesTableViewCell.swift; sourceTree = "<group>"; };
+		1F463DBA1D9C2D7E0085E555 /* ServiceCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceCategory.swift; sourceTree = "<group>"; };
+		1F463DBC1D9C53B20085E555 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		1F5EA0001D948ABB00922E17 /* TestatorModelControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestatorModelControllerSpec.swift; sourceTree = "<group>"; };
 		1F5EA0011D948ABB00922E17 /* TestatorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestatorSpec.swift; sourceTree = "<group>"; };
 		1F84E6CF1D8B112900311680 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
@@ -173,6 +181,14 @@
 			name = ModelController;
 			sourceTree = "<group>";
 		};
+		1F44870E1D9CD0E90065C5B6 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				1F463DBA1D9C2D7E0085E555 /* ServiceCategory.swift */,
+			);
+			name = Enum;
+			sourceTree = "<group>";
+		};
 		1F84E6D11D8B137900311680 /* OtherController */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				1F8DE5F31D8AF32800066819 /* ExecutorAide.entitlements */,
+				1F44870E1D9CD0E90065C5B6 /* Enum */,
 				1F8DE5FA1D8AF85700066819 /* Model */,
 				1F0DE53E1D8C449D008EE273 /* ModelController */,
 				1F84E6D11D8B137900311680 /* OtherController */,
@@ -292,6 +309,9 @@
 				222271A51D9B115E0082AAB5 /* NewSubTaskViewController.swift */,
 				222271A31D9B109E0082AAB5 /* NewTaskViewController.swift */,
 				22319A781D9045B500472494 /* NewTestatorPopoverViewController.swift */,
+				1F463DBC1D9C53B20085E555 /* SearchResultsViewController.swift */,
+				1F463DB81D9C2A800085E555 /* ServicesCategoriesTableViewCell.swift */,
+				1F463DB61D9C27DE0085E555 /* ServicesCategoriesViewController.swift */,
 				22319A751D90456700472494 /* StageViewController.swift */,
 				22319A7D1D9045B500472494 /* TestatorViewController.swift */,
 			);
@@ -466,6 +486,7 @@
 				1F0DE54A1D8CAE43008EE273 /* DetailModelController.swift in Sources */,
 				1FF6DBC61D8B442A009CCAC7 /* Testator+CoreDataClass.swift in Sources */,
 				1F84E6D51D8B143300311680 /* CloudKitManagedObject.swift in Sources */,
+				1F463DB91D9C2A800085E555 /* ServicesCategoriesTableViewCell.swift in Sources */,
 				1F0DE5481D8CAE32008EE273 /* SubTaskModelController.swift in Sources */,
 				22319A801D9045B500472494 /* SubTaskTableViewCell.swift in Sources */,
 				22319A821D9045B500472494 /* TestatorTableViewCell.swift in Sources */,
@@ -480,9 +501,12 @@
 				1FF6DBAE1D8B36C2009CCAC7 /* Testator+CoreDataProperties.swift in Sources */,
 				1F84E6D01D8B112900311680 /* Stack.swift in Sources */,
 				1FF6DBC51D8B442A009CCAC7 /* Task+CoreDataClass.swift in Sources */,
+				1F463DB71D9C27DE0085E555 /* ServicesCategoriesViewController.swift in Sources */,
+				1F463DBB1D9C2D7E0085E555 /* ServiceCategory.swift in Sources */,
 				22319A761D90456700472494 /* StageViewController.swift in Sources */,
 				1F0DE5461D8CAE1E008EE273 /* TaskModelController.swift in Sources */,
 				1FF6DBBA1D8B43DD009CCAC7 /* Detail+CoreDataProperties.swift in Sources */,
+				1F463DBD1D9C53B20085E555 /* SearchResultsViewController.swift in Sources */,
 				1F0DE5421D8C6E41008EE273 /* PersistenceController.swift in Sources */,
 				1FF6DBC21D8B442A009CCAC7 /* Stage+CoreDataClass.swift in Sources */,
 				22033C941D918BA500FC4FA0 /* DataTemplateController.swift in Sources */,
