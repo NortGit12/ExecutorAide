@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class ServicesCategoriesViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
+class ServicesCategoriesViewController: UIViewController, SearchResultCellDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate {
     
     //==================================================
     // MARK: - Stored Properties
@@ -45,12 +45,44 @@ class ServicesCategoriesViewController: UIViewController, UISearchBarDelegate, U
         locationSearchBar.delegate = self
         
         setupLocationSupport()
+        performSearch()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         categoriesTableView.reloadData()
+    }
+    
+    //==================================================
+    // MARK: - SearchResultCellDelegate
+    //==================================================
+    
+    func cellTapped(cell: ServicesCategoriesTableViewCell) {
+        
+        if locationSearchBar.text?.characters.count == 0 {
+            
+            let alertController = UIAlertController(title: "Location Needed", message: "Enter a location to search and try again.", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            
+            present(alertController, animated: true, completion: nil)
+            
+        } else {
+            
+            if let category = cell.serviceCategory
+                , let locationSearchTerm = locationSearchBar.text {
+                
+                self.categorySearchTerm = category.rawValue
+                self.locationSearchTerm = locationSearchTerm
+                
+                self.performSearch(completion: {
+                    
+                    self.performSegue(withIdentifier: "categoryCellToResultsSegue", sender: cell)
+                })
+            }
+        }
     }
     
     //==================================================
@@ -63,23 +95,6 @@ class ServicesCategoriesViewController: UIViewController, UISearchBarDelegate, U
             self.categorySearchTerm = categorySearchTerm
         }
     }
-    
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        
-//        guard let categorySearchTerm = categoriesSearchBar.text
-//            , let locationSearchTerm = locationSearchBar.text
-//            else { return }   // where searchText.characters.count > 0
-//        
-//        self.categorySearchTerm = categorySearchTerm
-//        self.locationSearchTerm = locationSearchTerm
-//        
-//        search(forCategory: categorySearchTerm, nearLocation: locationSearchTerm) { (localSearchResponse) in
-//            
-//            if let localSearchResponse = localSearchResponse {
-//                print("\nlocalSearchResponse = \(localSearchResponse)")
-//            }
-//        }
-//    }
     
     //==================================================
     // MARK: - UITableViewDataSource
@@ -94,6 +109,8 @@ class ServicesCategoriesViewController: UIViewController, UISearchBarDelegate, U
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "serviceCategoriesCell", for: indexPath) as? ServicesCategoriesTableViewCell
             else { return UITableViewCell() }
+        
+        cell.delegate = self
         
         let category = categories[indexPath.row]
         cell.updateWithCategory(category: category)
@@ -205,10 +222,10 @@ class ServicesCategoriesViewController: UIViewController, UISearchBarDelegate, U
             if let localSearchResponse = localSearchResponse {
                 
                 self.searchResponse = localSearchResponse
-                
-                if let completion = completion {
-                    completion()
-                }
+            }
+            
+            if let completion = completion {
+                completion()
             }
         }
     }
@@ -243,6 +260,10 @@ class ServicesCategoriesViewController: UIViewController, UISearchBarDelegate, U
                     
                     self.performSegue(withIdentifier: "categorySearchToResultsSegue", sender: nil)
                 })
+                
+//                self.performSearch()
+//                
+//                self.performSegue(withIdentifier: "categorySearchToResultsSegue", sender: nil)
             }
         }
     }
@@ -278,43 +299,50 @@ class ServicesCategoriesViewController: UIViewController, UISearchBarDelegate, U
             locationSearchBar.resignFirstResponder()
             categoriesSearchBar.text = ""
             
-            self.performSearch(completion: {
+            // Where am I going?
+            
+            if let searchResultsViewController = segue.destination as? SearchResultsViewController {
                 
-                // Where am I going?
+                // What do I need to pack?
                 
-                if let searchResultsViewController = segue.destination as? SearchResultsViewController {
-                    
-                    // What do I need to pack?
-                    
-                    guard let locationSearchTerm = self.locationSearchBar.text, locationSearchTerm.characters.count > 0 else {
-                        
-                        let alertController = UIAlertController(title: "Missing Location", message: "Make sure a location is specified and try again.", preferredStyle: .alert)
-                        
-                        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                        alertController.addAction(okAction)
-                        
-                        self.present(alertController, animated: true, completion: nil)
-                        return
-                    }
-                    
-                    guard let index = self.categoriesTableView.indexPathForSelectedRow?.row
-                        else {
-                            print("Error: Could not identify the selected category row.")
-                            return
-                    }
-                    
-                    // Am I done packing?
-                    
-                    let category = self.categories[index]
-                    self.categorySearchTerm = category.rawValue
-                    searchResultsViewController.categorySearchTerm = self.categorySearchTerm
-                    
-                    self.locationSearchTerm = locationSearchTerm
-                    searchResultsViewController.locationSearchTerm = self.locationSearchTerm
-                    
-                    searchResultsViewController.searchResponse = self.searchResponse
+                guard let cell = sender as? ServicesCategoriesTableViewCell
+                    , let indexPath = categoriesTableView.indexPath(for: cell)
+                    else {
+                    print("Error identifying the selected cell for segue.")
+                    return
                 }
-            })
+                
+                guard let locationSearchTerm = self.locationSearchBar.text, locationSearchTerm.characters.count > 0 else {
+                    
+                    let alertController = UIAlertController(title: "Missing Location", message: "Make sure a location is specified and try again.", preferredStyle: .alert)
+                    
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(okAction)
+                    
+                    self.present(alertController, animated: true, completion: nil)
+                    return
+                }
+                
+//                guard let index = self.categoriesTableView.indexPathForSelectedRow?.row
+//                    else {
+//                        print("Error: Could not identify the selected category row.")
+//                        return
+//                }
+                
+                // Am I done packing?
+                
+//                let category = self.categories[index]
+                let category = self.categories[indexPath.row]
+                self.categorySearchTerm = category.rawValue
+                searchResultsViewController.categorySearchTerm = self.categorySearchTerm
+                
+                self.locationSearchTerm = locationSearchTerm
+                searchResultsViewController.locationSearchTerm = self.locationSearchTerm
+                
+                searchResultsViewController.searchResponse = self.searchResponse
+                
+                self.performSearch()
+            }
         }
     }
 

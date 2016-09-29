@@ -25,5 +25,4 @@ class SearchResultsTableViewCell: UITableViewCell {
         
         resultNameLabel.text = name
     }
-
 }

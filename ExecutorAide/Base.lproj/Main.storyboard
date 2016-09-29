@@ -145,19 +145,22 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <inset key="scrollIndicatorInsets" minX="0.0" minY="-11" maxX="0.0" maxY="0.0"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="serviceCategoriesCell" rowHeight="150" id="afE-n5-a2I" customClass="ServicesCategoriesTableViewCell" customModule="ExecutorAide" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="serviceCategoriesCell" rowHeight="150" id="afE-n5-a2I" customClass="ServicesCategoriesTableViewCell" customModule="ExecutorAide" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="afE-n5-a2I" id="cwV-GZ-p4U">
-                                                    <frame key="frameInset" width="375" height="150"/>
+                                                    <frame key="frameInset" width="375" height="149"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qpy-Mv-6ef"/>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9mD-Zv-gEE">
+                                                        <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qpy-Mv-6ef">
+                                                            <gestureRecognizers/>
+                                                        </imageView>
+                                                        <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9mD-Zv-gEE">
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nUF-Lv-j3k">
                                                                     <frame key="frameInset" minX="8" minY="8" width="359" height="29"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="26"/>
                                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -168,6 +171,13 @@
                                                                 <constraint firstAttribute="height" constant="45" id="Hge-az-aBJ"/>
                                                             </constraints>
                                                         </view>
+                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QJ9-jN-4X5">
+                                                            <frame key="frameInset" width="375" height="149"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <connections>
+                                                                <action selector="imageViewButtonTappedWithSender:" destination="afE-n5-a2I" eventType="touchUpInside" id="7Wg-Dq-UP5"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="9mD-Zv-gEE" secondAttribute="trailing" id="3f5-8d-3eH"/>
@@ -182,7 +192,7 @@
                                                 <connections>
                                                     <outlet property="categoryImageView" destination="qpy-Mv-6ef" id="e5Q-y1-WIG"/>
                                                     <outlet property="categoryLabel" destination="nUF-Lv-j3k" id="A8T-a1-h8p"/>
-                                                    <segue destination="a8P-Vs-aQ7" kind="show" identifier="categoryCellToResultsSegue" id="8Ug-jk-xMz"/>
+                                                    <outlet property="imageViewButton" destination="QJ9-jN-4X5" id="2YV-Rz-xvG"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -215,6 +225,7 @@
                         <outlet property="categoriesTableView" destination="uW3-Yi-BD4" id="LSn-zm-SZh"/>
                         <outlet property="locationSearchBar" destination="Mfj-u7-1dP" id="Ynp-63-xlr"/>
                         <segue destination="a8P-Vs-aQ7" kind="show" identifier="categorySearchToResultsSegue" id="rNF-tZ-Szf"/>
+                        <segue destination="a8P-Vs-aQ7" kind="show" identifier="categoryCellToResultsSegue" id="oB5-tv-lc9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m9D-Pk-N52" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -377,6 +388,6 @@
         <image name="Apple Maps icon" width="225" height="225"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="rNF-tZ-Szf"/>
+        <segue reference="oB5-tv-lc9"/>
     </inferredMetricsTieBreakers>
 </document>
