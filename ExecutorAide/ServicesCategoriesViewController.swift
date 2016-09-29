@@ -22,7 +22,7 @@ class ServicesCategoriesViewController: UIViewController, UISearchBarDelegate, U
     
     let locationManager = CLLocationManager()
     
-    var categories: [ServiceCategory] = [.Catering, .Cemeteries, .EmergencyServices, .EstateAttorneys, .Florists, .FuneralHomes, .Government, .Hospice, .MemorialMonuments, .Restaurants, .StorageUnits, .VeteransOrganizations]
+    var categories: [ServiceCategory] = [.Catering, .Cemeteries, .EmergencyServices, .EstateAttorneys, .Florists, .FuneralHomes, .Government, .Hospice, .MemorialMonuments, .PetCareServices, .Restaurants, .StorageUnits, .VeteransOrganizations]
     let regionRadius: CLLocationDistance = 1000
     var currentCoordinate = CLLocationCoordinate2D()
     var currentLocation = CLLocation()

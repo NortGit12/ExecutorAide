@@ -21,6 +21,7 @@ enum ServiceCategory: String {
     case Government = "Government"
     case Hospice = "Hospice"
     case MemorialMonuments = "Memorial Monuments"
+    case PetCareServices = "Pet Care Services"
     case Restaurants = "Restaurants"
     case StorageUnits = "Storage Units"
     case VeteransOrganizations = "Veterans Organizations"

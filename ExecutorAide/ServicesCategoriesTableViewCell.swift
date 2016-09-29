@@ -51,6 +51,9 @@ class ServicesCategoriesTableViewCell: UITableViewCell {
         case .MemorialMonuments:
             categoryImageView.image = UIImage(named: ServiceCategory.MemorialMonuments.rawValue)
             categoryLabel.text = "\(ServiceCategory.MemorialMonuments.rawValue)"
+        case .PetCareServices:
+            categoryImageView.image = UIImage(named: ServiceCategory.PetCareServices.rawValue)
+            categoryLabel.text = "\(ServiceCategory.PetCareServices.rawValue)"
         case .Restaurants:
             categoryImageView.image = UIImage(named: ServiceCategory.Restaurants.rawValue)
             categoryLabel.text = "\(ServiceCategory.Restaurants.rawValue)"
