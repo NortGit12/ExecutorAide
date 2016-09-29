@@ -97,8 +97,9 @@ class DetailModelController {
             return resultsArray?.first
             
         } catch let error {
-            
-            print("Error fetching Detail with ID \"\(idName)\": \(error.localizedDescription)")
+            PersistenceController.shared.moc.performAndWait {
+                print("Error fetching Detail with ID \"\(idName)\": \(error.localizedDescription)")
+            }
             return nil
         }
 
@@ -125,9 +126,10 @@ class DetailModelController {
             }
             
         } catch let error {
-            
-            print("Error updating Detail \"\(detail.contentType)\": \(error.localizedDescription)")
-            return
+            PersistenceController.shared.moc.performAndWait {
+                print("Error updating Detail \"\(detail.contentType)\": \(error.localizedDescription)")
+                return
+            }
         }
         
         if let detailCloudKitRecord = detail.cloudKitRecord {
@@ -142,21 +144,24 @@ class DetailModelController {
                 }
                 
                 if error != nil {
+                    PersistenceController.shared.moc.performAndWait {
+                        print("Error: Could not modify the existing \"\(detail.contentType)\" detail in CloudKit.  \(error?.localizedDescription)")
+                        return
+                    }
                     
-                    print("Error: Could not modify the existing \"\(detail.contentType)\" detail in CloudKit.  \(error?.localizedDescription)")
-                    return
                 }
                 
                 if let _ = records {
+                    PersistenceController.shared.moc.performAndWait {
+                        print("Updated \"\(detail.contentType)\" detail saved successfully to CloudKit.")
+                    }
                     
-                    print("Updated \"\(detail.contentType)\" detail saved successfully to CloudKit.")
                 }
             })
         }
     }
     
     func deleteDetail(detail: Detail, completion: (() -> Void)? = nil) {
-        
         if let detailCloudKitRecord = detail.cloudKitRecord {
             
             PersistenceController.shared.moc.performAndWait {
@@ -176,38 +181,22 @@ class DetailModelController {
                     }
                     
                     if error != nil  {
-                        
-                        print("Error: Detail \"\(detailContentType)\" could not be deleted in CloudKit.  \(error?.localizedDescription)")
-                        return
+                        PersistenceController.shared.moc.performAndWait {
+                            print("Error: Detail \"\(detailContentType)\" could not be deleted in CloudKit.  \(error?.localizedDescription)")
+                            return
+                        }
                     }
                     
                     if let _ = recordID {
-                        
-                        print("Detail \"\(detailContentType)\" successfully deleted from CloudKit.")
+                        PersistenceController.shared.moc.performAndWait {
+                            print("Detail \"\(detailContentType)\" successfully deleted from CloudKit.")
+                        }
                     }
                 }
             })
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

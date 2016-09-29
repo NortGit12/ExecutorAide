@@ -15,6 +15,8 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var footerView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
+    var progressView: UIProgressView!
+    
     var testator: Testator?
     var stages: [Stage]? {
         didSet {
@@ -28,7 +30,7 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     var selectedStage: Stage?
     var tasks: [Task]? = []
     var subTasks: [[SubTask]]? = []
-
+    
     
     // MARK: - Lifecycle
     
@@ -36,31 +38,57 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         tableView.reloadData()
         setupCustomCells()
-        setupNavbar()
-        reloadTableViewWithDataForSelectedStage()
+        reloadViewWithDataForSelectedStage()
         setupSegmentedControl()
         
         let rightButton = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(self.showEditing(sender:)))
         self.navigationItem.rightBarButtonItem = rightButton
+        
+        let nib = UINib(nibName: "CustomSectionHeader", bundle: nil)
+        tableView.register(nib, forHeaderFooterViewReuseIdentifier: customSectionHeaderReuseIdentifier)
     }
     
     // MARK: - Setup UI
     
     func setupSegmentedControl() {
         segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.addTarget(self, action: #selector(self.reloadTableViewWithDataForSelectedStage), for: .valueChanged)
+        segmentedControl.addTarget(self, action: #selector(self.reloadViewWithDataForSelectedStage), for: .valueChanged)
     }
     
-    func setupNavbar() {
-        title = selectedStage?.name
-        let progressView = UIProgressView(frame: CGRect(x: 0, y: 0, width: 50, height: 10))
-        progressView.progressViewStyle = .bar
-//        titleView?.addSubview(progressView)
-        
-        navigationController?.navigationItem.titleView = progressView
-        
-        if let percentComplete = selectedStage?.percentComplete {
-            progressView.progress = percentComplete
+    func updateNavbar() {
+        navigationItem.title = selectedStage?.name
+        guard let percentComplete = selectedStage?.percentComplete else { return }
+        navigationItem.prompt = "\(percentComplete)% complete"
+        let progressBarContainerView = UIView(frame: CGRect(x: view.frame.width/2, y: 0, width: view.frame.width/2, height: 10))
+        progressBarContainerView.backgroundColor = .clear
+        progressBarContainerView.layer.borderColor = UIColor.darkGray.cgColor
+        progressView = UIProgressView(frame: CGRect(x: 0, y: 0, width: progressBarContainerView.frame.width, height: progressBarContainerView.frame.height))
+        progressBarContainerView.addSubview(progressView)
+        updateProgressView()
+        navigationItem.titleView = progressBarContainerView
+    }
+    
+    func updateProgressView() {
+        DispatchQueue.main.async {
+            let percentComplete = self.calculatePercentComplete()
+            self.progressView.progress = percentComplete
+            self.navigationItem.prompt = "\(Int(percentComplete * 100))% complete"
+        }
+    }
+    
+    func calculatePercentComplete() -> Float {
+        guard let subTasks = subTasks else { return 0.0 }
+        let allSubTasks = subTasks.flatMap { $0 }
+        var completedSubTaskCount = 0
+        for subTask in allSubTasks {
+            if subTask.isCompleted {
+                completedSubTaskCount += 1
+            }
+        }
+        if allSubTasks.count == 0 {
+            return 0
+        } else {
+            return (Float(completedSubTaskCount)/Float(allSubTasks.count))
         }
     }
     
@@ -71,9 +99,42 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.register(UINib(nibName: "SubTaskTableViewCell", bundle: nil), forCellReuseIdentifier: subTaskCellReuseIdentifier)
     }
     
+    func displayDeleteWarning(forTask task: Task) {
+        let alertView = UIAlertController(title: "Delete Task?", message: "Are you sure you want to delete this task and all it's subtasks? This cannot be undone.", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        let okAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+            // Remove from tableView datasource
+            let taskIndex = task.sortValue
+            self.tasks?.remove(at: taskIndex)
+            // Remove from CoreData
+            guard let tasks = self.tasks, let subTasks = self.subTasks?[taskIndex] else { return }
+            
+            TaskModelController.shared.deleteTask(task: task) {
+                self.resetTaskArraySortValues(tasks: tasks, completion: { 
+                    // Animate deletion
+                    DispatchQueue.main.async {
+                        if subTasks.isEmpty {
+                            // Crash occurs if deleteSections(_:_:) is called on a section with no rows
+                            self.tableView.reloadData()
+                        } else {
+                            let indexSet = IndexSet(integer: taskIndex)
+                            self.tableView.deleteSections(indexSet, with: .fade)
+                        }
+                        self.updateProgressView()
+                    }
+                })
+            }
+        }
+        alertView.addAction(cancelAction)
+        alertView.addAction(okAction)
+        present(alertView, animated: true, completion: nil)
+    }
+    
     // MARK: - Set TableView Data
     
-    func reloadTableViewWithDataForSelectedStage() {
+    func reloadViewWithDataForSelectedStage() {
         DispatchQueue.main.async {
             self.clearData()
             self.selectedStage = self.stages?[self.segmentedControl.selectedSegmentIndex]
@@ -88,6 +149,7 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
                 self.subTasks?.append(subTaskArray)
             }
             self.tableView.reloadData()
+            self.updateNavbar()
         }
     }
     
@@ -107,19 +169,33 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         guard let subTasks = subTasks else { return 0 }
         return subTasks[section].count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: subTaskCellReuseIdentifier, for: indexPath) as? SubTaskTableViewCell else { return UITableViewCell() }
         let taskIndex = indexPath.section
         guard let subTask = subTasks?[taskIndex][indexPath.row] else { return UITableViewCell() }
         cell.updateCellWithSubTask(subTask: subTask)
-        
+        cell.delegate = self
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let tasks = tasks else { return "" }
         return tasks[section].name
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let tasks = tasks else { return UIView() }
+        guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: customSectionHeaderReuseIdentifier) as? CustomSectionHeader else { return nil }
+        headerView.delegate = self
+        headerView.task = tasks[section]
+        headerView.updateHeaderWithTaskInfo()
+        
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
     }
     
     // MARK: - Editing
@@ -142,7 +218,6 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         // Update CoreData data source
         self.subTaskArrayDidChangeOrder(inTask: task)
-        
     }
     
     // Prevent user from trying to move row to a different section
@@ -156,7 +231,7 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         return proposedDestinationIndexPath
     }
-
+    
     func showEditing(sender: UIBarButtonItem) {
         tableView.isEditing = !tableView.isEditing
         if tableView.isEditing == true {
@@ -170,7 +245,19 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func setupViewForEditing() {
+        // Setup bar buttons
         let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelButtonTapped))
+        
+        // Setup section header views
+        if let tasks = tasks {
+            if !tasks.isEmpty {
+                for i in 0...tasks.count - 1 {
+                    guard let customSectionHeaderView = tableView.headerView(forSection: i) as? CustomSectionHeader else { return }
+                    customSectionHeaderView.deleteButton.isHidden = !tableView.isEditing
+                }
+            }
+        }
+        
         if tableView.isEditing == true {
             // Setup navbar
             self.navigationItem.leftBarButtonItem = leftBarButtonItem
@@ -258,17 +345,48 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
         }
     }
+    
+    func resetTaskArraySortValues(tasks: [Task], completion: @escaping () -> Void) {
+        // for each task, reset the sort value to it's place in the array
+        let moc = Stack.shared.managedObjectContext
+        moc.performAndWait {
+            
+            for task in tasks {
+                guard let taskIndex = tasks.index(of: task) else { continue }
+                task.sortValue = Int(taskIndex)
+                TaskModelController.shared.updateTask(task: task, completion: { 
+                    completion()
+                })
+            }
+        }
+    }
 }
 
 
 extension StageViewController: NewElementDelegate {
     func stageWillUpdateWithNewData() {
-        reloadTableViewWithDataForSelectedStage()
+        reloadViewWithDataForSelectedStage()
+        setupViewForEditing()
+        updateProgressView()
     }
 }
 
-//extension StageViewController: SubTaskTableViewCellDelegate {
-//    func subTaskTableViewCellDidReceiveTap() -> SubTask {
-//        
-//    }
-//}
+extension StageViewController: SectionHeaderDelegate {
+    func didTapDeleteSectionButton(withTask task: Task) {
+        displayDeleteWarning(forTask: task)
+        
+    }
+}
+
+extension StageViewController: SubTaskTableViewCellDelegate {
+    func subTaskTableViewCellDidChangeCompletionState(sender: SubTaskTableViewCell) {
+        if let indexPath = tableView.indexPath(for: sender), let subTasks = self.subTasks {
+            let subTask = subTasks[indexPath.section][indexPath.row]
+            // Update dataSource
+            subTask.isCompleted = !subTask.isCompleted
+            sender.updateCellWithSubTask(subTask: subTask)
+            updateProgressView()
+            SubTaskModelController.shared.updateSubTask(subTask: subTask)
+        }
+    }
+}

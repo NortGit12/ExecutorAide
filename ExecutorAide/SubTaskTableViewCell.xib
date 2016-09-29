@@ -27,13 +27,14 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eoS-zY-57n">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eoS-zY-57n">
                         <constraints>
                             <constraint firstAttribute="width" secondItem="eoS-zY-57n" secondAttribute="height" multiplier="1:1" id="FBF-eH-rhF"/>
                             <constraint firstAttribute="height" constant="32" id="JBK-Np-Fwe"/>
                         </constraints>
+                        <state key="normal" image="NotStarted"/>
                         <connections>
-                            <action selector="checkmarkButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Ld1-Kp-M37"/>
+                            <action selector="checkmarkTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="txE-kS-8Wg"/>
                         </connections>
                     </button>
                 </subviews>
@@ -57,4 +58,7 @@
             <point key="canvasLocation" x="-289" y="-81"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="NotStarted" width="36" height="36"/>
+    </resources>
 </document>

@@ -183,9 +183,10 @@ class SubTaskModelController {
                 }
                 
                 if error != nil {
-                    
-                    print("Error: Could not modify the existing \"\(subTask.name)\" sub-task in CloudKit.  \(error?.localizedDescription)")
-                    return
+                    PersistenceController.shared.moc.performAndWait {
+                        print("Error: Could not modify the existing \"\(subTask.name)\" sub-task in CloudKit.  \(error?.localizedDescription)")
+                        return
+                    }
                 }
                 
                 if let _ = records {

@@ -168,9 +168,11 @@ class StageModelController {
             }
             
         } catch let error {
+            PersistenceController.shared.moc.performAndWait {
+                print("Error updating Stage \"\(stage.name)\": \(error.localizedDescription)")
+                return
+            }
             
-            print("Error updating Stage \"\(stage.name)\": \(error.localizedDescription)")
-            return
         }
         
         if let stageCloudKitRecord = stage.cloudKitRecord {
@@ -185,14 +187,17 @@ class StageModelController {
                 }
                 
                 if error != nil {
+                    PersistenceController.shared.moc.performAndWait {
+                        print("Error: Could not modify the existing \"\(stage.name)\" stage in CloudKit.  \(error?.localizedDescription)")
+                        return
+                    }
                     
-                    print("Error: Could not modify the existing \"\(stage.name)\" stage in CloudKit.  \(error?.localizedDescription)")
-                    return
                 }
                 
                 if let _ = records {
-                    
-                    print("Updated \"\(stage.name)\" stage saved successfully to CloudKit.")
+                    PersistenceController.shared.moc.performAndWait {
+                        print("Updated \"\(stage.name)\" stage saved successfully to CloudKit.")
+                    }
                 }
             })
         }
@@ -219,14 +224,16 @@ class StageModelController {
                     }
                     
                     if error != nil {
-                        
-                        print("Error: Stage \"\(stageName)\" could not be deleted in CloudKit.")
-                        return
+                        PersistenceController.shared.moc.performAndWait {
+                            print("Error: Stage \"\(stageName)\" could not be deleted in CloudKit.")
+                            return
+                        }
                     }
                     
                     if let _ = recordID {
-                        
-                        print("Stage \"\(stageName)\" successfully deleted from CloudKit.")
+                        PersistenceController.shared.moc.performAndWait {
+                            print("Stage \"\(stageName)\" successfully deleted from CloudKit.")
+                        }
                     }
                 }
             })

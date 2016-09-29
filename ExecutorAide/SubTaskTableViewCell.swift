@@ -11,18 +11,18 @@ import UIKit
 let subTaskCellReuseIdentifier = "TestatorCell"
 
 class SubTaskTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var subTaskNameLabel: UILabel!
     @IBOutlet weak var subTaskDescriptionLabel: UILabel!
     @IBOutlet weak var checkmarkButton: UIButton!
-
+    
     weak var delegate: SubTaskTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        selectionStyle = .none
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
@@ -30,24 +30,41 @@ class SubTaskTableViewCell: UITableViewCell {
     func updateCellWithSubTask(subTask: SubTask) {
         subTaskNameLabel.text = subTask.name
         subTaskDescriptionLabel.text = subTask.descriptor
+        updateCheckmarkWithCompletedState(isCompleted: subTask.isCompleted)
     }
     
     func updateCheckmarkWithCompletedState(isCompleted: Bool) {
         if isCompleted {
-            checkmarkButton.imageView?.image = UIImage(named: "")
+            checkmarkButton.setImage(UIImage(named: "Completed"), for: .normal)
+            animateCheckmarkChange()
         } else {
-            checkmarkButton.imageView?.image = UIImage(named: "")
+            checkmarkButton.setImage(UIImage(named: "NotStarted"), for: .normal)
+            animateCheckmarkChange()
         }
     }
     
-    @IBAction func checkmarkButtonTapped(sender: AnyObject) {
-        let subTask = delegate?.subTaskTableViewCellDidReceiveTap()
-        guard let isCompleted = subTask?.isCompleted else { return }
-        updateCheckmarkWithCompletedState(isCompleted: isCompleted)
+    
+    @IBAction func checkmarkTapped(_ sender: AnyObject) {
+        delegate?.subTaskTableViewCellDidChangeCompletionState(sender: self)
     }
+    
     
 }
 
+// Animation
+
+extension SubTaskTableViewCell {
+    func animateCheckmarkChange() {
+        UIView.animate(withDuration: 0.1, animations: {
+            self.checkmarkButton.transform = CGAffineTransform.identity.scaledBy(x: 1.2, y: 1.2)
+        }) { (_) in
+            UIView.animate(withDuration: 0.1, animations: {
+                self.checkmarkButton.transform = CGAffineTransform.identity.scaledBy(x: 1.0, y: 1.0)
+            })
+        }
+    }
+}
+
 protocol SubTaskTableViewCellDelegate: class {
-    func subTaskTableViewCellDidReceiveTap() -> SubTask
+    func subTaskTableViewCellDidChangeCompletionState(sender: SubTaskTableViewCell)
 }

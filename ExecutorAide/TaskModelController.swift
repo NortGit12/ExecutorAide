@@ -175,14 +175,16 @@ class TaskModelController {
                 }
                 
                 if error != nil {
-                    
-                    print("Error: Could not modify the existing \"\(task.name)\" task in CloudKit.  \(error?.localizedDescription)")
-                    return
+                    PersistenceController.shared.moc.performAndWait {
+                        print("Error: Could not modify the existing \"\(task.name)\" task in CloudKit.  \(error?.localizedDescription)")
+                        return
+                    }
                 }
                 
                 if let _ = records {
-                    
-                    print("Updated \"\(task.name)\" task saved successfully to CloudKit.")
+                    PersistenceController.shared.moc.performAndWait {
+                        print("Updated \"\(task.name)\" task saved successfully to CloudKit.")
+                    }
                 }
             })
         }
