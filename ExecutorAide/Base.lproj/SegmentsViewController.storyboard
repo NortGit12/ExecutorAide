@@ -22,21 +22,16 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lkp-hG-OcY">
                                         <subviews>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Qbw-nV-MeG">
-                                                <segments>
-                                                    <segment title=""/>
-                                                    <segment title=""/>
-                                                    <segment title=""/>
-                                                </segments>
-                                            </segmentedControl>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ro4-De-0x8" customClass="CustomSegmentedControl" customModule="ExecutorAide" customModuleProvider="target">
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="Qbw-nV-MeG" secondAttribute="bottom" id="Ao6-iX-yPq"/>
-                                            <constraint firstItem="Qbw-nV-MeG" firstAttribute="top" secondItem="lkp-hG-OcY" secondAttribute="top" id="XYf-yj-5NO"/>
-                                            <constraint firstAttribute="trailing" secondItem="Qbw-nV-MeG" secondAttribute="trailing" id="g5N-6E-cQq"/>
-                                            <constraint firstItem="Qbw-nV-MeG" firstAttribute="leading" secondItem="lkp-hG-OcY" secondAttribute="leading" id="nUM-DH-74k"/>
+                                            <constraint firstItem="ro4-De-0x8" firstAttribute="top" secondItem="lkp-hG-OcY" secondAttribute="top" id="dSt-UJ-NbI"/>
+                                            <constraint firstAttribute="trailing" secondItem="ro4-De-0x8" secondAttribute="trailing" id="m9g-Oz-gfe"/>
                                             <constraint firstAttribute="height" constant="80" id="sKP-Ic-FtR"/>
+                                            <constraint firstItem="ro4-De-0x8" firstAttribute="leading" secondItem="lkp-hG-OcY" secondAttribute="leading" id="tnT-Ug-NA3"/>
+                                            <constraint firstAttribute="bottom" secondItem="ro4-De-0x8" secondAttribute="bottom" id="zuQ-0d-UXJ"/>
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0sB-Ef-x6b">
@@ -59,15 +54,16 @@
                     </view>
                     <connections>
                         <outlet property="footerView" destination="lkp-hG-OcY" id="GJW-Ak-gno"/>
-                        <outlet property="segmentedControl" destination="Qbw-nV-MeG" id="Xkb-st-kiW"/>
+                        <outlet property="segmentedControl" destination="ro4-De-0x8" id="ohs-2g-hiz"/>
                         <outlet property="tableView" destination="0sB-Ef-x6b" id="DVl-UV-Uxi"/>
                         <segue destination="sdy-v7-CDi" kind="presentation" identifier="newTaskSegue" id="YNG-Xp-9Ca"/>
                         <segue destination="vh9-nB-c15" kind="presentation" identifier="newSubTaskSegue" id="9fF-R2-P8h"/>
+                        <segue destination="5Pz-q5-mVA" kind="show" identifier="showDetailSegue" id="vRF-gL-or8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VMb-TI-8Qm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1817" y="-640"/>
+            <point key="canvasLocation" x="1816.8" y="-640.02998500749629"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YWC-Sl-U9w">
@@ -124,6 +120,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CYt-tv-I7N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3367" y="-240"/>
+        </scene>
+        <!--Detail-->
+        <scene sceneID="CQP-eG-tlE">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Detail" id="5Pz-q5-mVA" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zg4-oC-dzX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3756" y="-627"/>
         </scene>
     </scenes>
 </document>

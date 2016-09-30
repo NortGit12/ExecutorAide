@@ -9,9 +9,10 @@
 import UIKit
 import CoreData
 
-class StageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate/*, SubTaskTableViewCellDelegate*/ {
+class StageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    
+    @IBOutlet weak var segmentedControl: CustomSegmentedControl!
     @IBOutlet weak var footerView: UIView!
     @IBOutlet weak var tableView: UITableView!
     
@@ -21,9 +22,8 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     var stages: [Stage]? {
         didSet {
             guard let stages = stages else { return }
-            for i in 0...stages.count - 1 {
-                segmentedControl.setTitle(stages[i].name, forSegmentAt: i)
-            }
+            let stageNames = stages.flatMap { $0.name }
+            segmentedControl.items = stageNames
         }
         
     }
@@ -51,7 +51,7 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     // MARK: - Setup UI
     
     func setupSegmentedControl() {
-        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.selectedIndex = 0
         segmentedControl.addTarget(self, action: #selector(self.reloadViewWithDataForSelectedStage), for: .valueChanged)
     }
     
@@ -137,7 +137,7 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     func reloadViewWithDataForSelectedStage() {
         DispatchQueue.main.async {
             self.clearData()
-            self.selectedStage = self.stages?[self.segmentedControl.selectedSegmentIndex]
+            self.selectedStage = self.stages?[self.segmentedControl.selectedIndex]
             guard let stage = self.selectedStage else { return }
             self.selectedStage = stage
             let tasks = TaskModelController.shared.fetchTasks(for: stage)
@@ -177,6 +177,10 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.updateCellWithSubTask(subTask: subTask)
         cell.delegate = self
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "showDetailSegue", sender: self)
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -329,6 +333,12 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
             guard let destinationVC = segue.destination as? UINavigationController, let newTaskVC = destinationVC.viewControllers.first as? NewTaskViewController, let selectedStage = selectedStage else { return }
             newTaskVC.stage = selectedStage
             newTaskVC.delegate = self
+        } else if segue.identifier == "showDetailSegue" {
+            guard let destinationVC = segue.destination as? DetailViewController, let selectedIndexPath = tableView.indexPathForSelectedRow, let subTasksArray = self.subTasks else { return }
+            let section = selectedIndexPath.section
+            let subTasks = subTasksArray[section]
+            let subTask = subTasks[selectedIndexPath.row]
+            destinationVC.subTask = subTask
         }
     }
     
