@@ -8,7 +8,6 @@
 
 import UIKit
 
-@IBDesignable
 class CustomSegmentedControl: UIControl {
     
     private var labels = [UILabel]()
@@ -62,8 +61,9 @@ class CustomSegmentedControl: UIControl {
             let label = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
             label.text = items[index - 1]
             label.textAlignment = .center
-            label.textColor = .black
-            label.font = UIFont(name: "Avenir Next", size: 18)
+            label.textColor = labelColor
+            // TODO: Get font from Appearance Controller
+            label.font = UIFont(name: "Avenir Next", size: 12)
             label.lineBreakMode = NSLineBreakMode.byWordWrapping
             label.numberOfLines = 0
             self.addSubview(label)
@@ -81,7 +81,7 @@ class CustomSegmentedControl: UIControl {
         let xPosition = labels[selectedIndex].frame.origin.x
         selectedSegmentIndicator.frame = CGRect(x: xPosition, y: self.frame.height - indicatorHeight, width: selectedFrame.width, height: indicatorHeight)
         selectedSegmentIndicator.backgroundColor = indicatorColor
-        selectedSegmentIndicator.layer.cornerRadius = selectedSegmentIndicator.frame.height/2
+//        selectedSegmentIndicator.layer.cornerRadius = selectedSegmentIndicator.frame.height/2
         
         let labelHeight = self.bounds.height
         let labelWidth = self.bounds.width / CGFloat(labels.count)

@@ -50,6 +50,7 @@
 		222A20EF1D9EB8DA00FF34C3 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222A20EE1D9EB8DA00FF34C3 /* DetailViewController.swift */; };
 		222A20F21D9EB91A00FF34C3 /* Detail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 222A20F01D9EB91A00FF34C3 /* Detail.storyboard */; };
 		222A20F41D9EC4A600FF34C3 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222A20F31D9EC4A600FF34C3 /* CustomSegmentedControl.swift */; };
+		222A21241D9F1C5A00FF34C3 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222A21231D9F1C5A00FF34C3 /* CustomTextField.swift */; };
 		22319A761D90456700472494 /* StageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22319A751D90456700472494 /* StageViewController.swift */; };
 		22319A7F1D9045B500472494 /* NewTestatorPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22319A781D9045B500472494 /* NewTestatorPopoverViewController.swift */; };
 		22319A801D9045B500472494 /* SubTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22319A791D9045B500472494 /* SubTaskTableViewCell.swift */; };
@@ -138,6 +139,7 @@
 		222A20EE1D9EB8DA00FF34C3 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		222A20F11D9EB91A00FF34C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Detail.storyboard; sourceTree = "<group>"; };
 		222A20F31D9EC4A600FF34C3 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
+		222A21231D9F1C5A00FF34C3 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		22319A751D90456700472494 /* StageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StageViewController.swift; sourceTree = "<group>"; };
 		22319A781D9045B500472494 /* NewTestatorPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTestatorPopoverViewController.swift; sourceTree = "<group>"; };
 		22319A791D9045B500472494 /* SubTaskTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTaskTableViewCell.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 				22967CD61D9C6C87008069F7 /* CustomSectionHeader.swift */,
 				22967CD81D9C6C9E008069F7 /* CustomSectionHeader.xib */,
 				222A20F31D9EC4A600FF34C3 /* CustomSegmentedControl.swift */,
+				222A21231D9F1C5A00FF34C3 /* CustomTextField.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				222271A41D9B109E0082AAB5 /* NewTaskViewController.swift in Sources */,
 				1FF6DBBC1D8B4408009CCAC7 /* Detail+CoreDataClass.swift in Sources */,
 				1F0DE5441D8CAE07008EE273 /* StageModelController.swift in Sources */,
+				222A21241D9F1C5A00FF34C3 /* CustomTextField.swift in Sources */,
 				1FF6DBAD1D8B36C2009CCAC7 /* Task+CoreDataProperties.swift in Sources */,
 				1F0DE53D1D8C4497008EE273 /* TestatorModelController.swift in Sources */,
 				22391B141D9DC91C0010906F /* ServicesCategoriesTableViewCell.swift in Sources */,

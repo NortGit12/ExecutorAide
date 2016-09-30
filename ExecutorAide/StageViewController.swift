@@ -52,6 +52,10 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func setupSegmentedControl() {
         segmentedControl.selectedIndex = 0
+        segmentedControl.indicatorHeight = 8
+        segmentedControl.indicatorColor = UIColor(red: 0.075, green: 0.745, blue: 0.149, alpha: 1.00)
+        segmentedControl.backgroundColor = UIColor(red: 0.173, green: 0.169, blue: 0.173, alpha: 1.00)
+        segmentedControl.labelColor = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.00)
         segmentedControl.addTarget(self, action: #selector(self.reloadViewWithDataForSelectedStage), for: .valueChanged)
     }
     
