@@ -47,6 +47,9 @@ class ServicesCategoriesViewController: UIViewController, SearchResultCellDelega
             
             self.performSearch()
         }
+        
+        self.locationSearchBar.keyboardAppearance = .dark
+        self.categoriesSearchBar.keyboardAppearance = .dark
     }
     
     override func viewWillAppear(_ animated: Bool) {

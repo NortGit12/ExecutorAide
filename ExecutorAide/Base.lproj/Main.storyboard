@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -73,11 +72,13 @@
             </objects>
             <point key="canvasLocation" x="952.79999999999995" y="185.75712143928038"/>
         </scene>
-        <!--Estate-->
+        <!--Navigation Controller-->
         <scene sceneID="6Ig-bE-kqq">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7Lx-aQ-Sdq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Estate" id="eFs-r3-MYO"/>
+                    <tabBarItem key="tabBarItem" title="" image="estate-unfilled" selectedImage="estate-filled" id="eFs-r3-MYO">
+                        <inset key="imageInsets" minX="0.0" minY="7" maxX="0.0" maxY="-7"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FQg-JR-INl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -114,7 +115,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="t5C-VM-djC"/>
                                         </constraints>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardAppearance="alert"/>
                                     </searchBar>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wCn-TJ-nPG">
                                         <subviews>
@@ -122,17 +123,18 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="QZP-KI-Ibc"/>
                                                 </constraints>
-                                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                                <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="search"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="M9y-nM-QtS" id="Z3r-kg-6rr"/>
                                                 </connections>
                                             </searchBar>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ynu-FR-D1e">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="ynu-FR-D1e">
+                                                <color key="backgroundColor" red="0.17254901960784313" green="0.16862745098039217" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="eic-M0-KRv"/>
+                                                    <constraint firstAttribute="width" constant="70" id="Cxz-cT-UTc"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
-                                                <state key="normal" title="Search">
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <state key="normal" title="Custom Category Search">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
@@ -161,7 +163,7 @@
                                                                     <frame key="frameInset" minX="8" minY="8" width="359" height="29"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                    <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="26"/>
+                                                                    <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="26"/>
                                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -288,44 +290,41 @@
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Grc-QK-wvZ">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="43" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Grc-QK-wvZ">
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchResultCell" id="Yum-vw-iog" customClass="SearchResultsTableViewCell" customModule="ExecutorAide" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchResultCell" rowHeight="43" id="Yum-vw-iog" customClass="SearchResultsTableViewCell" customModule="ExecutorAide" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="43"/>
                                                 <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="Yum-vw-iog" id="xS3-Hw-pbg">
-                                                    <frame key="frameInset" width="375" height="44"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yum-vw-iog" id="xS3-Hw-pbg">
+                                                    <frame key="frameInset" width="375" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aby-ir-LQe">
-                                                            <frame key="frameInset" width="1000" height="1000"/>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Apple Maps icon" translatesAutoresizingMaskIntoConstraints="NO" id="Qbo-pU-qCu">
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="21" id="4Im-vR-TuZ"/>
-                                                                <constraint firstAttribute="width" constant="250" id="VjK-HK-W3c"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
-                                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Apple Maps icon" translatesAutoresizingMaskIntoConstraints="NO" id="Qbo-pU-qCu">
-                                                            <frame key="frameInset" width="1000" height="1000"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="40" id="U8h-tu-Nuc"/>
-                                                                <constraint firstAttribute="width" constant="40" id="kih-h4-zeF"/>
+                                                                <constraint firstAttribute="width" constant="30" id="43u-Ke-UN3"/>
+                                                                <constraint firstAttribute="height" constant="30" id="vsB-j3-dK7"/>
                                                             </constraints>
                                                         </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aby-ir-LQe">
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="dTy-zd-kxC"/>
+                                                                <constraint firstAttribute="width" constant="280" id="gp2-lC-Efd"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottomMargin" secondItem="aby-ir-LQe" secondAttribute="bottom" constant="3" id="2h8-6O-xzn"/>
-                                                        <constraint firstItem="aby-ir-LQe" firstAttribute="leading" secondItem="xS3-Hw-pbg" secondAttribute="leadingMargin" id="6ln-fJ-yOc"/>
-                                                        <constraint firstItem="aby-ir-LQe" firstAttribute="top" secondItem="xS3-Hw-pbg" secondAttribute="topMargin" constant="3" id="8c4-2I-Dj7"/>
-                                                        <constraint firstItem="Qbo-pU-qCu" firstAttribute="top" secondItem="xS3-Hw-pbg" secondAttribute="top" constant="2" id="F7k-Mw-0Y1"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Qbo-pU-qCu" secondAttribute="trailing" constant="8" id="RD2-9d-hyY"/>
-                                                        <constraint firstAttribute="bottom" secondItem="Qbo-pU-qCu" secondAttribute="bottom" constant="2" id="bJc-F9-pfn"/>
+                                                        <constraint firstItem="Qbo-pU-qCu" firstAttribute="top" secondItem="xS3-Hw-pbg" secondAttribute="top" constant="6" id="Fov-gn-yYd"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Qbo-pU-qCu" secondAttribute="trailing" constant="6" id="GPJ-tn-hwC"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Qbo-pU-qCu" secondAttribute="bottom" constant="6" id="bp6-q4-ula"/>
+                                                        <constraint firstItem="aby-ir-LQe" firstAttribute="top" secondItem="xS3-Hw-pbg" secondAttribute="top" constant="6" id="dO4-Gu-qcM"/>
+                                                        <constraint firstAttribute="bottom" secondItem="aby-ir-LQe" secondAttribute="bottom" constant="6" id="lVz-Ad-bPY"/>
+                                                        <constraint firstItem="aby-ir-LQe" firstAttribute="leading" secondItem="xS3-Hw-pbg" secondAttribute="leading" constant="6" id="szS-Oz-lW2"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
-                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <connections>
                                                     <outlet property="appleMapImageView" destination="Qbo-pU-qCu" id="nuR-BI-6ss"/>
@@ -366,11 +365,14 @@
             </objects>
             <point key="canvasLocation" x="1684" y="88"/>
         </scene>
-        <!--Services-->
+        <!--Navigation Controller-->
         <scene sceneID="D4v-aC-KKD">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cVw-h2-ZH8" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Services" id="k4L-yo-1yz"/>
+                    <tabBarItem key="tabBarItem" title="" image="unselected-search-icon" selectedImage="selected-search-icon" id="k4L-yo-1yz">
+                        <inset key="imageInsets" minX="0.0" minY="7" maxX="0.0" maxY="-7"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="sjV-wp-nPE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -388,6 +390,10 @@
     </scenes>
     <resources>
         <image name="Apple Maps icon" width="225" height="225"/>
+        <image name="estate-filled" width="28" height="28"/>
+        <image name="estate-unfilled" width="28" height="28"/>
+        <image name="selected-search-icon" width="32" height="32"/>
+        <image name="unselected-search-icon" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="oB5-tv-lc9"/>

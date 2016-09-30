@@ -48,6 +48,7 @@ class AppearanceController {
         // TabBar
         
         UITabBar.appearance().barTintColor = barBackgroundColor
+        UITabBar.appearance().tintColor = UIColor.white           // Color of the selected item
         
         let unselectedTabBarTextColor = UIColor(red: 176/255.0, green: 176/255.0, blue: 185/255.0, alpha: 1.00)
         let selectedTabBarTextColor = UIColor.white
@@ -59,3 +60,25 @@ class AppearanceController {
         UITabBarItem.appearance().setTitleTextAttributes(selectedTabBarAttributes, for: .selected)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
