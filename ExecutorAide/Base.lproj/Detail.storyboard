@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NdC-xc-kBf">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="This isn't ready yet. don't worry" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NdC-xc-kBf" customClass="CustomTextField" customModule="ExecutorAide" customModuleProvider="target">
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -27,7 +27,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="NdC-xc-kBf" firstAttribute="top" secondItem="Ios-d6-L13" secondAttribute="bottom" constant="8" id="MWu-QX-O1q"/>
+                            <constraint firstItem="NdC-xc-kBf" firstAttribute="top" secondItem="Ios-d6-L13" secondAttribute="bottom" constant="32" id="MWu-QX-O1q"/>
                             <constraint firstItem="NdC-xc-kBf" firstAttribute="leading" secondItem="3MT-7c-c6S" secondAttribute="leadingMargin" id="vY0-sA-64Z"/>
                             <constraint firstItem="NdC-xc-kBf" firstAttribute="trailing" secondItem="3MT-7c-c6S" secondAttribute="trailingMargin" id="xFl-1W-avq"/>
                         </constraints>

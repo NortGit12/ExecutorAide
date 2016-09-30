@@ -29,7 +29,6 @@ class NewSubTaskViewController: UIViewController, UITextFieldDelegate, UIPickerV
     // MARK: - TextField Delegate Methods
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        resignFirstResponder()
         
         let pickerHeight: CGFloat = 200
         pickerView = UIPickerView(frame: CGRect(x: 0, y: self.view.frame.height - pickerHeight, width: self.view.frame.width, height: pickerHeight))
@@ -59,11 +58,11 @@ class NewSubTaskViewController: UIViewController, UITextFieldDelegate, UIPickerV
     }
     
     func pickerIsDone() {
-        pickerView.endEditing(true)
+        resignFirstResponder()
     }
     
     func pickerIsCancelled() {
-        pickerView.endEditing(true)
+        resignFirstResponder()
         
     }
     

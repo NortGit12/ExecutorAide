@@ -20,12 +20,7 @@
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0ru-EM-o84">
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12q-od-EHh">
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lfO-Gk-m87">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Task Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lfO-Gk-m87" customClass="CustomTextField" customModule="ExecutorAide" customModuleProvider="target">
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -37,7 +32,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="0ru-EM-o84" secondAttribute="trailing" constant="8" id="4Ra-1K-UML"/>
                             <constraint firstItem="0ru-EM-o84" firstAttribute="leading" secondItem="SiS-OY-RSR" secondAttribute="leading" constant="8" id="8QQ-t2-ElD"/>
-                            <constraint firstItem="0ru-EM-o84" firstAttribute="top" secondItem="3JZ-bZ-Kly" secondAttribute="bottom" constant="8" id="Cyk-Uf-TUY"/>
+                            <constraint firstItem="0ru-EM-o84" firstAttribute="top" secondItem="3JZ-bZ-Kly" secondAttribute="bottom" constant="32" id="Cyk-Uf-TUY"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New Task" id="psh-Up-RVX">
