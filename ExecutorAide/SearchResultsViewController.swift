@@ -33,9 +33,8 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         super.viewDidLoad()
 
         if let categorySearchTerm = self.categorySearchTerm
-            , let locationSearchTerm = self.locationSearchTerm
-            , let localSearchResponse = self.searchResponse {
-            
+            , let locationSearchTerm = self.locationSearchTerm {
+        
             resultsTableView.rowHeight = UITableViewAutomaticDimension
             resultsTableView.estimatedRowHeight = 50
             

@@ -29,7 +29,6 @@ class ServicesCategoriesViewController: UIViewController, SearchResultCellDelega
     var currentCity = String()
     var currentRegion = String()
     var currentCountry = String()
-    var currentPostalCode = String()
     var categorySearchTerm = String()
     var locationSearchTerm = String()
     var searchResponse: MKLocalSearchResponse?
@@ -44,8 +43,10 @@ class ServicesCategoriesViewController: UIViewController, SearchResultCellDelega
         categoriesSearchBar.delegate = self
         locationSearchBar.delegate = self
         
-        setupLocationSupport()
-        performSearch()
+        setupLocationSupport {
+            
+            self.performSearch()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -126,12 +127,16 @@ class ServicesCategoriesViewController: UIViewController, SearchResultCellDelega
     // MARK: - Methods
     //==================================================
     
-    func setupLocationSupport() {
+    func setupLocationSupport(completion: (() -> Void)? = nil) {
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
+        
+        if let completion = completion {
+            completion()
+        }
     }
     
     func forwardGeoCoding(address: String, completion: ((_ coordinate: CLLocationCoordinate2D?) -> Void)? = nil) {
@@ -224,7 +229,7 @@ class ServicesCategoriesViewController: UIViewController, SearchResultCellDelega
     
     func performSearch(completion: (() -> Void)? = nil) {
         
-        search(forCategory: categorySearchTerm, nearLocation: locationSearchTerm) { (localSearchResponse) in
+        search(forCategory: self.categorySearchTerm, nearLocation: self.locationSearchTerm) { (localSearchResponse) in
             
             if let localSearchResponse = localSearchResponse {
                 
@@ -267,10 +272,6 @@ class ServicesCategoriesViewController: UIViewController, SearchResultCellDelega
                     
                     self.performSegue(withIdentifier: "categorySearchToResultsSegue", sender: nil)
                 })
-                
-//                self.performSearch()
-//                
-//                self.performSegue(withIdentifier: "categorySearchToResultsSegue", sender: nil)
             }
         }
     }
@@ -330,15 +331,8 @@ class ServicesCategoriesViewController: UIViewController, SearchResultCellDelega
                     return
                 }
                 
-//                guard let index = self.categoriesTableView.indexPathForSelectedRow?.row
-//                    else {
-//                        print("Error: Could not identify the selected category row.")
-//                        return
-//                }
-                
                 // Am I done packing?
                 
-//                let category = self.categories[index]
                 let category = self.categories[indexPath.row]
                 self.categorySearchTerm = category.rawValue
                 searchResultsViewController.categorySearchTerm = self.categorySearchTerm
@@ -370,29 +364,20 @@ extension ServicesCategoriesViewController : CLLocationManagerDelegate {
         
         CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) in
             
-            if let lastLocation = locations.last {
+            if let placemarks = placemarks {
                 
-                let centerOfCurrentLocation = CLLocationCoordinate2D(latitude: lastLocation.coordinate.latitude, longitude: lastLocation.coordinate.longitude)
+                let currentPlacemark = placemarks.first
                 
-                if let placemarks = placemarks {
-                    
-                    let currentPlacemark = placemarks.first
-                    
-                    guard let currentCity = currentPlacemark?.locality
-                        , let currentRegion = currentPlacemark?.administrativeArea
-                        , let currentPostalCode = currentPlacemark?.postalCode
-                        , let currentCountry = currentPlacemark?.country
-                        else { return }
-                    
-                    self.currentCity = currentCity
-                    self.currentRegion = currentRegion
-                    self.currentPostalCode = currentPostalCode
-                    self.currentCountry = currentCountry
-                    
-                    self.locationSearchBar.text = "\(currentCity), \(currentRegion), \(currentCountry)"
-                    
-//                    print("Current location = \(currentCity), \(currentRegion), \(currentCountry) [\(centerOfCurrentLocation.latitude), \(centerOfCurrentLocation.longitude)]")
-                }
+                guard let currentCity = currentPlacemark?.locality
+                    , let currentRegion = currentPlacemark?.administrativeArea
+                    , let currentCountry = currentPlacemark?.country
+                    else { return }
+                
+                self.currentCity = currentCity
+                self.currentRegion = currentRegion
+                self.currentCountry = currentCountry
+                
+                self.locationSearchBar.text = "\(currentCity), \(currentRegion), \(currentCountry)"
             }
         }
     }
