@@ -14,6 +14,7 @@
 		1F0DE5461D8CAE1E008EE273 /* TaskModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE5451D8CAE1E008EE273 /* TaskModelController.swift */; };
 		1F0DE5481D8CAE32008EE273 /* SubTaskModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE5471D8CAE32008EE273 /* SubTaskModelController.swift */; };
 		1F0DE54A1D8CAE43008EE273 /* DetailModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE5491D8CAE43008EE273 /* DetailModelController.swift */; };
+		1F21E8A61D9F06810064D123 /* AppearanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F21E8A51D9F06810064D123 /* AppearanceController.swift */; };
 		1F3051501D99B20A00992B2C /* OtherControllerUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F30514F1D99B20A00992B2C /* OtherControllerUnitTests.swift */; };
 		1F3051521D99D79800992B2C /* TestatorModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3051511D99D79800992B2C /* TestatorModelUnitTests.swift */; };
 		1F3051541D99D8BE00992B2C /* TaskModelUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3051531D99D8BE00992B2C /* TaskModelUnitTests.swift */; };
@@ -94,6 +95,7 @@
 		1F0DE5451D8CAE1E008EE273 /* TaskModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskModelController.swift; sourceTree = "<group>"; };
 		1F0DE5471D8CAE32008EE273 /* SubTaskModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTaskModelController.swift; sourceTree = "<group>"; };
 		1F0DE5491D8CAE43008EE273 /* DetailModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailModelController.swift; sourceTree = "<group>"; };
+		1F21E8A51D9F06810064D123 /* AppearanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceController.swift; sourceTree = "<group>"; };
 		1F30514F1D99B20A00992B2C /* OtherControllerUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherControllerUnitTests.swift; sourceTree = "<group>"; };
 		1F3051511D99D79800992B2C /* TestatorModelUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestatorModelUnitTests.swift; sourceTree = "<group>"; };
 		1F3051531D99D8BE00992B2C /* TaskModelUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskModelUnitTests.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 		1F84E6D11D8B137900311680 /* OtherController */ = {
 			isa = PBXGroup;
 			children = (
+				1F21E8A51D9F06810064D123 /* AppearanceController.swift */,
 				1F0DE53F1D8C4543008EE273 /* CloudKitManager.swift */,
 				1F0DE5411D8C6E41008EE273 /* PersistenceController.swift */,
 				1F84E6CF1D8B112900311680 /* Stack.swift */,
@@ -543,6 +546,7 @@
 				22967CD71D9C6C87008069F7 /* CustomSectionHeader.swift in Sources */,
 				22391B121D9DC91C0010906F /* SearchResultsViewController.swift in Sources */,
 				1F0DE5421D8C6E41008EE273 /* PersistenceController.swift in Sources */,
+				1F21E8A61D9F06810064D123 /* AppearanceController.swift in Sources */,
 				1FF6DBC21D8B442A009CCAC7 /* Stage+CoreDataClass.swift in Sources */,
 				22033C941D918BA500FC4FA0 /* DataTemplateController.swift in Sources */,
 				22319A7F1D9045B500472494 /* NewTestatorPopoverViewController.swift in Sources */,
