@@ -61,6 +61,20 @@ class AppearanceController {
     }
 }
 
+extension UIColor {
+    
+    static func greenAccent() -> UIColor {
+        return UIColor(red: 0.075, green: 0.745, blue: 0.149, alpha: 1.00)
+    }
+    
+    static func darkCharcoal() -> UIColor {
+        return UIColor(red: 0.173, green: 0.169, blue: 0.173, alpha: 1.00)
+    }
+    
+    static func whiteText() -> UIColor {
+        return UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.00)
+    }
+}
 
 
 

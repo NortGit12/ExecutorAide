@@ -67,6 +67,8 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
         progressBarContainerView.backgroundColor = .clear
         progressBarContainerView.layer.borderColor = UIColor.darkGray.cgColor
         progressView = UIProgressView(frame: CGRect(x: 0, y: 0, width: progressBarContainerView.frame.width, height: progressBarContainerView.frame.height))
+        progressView.progressTintColor = UIColor.greenAccent()
+        progressView.trackTintColor = UIColor.whiteText()
         progressBarContainerView.addSubview(progressView)
         updateProgressView()
         navigationItem.titleView = progressBarContainerView

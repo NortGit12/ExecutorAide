@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zW4-E5-ubc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zW4-E5-ubc">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -58,7 +59,7 @@
                         <outlet property="tableView" destination="0sB-Ef-x6b" id="DVl-UV-Uxi"/>
                         <segue destination="sdy-v7-CDi" kind="presentation" identifier="newTaskSegue" id="YNG-Xp-9Ca"/>
                         <segue destination="vh9-nB-c15" kind="presentation" identifier="newSubTaskSegue" id="9fF-R2-P8h"/>
-                        <segue destination="5Pz-q5-mVA" kind="show" identifier="showDetailSegue" id="vRF-gL-or8"/>
+                        <segue destination="bAE-eW-jEh" kind="show" identifier="showDetailSegue" id="XHu-8S-u90"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VMb-TI-8Qm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -70,7 +71,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vh9-nB-c15" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="FM2-RE-3oQ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="FM2-RE-3oQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -88,7 +89,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sdy-v7-CDi" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="w61-ca-Ahv">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="w61-ca-Ahv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -121,13 +122,58 @@
             </objects>
             <point key="canvasLocation" x="3367" y="-240"/>
         </scene>
-        <!--Detail-->
-        <scene sceneID="CQP-eG-tlE">
+        <!--Detail View Controller-->
+        <scene sceneID="0Dd-g8-qc9">
             <objects>
-                <viewControllerPlaceholder storyboardName="Detail" id="5Pz-q5-mVA" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Zg4-oC-dzX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="bAE-eW-jEh" customClass="DetailViewController" customModule="ExecutorAide" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rqX-NN-c34"/>
+                        <viewControllerLayoutGuide type="bottom" id="XMu-vf-kEV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jWW-z7-HBW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wJG-V3-0IF">
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rk4-mD-7Lq">
+                                        <state key="normal" title="Add Detail"/>
+                                        <connections>
+                                            <action selector="addDetailButtonTapped:" destination="bAE-eW-jEh" eventType="touchUpInside" id="oac-6J-2cX"/>
+                                        </connections>
+                                    </button>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XgM-B2-4dw">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="bAE-eW-jEh" id="P2e-bo-Ptm"/>
+                                            <outlet property="delegate" destination="bAE-eW-jEh" id="G3r-Zp-762"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wJG-V3-0IF" firstAttribute="top" secondItem="rqX-NN-c34" secondAttribute="bottom" constant="8" id="9mI-gF-gSd"/>
+                            <constraint firstItem="XMu-vf-kEV" firstAttribute="top" secondItem="wJG-V3-0IF" secondAttribute="bottom" constant="8" id="ArW-jw-nWr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wJG-V3-0IF" secondAttribute="trailing" constant="8" id="h7R-5f-3la"/>
+                            <constraint firstItem="wJG-V3-0IF" firstAttribute="leading" secondItem="jWW-z7-HBW" secondAttribute="leadingMargin" constant="8" id="oZs-dZ-DP4"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ozD-lS-yUe">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="g2y-Ac-Tt3">
+                            <connections>
+                                <action selector="editButtonTapped:" destination="bAE-eW-jEh" id="iPX-Qh-GsJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="XgM-B2-4dw" id="2Zx-in-r40"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aRY-TJ-spX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3756" y="-627"/>
+            <point key="canvasLocation" x="3812" y="-640"/>
         </scene>
     </scenes>
 </document>
