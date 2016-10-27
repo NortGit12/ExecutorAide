@@ -16,7 +16,7 @@ class AppearanceController {
     
     // Universal
     static let fontName = "Avenir Next"
-    static let titleFontSize: CGFloat = 30.0
+    static let titleFontSize: CGFloat = 25.0
     
     // Navigation bar
     static let barBackgroundColor = UIColor(red: 44/255.0, green: 43/255.0, blue: 44/255.0, alpha: 1.0)
