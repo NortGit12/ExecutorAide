@@ -210,6 +210,21 @@ class StageViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     // MARK: - Editing
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if var subTasks = self.subTasks {
+                let taskIndex = indexPath.section
+                let subTask = subTasks[taskIndex][indexPath.row]
+                
+                // Remove subTask from CoreData
+                SubTaskModelController.shared.deleteSubTask(subTask: subTask)
+                // Remove subTask from subTasks array
+                subTasks[taskIndex].remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }

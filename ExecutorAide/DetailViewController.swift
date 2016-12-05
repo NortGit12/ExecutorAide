@@ -35,6 +35,8 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     
+    // MARK: - TableViewDataSource Methods
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return details.count
     }
@@ -48,7 +50,59 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         
         return cell
     }
-
+    
+    // MARK: - TableViewDelegate Methods
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    // MARK: - Editing
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let detail = details[indexPath.row]
+            // Remove from CoreData
+            DetailModelController.shared.deleteDetail(detail: detail)
+            // Remove locally
+            self.details.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
+    func showEditing() {
+        tableView.isEditing = !tableView.isEditing
+        if tableView.isEditing == true {
+            setupViewForEditing()
+            navigationItem.rightBarButtonItem?.title = "Done"
+            navigationItem.rightBarButtonItem?.style = .done
+        } else {
+            setupViewForEditing()
+            navigationItem.rightBarButtonItem?.title = "Edit"
+        }
+    }
+    
+    func setupViewForEditing() {
+        // Setup bar buttons
+        let leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelButtonTapped))
+        
+        if tableView.isEditing == true {
+            // Setup navbar
+            self.navigationItem.leftBarButtonItem = leftBarButtonItem
+        } else {
+            navigationItem.leftBarButtonItem = nil
+            navigationController?.setToolbarHidden(true, animated: true)
+        }
+    }
+    
+    func cancelButtonTapped() {
+        navigationItem.leftBarButtonItem = nil
+        navigationItem.rightBarButtonItem?.title = "Edit"
+        tableView.isEditing = false
+        setupViewForEditing()
+    }
+    
+    // MARK: - New Detail Alert
     
     func showNewDetailAlert() {
         guard let subTask = subTask else { return }
@@ -80,7 +134,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     // MARK: - IBActions
     
     @IBAction func editButtonTapped(_ sender: AnyObject) {
-        
+        showEditing()
     }
     
     @IBAction func addDetailButtonTapped(_ sender: AnyObject) {

@@ -31,8 +31,11 @@ class TestatorViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        PersistenceController.shared.performFullSync {
-            self.testators = TestatorModelController.shared.fetchTestators()!
+        
+        // TODO: Decide when to perform full sync
+        if let testators = TestatorModelController.shared.fetchTestators() {
+            self.testators = testators
+            setupViewWithTestators()
         }
     }
     
